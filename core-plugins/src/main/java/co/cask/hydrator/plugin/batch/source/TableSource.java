@@ -38,7 +38,7 @@ import java.util.Map;
 /**
  * CDAP Table Dataset Batch Source.
  */
-@Plugin(type = "batchsource")
+//@Plugin(type = "batchsource")
 @Name("Table")
 @Requirements(datasetTypes = Table.TYPE)
 @Description("Reads the entire contents of a CDAP Table. Outputs one record for each row in the Table.")

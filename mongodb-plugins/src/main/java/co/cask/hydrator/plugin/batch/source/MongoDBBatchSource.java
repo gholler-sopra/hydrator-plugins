@@ -49,7 +49,7 @@ import javax.annotation.Nullable;
  * A {@link BatchSource} that reads data from MongoDB and converts each document into 
  * a {@link StructuredRecord} with the help of the specified Schema.
  */
-@Plugin(type = "batchsource")
+//@Plugin(type = "batchsource")
 @Name("MongoDB")
 @Description("MongoDB Batch Source will read documents from MongoDB and convert each document " +
   "into a StructuredRecord with the help of the specified Schema. ")

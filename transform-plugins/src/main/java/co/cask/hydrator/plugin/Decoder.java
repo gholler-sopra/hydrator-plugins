@@ -43,7 +43,7 @@ import java.util.TreeMap;
  * Decodes the input fields as BASE64, BASE32 or HEX.
  * Please note that Encoder and Decoder might look the same right now, but in near future they will diverge.
  */
-@Plugin(type = "transform")
+//@Plugin(type = "transform")
 @Name("Decoder")
 @Description("Decodes the input field(s) using Base64, Base32, or Hex")
 public final class Decoder extends Transform<StructuredRecord, StructuredRecord> {

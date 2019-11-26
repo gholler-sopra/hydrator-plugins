@@ -66,7 +66,7 @@ import javax.ws.rs.Path;
 /**
  * Batch source to read from a DB table
  */
-@Plugin(type = "batchsource")
+//@Plugin(type = "batchsource")
 @Name("Database")
 @Description("Reads from a database table(s) using a configurable SQL query." +
   " Outputs one record for each row returned by the query.")

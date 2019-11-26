@@ -43,7 +43,7 @@ import javax.crypto.Cipher;
 /**
  * Encrypts record fields.
  */
-@Plugin(type = Transform.PLUGIN_TYPE)
+//@Plugin(type = Transform.PLUGIN_TYPE)
 @Name("Encryptor")
 @Description("Encrypts fields of records.")
 public final class Encryptor extends Transform<StructuredRecord, StructuredRecord> {

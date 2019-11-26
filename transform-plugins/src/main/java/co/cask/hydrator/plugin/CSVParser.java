@@ -61,7 +61,7 @@ import javax.annotation.Nullable;
  * </ul>
  * </p>
  */
-@Plugin(type = "transform")
+//@Plugin(type = "transform")
 @Name("CSVParser")
 @Description("Parses a field as CSV Record into a Structured Record.")
 public final class CSVParser extends Transform<StructuredRecord, StructuredRecord> {

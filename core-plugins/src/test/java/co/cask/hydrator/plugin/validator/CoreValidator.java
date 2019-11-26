@@ -38,7 +38,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 /**
  * Utility class containing validator functions provided by org.apache.commons.validator.routines package.
  */
-@Plugin(type = "validator")
+//@Plugin(type = "validator")
 @Name("core")
 @Description("Core Validator functions.")
 public class CoreValidator implements Validator {

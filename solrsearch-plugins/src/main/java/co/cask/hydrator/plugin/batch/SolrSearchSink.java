@@ -46,7 +46,7 @@ import javax.annotation.Nullable;
 /**
  * Batch SolrSearch Sink Plugin - Writes data to a SingleNode Solr or to SolrCloud.
  */
-@Plugin(type = BatchSink.PLUGIN_TYPE)
+//@Plugin(type = BatchSink.PLUGIN_TYPE)
 @Name("SolrSearch")
 @Description("This plugin allows users to build the pipelines to write data to Solr. The input fields coming from " +
   "the previous stage of the pipeline are mapped to Solr fields. User can also specify the mode of the Solr to " +

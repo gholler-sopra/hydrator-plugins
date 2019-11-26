@@ -41,7 +41,7 @@ import javax.ws.rs.Path;
 /**
  * Splits input between multiple output ports, with one port per possible type in the union.
  */
-@Plugin(type = SplitterTransform.PLUGIN_TYPE)
+//@Plugin(type = SplitterTransform.PLUGIN_TYPE)
 @Name("UnionSplitter")
 @Description("Splits input between multiple output ports, with one port per possible type in a field's union schema. " +
   "Enums, maps, and arrays inside the union are not supported. If the value is a record, the record schema name will " +

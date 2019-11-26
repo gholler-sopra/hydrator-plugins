@@ -39,7 +39,7 @@ import java.util.Map;
  * Transforms records by normalizing the data.
  * Convert wide rows and reducing data to it canonicalize form
  */
-@Plugin(type = Transform.PLUGIN_TYPE)
+//@Plugin(type = Transform.PLUGIN_TYPE)
 @Name("Normalize")
 @Description("Convert wide rows and reducing data to it canonicalize form")
 public class Normalize extends Transform<StructuredRecord, StructuredRecord> {
