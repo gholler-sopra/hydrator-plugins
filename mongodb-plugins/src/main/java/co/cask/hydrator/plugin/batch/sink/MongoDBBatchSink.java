@@ -45,7 +45,7 @@ import java.util.UUID;
  * This {@link MongoDBBatchSink} takes a {@link StructuredRecord} in,
  * converts it to {@link BSONWritable}, and writes it to MongoDB.
  */
-@Plugin(type = "batchsink")
+//@Plugin(type = "batchsink")
 @Name("MongoDB")
 @Description("MongoDB Batch Sink converts a StructuredRecord to a BSONWritable and writes it to MongoDB.")
 public class MongoDBBatchSink extends ReferenceBatchSink<StructuredRecord, NullWritable, BSONWritable> {

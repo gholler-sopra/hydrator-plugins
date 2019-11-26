@@ -54,7 +54,7 @@ import javax.annotation.Nullable;
 /**
  * {@link WindowsShareCopy} is an {@link Action} that will copy the data from a Windows share into an HDFS directory.
  */
-@Plugin(type = Action.PLUGIN_TYPE)
+//@Plugin(type = Action.PLUGIN_TYPE)
 @Name("WindowsShareCopy")
 @Description("Copies a file or files on a Microsoft Windows share to an HDFS directory.")
 public class WindowsShareCopy extends Action {

@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
 /**
  * CDAP Table Dataset Batch Sink.
  */
-@Plugin(type = "batchsink")
+//@Plugin(type = "batchsink")
 @Name("Table")
 @Description("Writes records to a Table with one record field mapping to the Table rowkey," +
   " and all other record fields mapping to Table columns.")

@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
 /**
  * CDAP KVTable Dataset Batch Sink.
  */
-@Plugin(type = "batchsink")
+//@Plugin(type = "batchsink")
 @Name("KVTable")
 @Description("Writes records to a KeyValueTable, using configurable fields from input records as the key and value.")
 @Requirements(datasetTypes = KeyValueTable.TYPE)

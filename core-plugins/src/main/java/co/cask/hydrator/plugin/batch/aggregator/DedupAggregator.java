@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Deduplicate aggregator.
  */
-@Plugin(type = BatchAggregator.PLUGIN_TYPE)
+//@Plugin(type = BatchAggregator.PLUGIN_TYPE)
 @Name("Deduplicate")
 @Description("Deduplicates input records, optionally restricted to one or more fields. Takes an optional " +
   "filter function to choose one or more records based on a specific field and a selection function.")

@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
  * Runs a query after a pipeline run.
  */
 @SuppressWarnings("ConstantConditions")
-@Plugin(type = PostAction.PLUGIN_TYPE)
+//@Plugin(type = PostAction.PLUGIN_TYPE)
 @Name("DatabaseQuery")
 @Description("Runs a query after a pipeline run.")
 public class QueryAction extends PostAction {
