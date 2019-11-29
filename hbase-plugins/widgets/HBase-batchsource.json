@@ -38,6 +38,16 @@
           "widget-type": "textbox",
           "label": "Row Field Name",
           "name": "rowField"
+        },
+        {
+          "label": "Additional Properties",
+          "name": "addProperties",
+          "widget-type": "keyvalue",
+          "widget-attributes": {
+            "delimiter": ";",
+            "kv-delimiter": ",",
+            "value-placeholder": "Property values"
+          }
         }
       ]
     }

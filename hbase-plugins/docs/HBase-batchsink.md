@@ -1,22 +1,19 @@
 # HBase Batch Sink
 
 
-Description
------------
+## Description
 Writes records to a column family in an HBase table with one record field mapping
 to the rowkey, and all other record fields mapping to table column qualifiers.
 This sink differs from the Table sink in that it does not use CDAP datasets, but writes
 to HBase directly.
 
 
-Use Case
---------
+## Use Case
 The sink is used whenever you need to write to an HBase table in batch. For example,
 you may want to periodically dump the contents of a relational database into an HBase table.
 
 
-Properties
-----------
+## Properties
 **referenceName:** This will be used to uniquely identify this sink for lineage, annotating metadata, etc.
 
 **tableName:** The name of the table to write to. **Note:** Prior to running the pipeline,
@@ -46,9 +43,22 @@ This value defaults to ``2181``. (Macro-enabled)
 You can find the correct value by looking at the ``hbase.zookeeper.quorum`` setting in your ``hbase-site.xml``.
 This value defaults to ``'/hbase'``.
 
+**addProperties:** Extra options to specify to hbase while reading data.
+These options are specified in `key,value` format and multiple properties can be specified 
+(they should be delimited by `;`, not required if doing from UI).
 
-Example
--------
+### Additional Configuration for ssl enabled HBase
+In order to connect with SSL enabled hbase, following mandatory properties needs to be add in Additional Properties section.
+
+| key | value |
+| :---| :---- |
+| **hbase.rest.ssl.keystore.keypassword** | **keystore-password** |
+| **hbase.rest.ssl.keystore.password** | **key-password** |
+| **hbase.rest.ssl.keystore.store** | **/path/to/keystore** |
+| **hbase.rest.ssl.enabled** | **true** |
+
+
+## Example
 This example writes to the 'attr' column family of an HBase table named 'users':
 
     {
