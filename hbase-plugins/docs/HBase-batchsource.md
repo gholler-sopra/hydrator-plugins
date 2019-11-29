@@ -42,16 +42,6 @@ This value defaults to 2181. (Macro-enabled)
 These options are specified in `key,value` format and multiple properties can be specified 
 (they should be delimited by `;`, not required if doing from UI).
 
-### Additional Configuration for ssl enabled HBase
-In order to connect with SSL enabled hbase, following mandatory properties needs to be add in Additional Properties section.
-
-| key | value |
-| :---| :---- |
-| **hbase.rest.ssl.keystore.keypassword** | **keystore-password** |
-| **hbase.rest.ssl.keystore.password** | **key-password** |
-| **hbase.rest.ssl.keystore.store** | **/path/to/keystore** |
-| **hbase.rest.ssl.enabled** | **true** |
-
 Example
 -------
 This example reads from the 'attr' column family of an HBase table named 'users':
