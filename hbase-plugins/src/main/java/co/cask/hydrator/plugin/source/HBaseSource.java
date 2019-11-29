@@ -68,6 +68,7 @@ public class HBaseSource extends ReferenceBatchSource<ImmutableBytesWritable, Re
     Configuration conf = new Configuration();
     String ioSerializations = conf.get("io.serializations");
     conf.clear();
+
     conf.set(TableInputFormat.INPUT_TABLE, config.tableName);
     conf.set(TableInputFormat.SCAN_COLUMN_FAMILY, config.columnFamily);
     String zkQuorum = !Strings.isNullOrEmpty(config.zkQuorum) ? config.zkQuorum : "localhost";
@@ -77,6 +78,10 @@ public class HBaseSource extends ReferenceBatchSource<ImmutableBytesWritable, Re
     conf.setStrings(ioSerializations,
         MutationSerialization.class.getName(), ResultSerialization.class.getName(),
         KeyValueSerialization.class.getName());
+    Map<String, String> addProp = config.getAdditionalProperties();
+    for (Map.Entry<String, String> entry : addProp.entrySet()) {
+      conf.set(entry.getKey(), entry.getValue());
+    }
     LineageRecorder lineageRecorder = new LineageRecorder(context, config.referenceName);
     lineageRecorder.createExternalDataset(config.getSchema());
     context.setInput(Input.of(config.referenceName, new SourceInputFormatProvider(HBaseTableInputFormat.class, conf)));
