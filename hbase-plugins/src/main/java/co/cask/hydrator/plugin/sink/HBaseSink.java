@@ -66,7 +66,7 @@ import javax.annotation.Nullable;
 @Description("HBase Batch Sink")
 public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable, Mutation> {
 
-  private static final Logger logger = LoggerFactory.getLogger(HBaseSink.class);
+  private static final Logger LOG = LoggerFactory.getLogger(HBaseSink.class);
 
   private HBaseSinkConfig config;
   private RecordPutTransformer recordPutTransformer;
@@ -148,9 +148,9 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
           ResultSerialization.class.getName(),
           KeyValueSerialization.class.getName()};
       conf.put("io.serializations", StringUtils.arrayToString(serializationClasses));
-      logger.info("Printing conf entries => ");
+      LOG.debug("Printing conf entries => ");
       for (Map.Entry<String, String> entry : conf.entrySet()) {
-        logger.info(entry.getKey() + " => " + entry.getValue());
+        LOG.debug(entry.getKey() + " => " + entry.getValue());
       }
     }
 
