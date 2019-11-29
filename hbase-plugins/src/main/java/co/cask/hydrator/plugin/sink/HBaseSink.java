@@ -33,7 +33,6 @@ import co.cask.cdap.etl.api.batch.BatchSink;
 import co.cask.cdap.etl.api.batch.BatchSinkContext;
 import co.cask.cdap.format.RecordPutTransformer;
 import co.cask.hydrator.common.Constants;
-import co.cask.hydrator.common.KeyValueListParser;
 import co.cask.hydrator.common.LineageRecorder;
 import co.cask.hydrator.common.ReferenceBatchSink;
 import co.cask.hydrator.common.SchemaValidator;
@@ -52,11 +51,11 @@ import org.apache.hadoop.hbase.mapreduce.TableOutputFormat;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 /**
@@ -66,6 +65,8 @@ import javax.annotation.Nullable;
 @Name("HBase")
 @Description("HBase Batch Sink")
 public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable, Mutation> {
+
+  private static Logger logger = LoggerFactory.getLogger(HBaseSink.class);
 
   private HBaseSinkConfig config;
   private RecordPutTransformer recordPutTransformer;
@@ -100,18 +101,6 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
     context.getDataset(config.referenceName);
   }
 
-  public Map<String, String> getAdditionalProperties() {
-    KeyValueListParser kvParser = new KeyValueListParser("\\s*;\\s*", ",");
-    Map<String, String> conf = new HashMap<>();
-    if (!Strings.isNullOrEmpty(config.addProperties)) {
-      for (KeyValue<String, String> keyVal : kvParser
-          .parse(config.addProperties)) {
-        conf.put(keyVal.getKey(), keyVal.getValue());
-      }
-    }
-    return conf;
-  }
-
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) {
     super.configurePipeline(pipelineConfigurer);
@@ -143,7 +132,7 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
 
     HBaseOutputFormatProvider(HBaseSinkConfig config, Configuration configuration) {
       this.conf = new HashMap<>();
-      Map<String, String> addProp = getAdditionalProperties();
+      Map<String, String> addProp = config.getAdditionalProperties();
       conf.put(TableOutputFormat.OUTPUT_TABLE, config.tableName);
       String zkQuorum = !Strings.isNullOrEmpty(config.zkQuorum) ? config.zkQuorum : "localhost";
       String zkClientPort = !Strings.isNullOrEmpty(config.zkClientPort) ? config.zkClientPort : "2181";
@@ -156,6 +145,10 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
           ResultSerialization.class.getName(),
           KeyValueSerialization.class.getName()};
       conf.put("io.serializations", StringUtils.arrayToString(serializationClasses));
+      logger.info("Printing conf entries => ");
+      for (Map.Entry<String, String> entry : conf.entrySet()) {
+        logger.info(entry.getKey() + " => " + entry.getValue());
+      }
     }
 
     @Override
@@ -184,7 +177,7 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
     Put put = recordPutTransformer.toPut(input);
     org.apache.hadoop.hbase.client.Put hbasePut = new org.apache.hadoop.hbase.client.Put(put.getRow());
     for (Map.Entry<byte[], byte[]> entry : put.getValues().entrySet()) {
-      hbasePut.add(config.columnFamily.getBytes(), entry.getKey(), entry.getValue());
+      hbasePut.addColumn(config.columnFamily.getBytes(), entry.getKey(), entry.getValue());
     }
     emitter.emit(new KeyValue<NullWritable, Mutation>(NullWritable.get(), hbasePut));
   }
@@ -196,11 +189,6 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
     @Description("Parent Node of HBase in Zookeeper. Defaults to '/hbase'")
     @Nullable
     private String zkNodeParent;
-
-    @Nullable
-    @Name("addProperties")
-    @Description("Additional properties that the user may want to specify.")
-    private String addProperties;
 
     public HBaseSinkConfig(String tableName, String rowField, @Nullable String schema) {
       super(String.format("HBase_%s", tableName), tableName, rowField, schema);
