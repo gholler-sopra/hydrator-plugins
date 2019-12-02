@@ -18,12 +18,18 @@ package co.cask.hydrator.plugin;
 
 import co.cask.cdap.api.annotation.Description;
 import co.cask.cdap.api.annotation.Macro;
+import co.cask.cdap.api.annotation.Name;
 import co.cask.cdap.api.data.schema.Schema;
+import co.cask.cdap.api.dataset.lib.KeyValue;
+import co.cask.hydrator.common.KeyValueListParser;
 import co.cask.hydrator.common.ReferencePluginConfig;
 import co.cask.hydrator.plugin.sink.HBaseSink;
 import co.cask.hydrator.plugin.source.HBaseSource;
+import com.google.common.base.Strings;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Nullable;
 
 /**
@@ -54,6 +60,10 @@ public class HBaseConfig extends ReferencePluginConfig {
   @Macro
   public String zkClientPort;
 
+  @Nullable
+  @Name("addProperties")
+  @Description("Additional properties that the user may want to specify.")
+  public String addProperties;
 
 
   public HBaseConfig(String referenceName, String tableName, String rowField, @Nullable String schema) {
@@ -77,5 +87,17 @@ public class HBaseConfig extends ReferencePluginConfig {
       throw new IllegalArgumentException(String.format("Unable to parse schema '%s'. Reason: %s",
                                                        schema, e.getMessage()), e);
     }
+  }
+
+  public Map<String, String> getAdditionalProperties() {
+    KeyValueListParser kvParser = new KeyValueListParser("\\s*;\\s*", ",");
+    Map<String, String> conf = new HashMap<>();
+    if (!Strings.isNullOrEmpty(addProperties)) {
+      for (KeyValue<String, String> keyVal : kvParser
+              .parse(addProperties)) {
+        conf.put(keyVal.getKey(), keyVal.getValue());
+      }
+    }
+    return conf;
   }
 }
