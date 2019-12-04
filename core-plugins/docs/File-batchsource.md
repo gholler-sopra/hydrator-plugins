@@ -43,6 +43,31 @@ will error when there is no data to read. When set to true, no error will be thr
 
 **File System Properties:** Additional properties in json format to use with the InputFormat when reading the data.
 
+## Sample Input
+
+    {
+        "name": "File",
+        "plugin": {
+          "name": "File",
+          "type": "batchsource",
+          "label": "File",
+          "artifact": {
+            "name": "core-plugins",
+            "version": "2.1.1-SNAPSHOT_5.1.216",
+            "scope": "SYSTEM"
+          },
+          "properties": {
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"offset\",\"type\":\"long\"},{\"name\":\"body\",\"type\":\"string\"}]}",
+            "referenceName": "ref_hdfs_src",
+            "format": "text",
+            "filenameOnly": "false",
+            "recursive": "false",
+            "ignoreNonExistingFolders": "false",
+            "path": "/cdap/file_input",
+            "delimiter": ","
+          }
+        }
+      }
 
 ## How to get Output Schema?
 
