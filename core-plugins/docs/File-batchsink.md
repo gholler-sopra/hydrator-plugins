@@ -45,11 +45,25 @@ Advanced feature to specify any additional property that should be used with the
 | `File System Properties` | File System Properties | Optional | N/A | Additional properties in json format to use with the OutputFormat when reading the data.Advanced feature to specify any additional property that should be used with the sink.|
 
 ## Sample Input
-| Field | Value | 
-| :------------ | :---- |
-| `Reference Name` | File | 
-| `Path` | /tmp/OutputFile |
-| `Path Suffix` | yyyy-MM-dd-HH-mm |
-| `Format` | json |
-| `Delimiter` | , |
+
+    {
+          "name": "File",
+          "plugin": {
+            "name": "File",
+            "type": "batchsink",
+            "label": "File",
+            "artifact": {
+              "name": "core-plugins",
+              "version": "2.1.1-SNAPSHOT_5.1.216",
+              "scope": "SYSTEM"
+            },
+            "properties": {
+              "referenceName": "ref_hdfs_sink",
+              "suffix": "yyyy-MM-dd-HH-mm",
+              "format": "json",
+              "path": "/tmp/outputFile",
+              "delimiter": ","
+            }
+          }
+    }
 
