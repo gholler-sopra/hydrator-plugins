@@ -26,6 +26,9 @@ If the format is 'text', the schema must contain a field named 'body' of type 's
 Smaller partitions will increase the level of parallelism, but will require more resources and overhead.
 The default value is 128MB.
 
+**Regex Path Filter:** Regular Expressions that file paths must match in order to be included in the input. The full
+file path is compared to the regular expression to filter file paths.
+
 **Path Field:** Output field to place the path of the file that the record was read from.
 If not specified, the file path will not be included in output records.
 If specified, the field must exist in the output schema as a string.
