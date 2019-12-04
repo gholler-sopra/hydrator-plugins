@@ -44,8 +44,7 @@ public class HBaseConfig extends ReferencePluginConfig {
   @Description("Field in the Schema that corresponds to row key")
   public String rowField;
 
-  @Description("Zookeeper Quorum. By default it is set to 'localhost'")
-  @Nullable
+  @Description("Zookeeper Quorum.")
   @Macro
   public String zkQuorum;
 

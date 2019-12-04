@@ -39,7 +39,10 @@
         {
           "widget-type": "textbox",
           "label": "Parent Node of HBase in Zookeeper",
-          "name": "zkNodeParent"
+          "name": "zkNodeParent",
+          "widget-attributes": {
+            "default": "/hbase-secure"
+          }
         }
       ]
     }
