@@ -30,6 +30,8 @@ Otherwise, outer join will be performed considering non-required inputs as optio
 **numPartitions:** Number of partitions to use when grouping fields. If not specified, the execution
 framework will decide on the number to use.
 
+**Generate Schema:** Verifies the Schema of the The input Sources and generates the output schema for the Output.
+
 Example
 -------
 This example inner joins records from ``customers`` and ``purchases`` inputs on customer id and selects customer_id, name, item and price fields.
