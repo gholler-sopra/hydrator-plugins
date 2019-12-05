@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
  * A user must specify username and keypair authentication credentials.
  * Options include port and machine URL.
  */
-@Plugin(type = Action.PLUGIN_TYPE)
+//@Plugin(type = Action.PLUGIN_TYPE)
 @Name("SSH")
 @Description("Action to run a script on remote machine")
 public class SSHAction extends Action {

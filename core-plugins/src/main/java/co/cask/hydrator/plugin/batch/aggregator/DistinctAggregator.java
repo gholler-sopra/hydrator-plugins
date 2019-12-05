@@ -38,7 +38,7 @@ import javax.ws.rs.Path;
 /**
  * Distinct aggregator.
  */
-@Plugin(type = BatchAggregator.PLUGIN_TYPE)
+//@Plugin(type = BatchAggregator.PLUGIN_TYPE)
 @Name("Distinct")
 @Description("Deduplicates input records so that all output records are distinct. " +
   "Can optionally take a list of fields, which will project out all other fields and perform a distinct " +

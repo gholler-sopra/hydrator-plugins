@@ -55,7 +55,7 @@ import java.util.Map;
  * </ul>
  * </p>
  */
-@Plugin(type = "transform")
+//@Plugin(type = "transform")
 @Name("CSVFormatter")
 @Description("Formats a Structured Record to CSV")
 public final class CSVFormatter extends Transform<StructuredRecord, StructuredRecord> {

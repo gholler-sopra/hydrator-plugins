@@ -60,7 +60,7 @@ import java.util.Map;
 /**
  * Hive Batch Sink
  */
-@Plugin(type = BatchSink.PLUGIN_TYPE)
+//@Plugin(type = BatchSink.PLUGIN_TYPE)
 @Name("Hive")
 @Description("Batch Sink to write to external Hive tables.")
 public class HiveBatchSink extends ReferenceBatchSink<StructuredRecord, NullWritable, HCatRecord> {

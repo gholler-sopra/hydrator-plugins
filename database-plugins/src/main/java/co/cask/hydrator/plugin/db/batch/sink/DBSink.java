@@ -65,7 +65,7 @@ import javax.annotation.Nullable;
 /**
  * Sink that can be configured to export data to a database table.
  */
-@Plugin(type = BatchSink.PLUGIN_TYPE)
+//@Plugin(type = BatchSink.PLUGIN_TYPE)
 @Name("Database")
 @Description("Writes records to a database table. Each record will be written to a row in the table.")
 public class DBSink extends ReferenceBatchSink<StructuredRecord, DBRecord, NullWritable> {

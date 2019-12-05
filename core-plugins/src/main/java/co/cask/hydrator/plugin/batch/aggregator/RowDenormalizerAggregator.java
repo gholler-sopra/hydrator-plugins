@@ -36,7 +36,7 @@ import java.util.Set;
 /**
  * Batch RowDenormalizer Aggregator Plugin - It is used to de-normalize data based on the key column.
  */
-@Plugin(type = BatchAggregator.PLUGIN_TYPE)
+//@Plugin(type = BatchAggregator.PLUGIN_TYPE)
 @Name("RowDenormalizer")
 @Description("This plugin is used to convert raw data into denormalized data based on a key column. " +
   "User is able to specify the list of fields that should be used in the denormalized record, with " +
