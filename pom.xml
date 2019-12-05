@@ -41,8 +41,7 @@
     <module>spark-plugins</module>
     <module>transform-plugins</module>
     <module>wrangler-transform</module>
-    <module>kafka-plugins</module>
-    <module>amazon-s3-plugins</module>
+    <!--module>amazon-s3-plugins</module-->
     <module>condition-plugins</module>
   </modules>
 
