@@ -3,7 +3,7 @@
     "spec-version": "1.5",
     "label": "Group by Aggregator"
   },
-  "display-name" : "Group By",
+  "display-name" : "GroupBy",
   "configuration-groups": [
     {
       "label": "General",
