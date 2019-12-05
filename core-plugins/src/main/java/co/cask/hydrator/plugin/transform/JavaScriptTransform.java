@@ -63,7 +63,7 @@ import javax.script.ScriptException;
 /**
  * Transforms records using custom JavaScript provided by the config.
  */
-@Plugin(type = "transform")
+//@Plugin(type = "transform")
 @Name("JavaScript")
 @Description("Executes user-provided JavaScript that transforms one record into zero or more records.")
 public class JavaScriptTransform extends Transform<StructuredRecord, StructuredRecord> {
