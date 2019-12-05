@@ -112,9 +112,12 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
     HBaseOutputFormatProvider(HBaseSinkConfig config, Configuration configuration) {
       this.conf = new HashMap<>();
       conf.put(TableOutputFormat.OUTPUT_TABLE, config.tableName);
-      String zkQuorum = !Strings.isNullOrEmpty(config.zkQuorum) ? config.zkQuorum : "localhost";
+      if(Strings.isNullOrEmpty(config.zkQuorum)) {
+        throw new IllegalArgumentException("Zookeeper Quorum cannot be null");
+      }
+      String zkQuorum = config.zkQuorum;
       String zkClientPort = !Strings.isNullOrEmpty(config.zkClientPort) ? config.zkClientPort : "2181";
-      String zkNodeParent = !Strings.isNullOrEmpty(config.zkNodeParent) ? config.zkNodeParent : "/hbase";
+      String zkNodeParent = !Strings.isNullOrEmpty(config.zkNodeParent) ? config.zkNodeParent : "/hbase-secure";
       conf.put(TableOutputFormat.QUORUM_ADDRESS, String.format("%s:%s:%s", zkQuorum, zkClientPort, zkNodeParent));
       String[] serializationClasses = {
         configuration.get("io.serializations"),
@@ -157,8 +160,7 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
    * HBaseSink plugin.
    */
   public static class HBaseSinkConfig extends HBaseConfig {
-    @Description("Parent Node of HBase in Zookeeper. Defaults to '/hbase'")
-    @Nullable
+    @Description("Parent Node of HBase in Zookeeper. Defaults to '/hbase-secure'")
     private String zkNodeParent;
 
     public HBaseSinkConfig(String tableName, String rowField, @Nullable String schema) {

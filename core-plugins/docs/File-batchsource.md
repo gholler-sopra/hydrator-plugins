@@ -26,6 +26,9 @@ If the format is 'text', the schema must contain a field named 'body' of type 's
 Smaller partitions will increase the level of parallelism, but will require more resources and overhead.
 The default value is 128MB.
 
+**Regex Path Filter:** Regular Expressions that file paths must match in order to be included in the input. The full
+file path is compared to the regular expression to filter file paths.
+
 **Path Field:** Output field to place the path of the file that the record was read from.
 If not specified, the file path will not be included in output records.
 If specified, the field must exist in the output schema as a string.
@@ -40,23 +43,50 @@ will error when there is no data to read. When set to true, no error will be thr
 
 **File System Properties:** Additional properties in json format to use with the InputFormat when reading the data.
 
+## Sample Input
+
+    {
+        "name": "File",
+        "plugin": {
+          "name": "File",
+          "type": "batchsource",
+          "label": "File",
+          "artifact": {
+            "name": "core-plugins",
+            "version": "2.1.1-SNAPSHOT_5.1.216",
+            "scope": "SYSTEM"
+          },
+          "properties": {
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"offset\",\"type\":\"long\"},{\"name\":\"body\",\"type\":\"string\"}]}",
+            "referenceName": "ref_hdfs_src",
+            "format": "text",
+            "filenameOnly": "false",
+            "recursive": "false",
+            "ignoreNonExistingFolders": "false",
+            "path": "/cdap/file_input",
+            "delimiter": ","
+          }
+        }
+      }
 
 ## How to get Output Schema?
 
 Formats supported in File plugin can be categorised into - `hadoop` formats and `non-hadoop` formats
 
-1. For `non-hadoop` file formats - 'csv', 'delimited', 'tsv', 'json', 'avro' :
+1. For `hadoop` file formats - `orc`, `parquet` :
+
+   `GetSchema` button is provided in plugin's configuration UI to help user fetch the schema.
+   If value provided in `Path` config is a directory then schema would be fetched from any random file picked from specified path
+   matching extension `.orc` or `.parquet` (depending on selected `Format`).
+
+
+2. For `non-hadoop` file formats - `csv`, `delimited`, `tsv`, `json`, `avro` :
 
    Pls use DataPrep to identify the
    schema of the file by applying `parse-as-<format>` directive or `Parse-><format>` on the `body` column.
    one can click on create pipeline, select batch, and then open wrangler stage and export the schema.
    Once exported, go back to file plugin, select `Format` as the case is and import this schema file.
 
-2. For `hadoop` file formats - `orc`, `parquet` :
-
-   User needs to provide the expected columns to be extracted from underlying orc/parquet files. Only the 
-   columns specified in output schema will be passed to next stage. If hive tables also exist for these
-   file formats, then prefer using `Hive Source`.
 
 
 ## Note

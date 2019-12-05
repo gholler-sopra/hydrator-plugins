@@ -28,10 +28,10 @@ import co.cask.cdap.etl.api.batch.BatchAggregator;
 import co.cask.cdap.etl.api.batch.BatchRuntimeContext;
 import co.cask.hydrator.plugin.batch.aggregator.function.SelectionFunction;
 
+import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.ws.rs.Path;
 
 /**
  * Deduplicate aggregator.
@@ -44,6 +44,7 @@ public class DedupAggregator extends RecordAggregator {
   private final DedupConfig dedupConfig;
   private List<String> uniqueFields;
   private DedupConfig.DedupFunctionInfo filterFunction;
+  private Schema groupKeySchema = null;
 
   public DedupAggregator(DedupConfig dedupConfig) {
     super(dedupConfig.numPartitions);
@@ -79,14 +80,28 @@ public class DedupAggregator extends RecordAggregator {
     filterFunction = dedupConfig.getFilter();
   }
 
+  private List<String> getFieldsFromSchema(Schema inputSchema) {
+    List<String> fields = new ArrayList<>();
+    for(Schema.Field field: inputSchema.getFields()) {
+      fields.add(field.getName());
+    }
+    return fields;
+  }
+
   @Override
   public void groupBy(StructuredRecord record, Emitter<StructuredRecord> emitter) throws Exception {
     if (uniqueFields == null) {
       emitter.emit(record);
       return;
     }
+    if (groupKeySchema == null) {
+      groupKeySchema = getGroupKeySchema(record.getSchema()); // This would execute only once
+    }
+    if(uniqueFields.isEmpty()) {
+      uniqueFields.addAll(getFieldsFromSchema(record.getSchema())); // This would execute only once
+    }
 
-    StructuredRecord.Builder builder = StructuredRecord.builder(getGroupKeySchema(record.getSchema()));
+    StructuredRecord.Builder builder = StructuredRecord.builder(groupKeySchema);
     for (String fieldName : uniqueFields) {
       builder.set(fieldName, record.get(fieldName));
     }
@@ -132,6 +147,9 @@ public class DedupAggregator extends RecordAggregator {
   }
 
   private Schema getGroupKeySchema(Schema inputSchema) {
+    if(dedupConfig.getUniqueFields().isEmpty()) {
+      return Schema.recordOf(inputSchema.getRecordName() + ".unique", inputSchema.getFields());
+    }
     List<Schema.Field> fields = new ArrayList<>();
     for (String fieldName : dedupConfig.getUniqueFields()) {
       Schema.Field field = inputSchema.getField(fieldName);
@@ -163,12 +181,13 @@ public class DedupAggregator extends RecordAggregator {
                                                            "not exist in inputSchema '%s'", uniqueField, inputSchema));
       }
     }
-
-    Schema.Field field = inputSchema.getField(function.getField());
-    if (field == null) {
-      throw new IllegalArgumentException(String.format(
-        "Invalid filter %s(%s): Field '%s' does not exist in input schema '%s'",
-        function.getFunction(), function.getField(), function.getField(), inputSchema));
+    if(function != null) {
+      Schema.Field field = inputSchema.getField(function.getField());
+      if (field == null) {
+        throw new IllegalArgumentException(String.format(
+                "Invalid filter %s(%s): Field '%s' does not exist in input schema '%s'",
+                function.getFunction(), function.getField(), function.getField(), inputSchema));
+      }
     }
   }
 }

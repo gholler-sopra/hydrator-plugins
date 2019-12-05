@@ -35,16 +35,15 @@ the schema, and must not be nullable.
 
 **zkQuorum:** The ZooKeeper quorum for the hbase instance you are writing to. This should
 be a comma-separated list of hosts that make up the quorum. You can find the correct value
-by looking at the ``hbase.zookeeper.quorum`` setting in your ``hbase-site.xml`` file. This value
-defaults to ``'localhost'``. (Macro-enabled)
+by looking at the ``hbase.zookeeper.quorum`` setting in your ``hbase-site.xml`` file. (Macro-enabled)
 
 **zkClientPort:** The client port used to connect to the ZooKeeper quorum.
-You can find the correct value by looking at the ``hbase.zookeeper.quorum`` setting in your ``hbase-site.xml``.
+You can find the correct value by looking at the ``hbase.zookeeper.property.clientPort`` setting in your ``hbase-site.xml``.
 This value defaults to ``2181``. (Macro-enabled)
 
 **zkNodeParent:** The parent node of HBase in ZooKeeper. 
-You can find the correct value by looking at the ``hbase.zookeeper.quorum`` setting in your ``hbase-site.xml``.
-This value defaults to ``'/hbase'``.
+You can find the correct value by looking at the ``zookeeper.znode.parent`` setting in your ``hbase-site.xml``.
+This value defaults to ``'/hbase-secure'``.
 
 
 Example
