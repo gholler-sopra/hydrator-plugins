@@ -53,119 +53,198 @@ This table lists the methods available in CoreValidator that can be called from 
     +==================================================================================================================+
 
 
+Functions Description
+---------------------
+
+isDate
+------
+
+**Date Validation** and Conversion routines (`java.util.Date`).
+
+This validator provides a number of methods for validating/converting a `String` date value to a `java.util.Date` using `java.text.DateFormat` to parse either:
+
+*   using the default format for the default `Locale`
+*   using a specified pattern with the default `Locale`
+*   using the default format for a specified `Locale`
+*   using a specified pattern with a specified `Locale`
+
+For each of the above mechanisms, conversion method (i.e the `validate` methods) implementations are provided which either use the default `TimeZone` or allow the `TimeZone` to be specified.
+
+Use one of the `isValid()` methods to just validate or one of the `validate()` methods to validate and receive a _converted_ `Date` value.
+
+Implementations of the `validate()` method are provided to create `Date` objects for different _time zones_ if the system default is not appropriate.
+
+Once a value has been successfully converted the following methods can be used to perform various date comparison checks:
+
+*   `compareDates()` compares the day, month and year of two dates, returning 0, -1 or +1 indicating whether the first date is equal, before or after the second.
+*   `compareWeeks()` compares the week and year of two dates, returning 0, -1 or +1 indicating whether the first week is equal, before or after the second.
+*   `compareMonths()` compares the month and year of two dates, returning 0, -1 or +1 indicating whether the first month is equal, before or after the second.
+*   `compareQuarters()` compares the quarter and year of two dates, returning 0, -1 or +1 indicating whether the first quarter is equal, before or after the second.
+*   `compareYears()` compares the year of two dates, returning 0, -1 or +1 indicating whether the first year is equal, before or after the second.
+
+So that the same mechanism used for parsing an _input_ value for validation can be used to format _output_, corresponding `format()` methods are also provided. That is you can format either:
+
+*   using a specified pattern
+*   using the format for a specified `Locale`
+*   using the format for the _default_ `Locale`
+
+
+isBlankOrNull
+-------------
+
+Checks if the field isn't null and length of the field is greater than zero not including whitespace.
+
+@param value The value validation is being performed on. @return true if blank or null.
+
+
+isEmail
+-------
+
+Checks if a field has a valid e-mail address.
+
+@param email The value validation is being performed on. A `null` value is considered invalid. @return true if the email address is valid.
+
+isInRange
+---------
+
+Check if the value is within a specified range. @param value The `Number` value to check. @param min The minimum value of the range. @param max The maximum value of the range. @return `true` if the value is within the specified range.
+
+
+isInt
+-----
+
+Checks if the value can safely be converted to a int primitive.
+
+@param value The value validation is being performed on. @return true if the value can be converted to an Integer.
+
+
+isLong
+------
+
+Checks if the value can safely be converted to a long primitive.
+
+@param value The value validation is being performed on. @return true if the value can be converted to a Long.
+
+
+isShort
+-------
+
+Checks if the value can safely be converted to a short primitive.
+
+@param value The value validation is being performed on. @return true if the value can be converted to a Short.
+
+
+isUrl
+-----
+
+Checks if a field has a valid url address.
+
+Note that the method calls #isValidAuthority() which checks that the domain is valid. @param value The value validation is being performed on. A `null` value is considered invalid. @return true if the url is valid.
+
+
+matchRegex
+----------
+
+Validate a value against the set of regular expressions. @param value The value to validate. @return `true` if the value is valid otherwise `false`.
+
+**Note : Regex should be pass in single quotes in the format like '[a-z]' for the matchRegex function.**
+
+
+maxLength
+---------
+
+Checks if the value's length is less than or equal to the max.
+
+@param value The value validation is being performed on. @param max The maximum length. @return true if the value's length is less than the specified maximum.
+
+
+
+maxValue
+--------
+
+Checks if the value is less than or equal to the max.
+
+@param value The value validation is being performed on. @param max The maximum numeric value. @return true if the value is <= the specified maximum.
+
+
+minValue
+--------
+
+Checks if the value is greater than or equal to the min.
+
+@param value The value validation is being performed on. @param min The minimum numeric value. @return true if the value is >= the specified minimum.
+
+
+minLength
+---------
+
+Checks if the value's length is greater than or equal to the min.
+
+@param value The value validation is being performed on. @param min The minimum length. @return true if the value's length is more than the specified minimum.
+
+
+isValidISBN
+-----------
+
+If the ISBN is formatted with space or dash separators its format is validated. Then the digits in the number are weighted, summed, and divided by 11 according to the ISBN algorithm. If the result is zero, the ISBN is valid. This method accepts formatted or raw ISBN codes. @param isbn Candidate ISBN number to be validated. `null` is considered invalid. @return true if the string is a valid ISBN code.
+
+
+isValidInet4Address
+-------------------
+
+Validates an IPv4 address. Returns true if valid. @param inet4Address the IPv4 address to validate @return true if the argument contains a valid IPv4 address
+
+
+isValidInet6Address
+-------------------
+
+Validates an IPv6 address. Returns true if valid. @param inet6Address the IPv6 address to validate @return true if the argument contains a valid IPv6 address
+
+
+isValidIp
+---------
+
+Checks if the specified string is a valid IP address. @param inetAddress the string to validate @return true if the string validates as an IP address
+
+
+isValidCountryCodeTid
+---------------------
+
+Returns true if the specified `String` matches any IANA-defined country code top-level domain. Leading dots are ignored if present. The search is case-insensitive. @param ccTld the parameter to check for country code TLD status, not null @return true if the parameter is a country code TLD
+
+
+isValidGenericTId
+-----------------
+
+Returns true if the specified `String` matches any IANA-defined generic top-level domain. Leading dots are ignored if present. The search is case-insensitive. @param gTld the parameter to check for generic TLD status, not null @return true if the parameter is a generic TLD
+
+
+isValidInfrastructureTId
+------------------------
+
+Returns true if the specified `String` matches any IANA-defined infrastructure top-level domain. Leading dots are ignored if present. The search is case-insensitive. @param iTld the parameter to check for infrastructure TLD status, not null @return true if the parameter is an infrastructure TLD
+
+
+isValidLocalTId
+---------------
+
+Returns true if the specified `String` matches any widely used "local" domains (localhost or localdomain). Leading dots are ignored if present. The search is case-insensitive. @param lTld the parameter to check for local TLD status, not null @return true if the parameter is an local TLD
+
+
+isValidTId
+----------
+
+Returns true if the specified `String` matches any IANA-defined top-level domain. Leading dots are ignored if present. The search is case-insensitive. @param tld the parameter to check for TLD status, not null @return true if the parameter is a TLD
+
+
+isCreditCard
+------------
+
+Checks if the field is a valid credit card number. @param card The card number to validate. @return Whether the card number is valid.
+
+
 Use Case
 --------
 The transform is used when you need to validate records. For example, you may want to
 validate records as being valid IP addresses or valid dates and log errors if they aren't
 valid.
-
-
-Properties
-----------
-**validators** Comma-separated list of validators that are used by the validationScript.
-Example: ``"validators": "core"``
-
-**validationScript:** JavaScript that must implement a function ``isValid`` that takes a JSON object
-(representing the input record) and a context object (encapsulating CDAP metrics, logger, and validators)
-and returns a result JSON with validity, error code, and error message.
-Example response:
-
-    {
-        "isValid" : true [or] false,
-        "errorCode" : number [should be an valid integer],
-        "errorMsg" : "Message indicating the error and why the record failed validation"
-    }
-
-**lookup:** The configuration of the lookup tables to be used in your script.
-For example, if lookup table "purchases" is configured, then you will be able to perform
-operations with that lookup table in your script: ``context.getLookup('purchases').lookup('key')``
-Currently supports ``KeyValueTable``.
-
-
-Examples
---------
-This example sends an error code ``'10'`` for any records whose ``'body'`` field contains
-a value whose length is greater than 10. It has been "pretty-printed" for readability. It
-uses the ``CoreValidator`` (included using ``"validators": "core"`` ) and references a
-function using its JavaScript name (``coreValidator.maxLength``):
-
-    {
-        "name": "Validator",
-        "type": "transform",
-        "properties": {
-            "validators": "core",
-            "validationScript": "function isValid(input, context) {
-                                  var coreValidator = context.getValidator(\"coreValidator\");
-                                  if (!coreValidator.maxLength(input.body, 10))
-                                    {
-                                      return {'isValid': false, 'errorCode': 10,
-                                              'errorMsg': \"body length greater than 10\"};
-                                    }
-                                  return {'isValid' : true};
-                                };"
-        }
-    }
-
-This example uses the key-value dataset ``'blacklist'`` as a lookup table, and sends an
-error code ``'10'`` for any records whose ``'body'`` field exists in the ``'blacklist'``
-dataset. It has been "pretty-printed" for readability:
-
-    {
-        "name": "Validator",
-        "type": "transform",
-        "properties": {
-            "lookup": "{
-                \"blacklist\":{
-                    \"type\":\"DATASET\"
-                }
-            }"
-            "validationScript": "function isValid(input, context) {
-                                  if (context.getLookup('blacklist').lookup(input.body) !== null)
-                                    {
-                                      return {'isValid': false, 'errorCode': 10,
-                                              'errorMsg': \"input blacklisted\"};
-                                    }
-                                  return {'isValid' : true};
-                                };"
-        }
-    }
-
-This example sends an error code ``'5'`` for any records whose ``'date'`` field is an
-invalid date, sends an error code ``'7'`` for any records whose ``'url'`` field is an
-invalid URL, and sends an error code ``'10'`` for any records whose ``'content_length'``
-field is greater than 1MB.
-
-It has been "pretty-printed" for readability. It uses the CoreValidator and references functions 
-using their JavaScript names (such as ``coreValidator.isDate``):
-
-    {
-        "name": "Validator",
-        "type": "transform",
-        "properties": {
-            "validators": "core",
-            "validationScript": "function isValid(input, context) {
-                                  var isValid = true;
-                                  var errMsg = \"\";
-                                  var errCode = 0;
-                                  var coreValidator = context.getValidator(\"coreValidator\");
-                                  var metrics = context.getMetrics();
-                                  var logger = context.getLogger();
-                                  if (!coreValidator.isDate(input.date)) {
-                                     isValid = false; errMsg = input.date + \"is invalid date\"; errCode = 5;
-                                     metrics.count(\"invalid.date\", 1);
-                                  } else if (!coreValidator.isUrl(input.url)) {
-                                     isValid = false; errMsg = \"invalid url\"; errCode = 7;
-                                     metrics.count(\"invalid.url\", 1);
-                                  } else if (!coreValidator.isInRange(input.content_length, 0, 1024 * 1024)) {
-                                     isValid = false; errMsg = \"content length >1MB\"; errCode = 10;
-                                     metrics.count(\"invalid.body.size\", 1);
-                                  }
-                                  if (!isValid) {
-                                    logger.warn(\"Validation failed for record {}\", input);
-                                  }
-                                  return {'isValid': isValid, 'errorCode': errCode, 'errorMsg': errMsg};
-                                };"
-        }
-    }
-
-**Note:** This plugin emits a metric called 'invalid' that tracks how many invalid records were found.
