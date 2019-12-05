@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Batch source for Hive.
  */
-@Plugin(type = "batchsource")
+//@Plugin(type = "batchsource")
 @Name("Hive")
 @Description("Batch source to read from external Hive table")
 public class HiveBatchSource extends ReferenceBatchSource<WritableComparable, HCatRecord, StructuredRecord> {

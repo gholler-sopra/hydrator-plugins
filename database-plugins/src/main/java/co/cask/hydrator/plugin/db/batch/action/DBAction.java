@@ -31,7 +31,7 @@ import java.sql.Driver;
 /**
  * Action that runs a db command
  */
-@Plugin(type = Action.PLUGIN_TYPE)
+//@Plugin(type = Action.PLUGIN_TYPE)
 @Name("Database")
 @Description("Action that runs a db command")
 public class DBAction extends Action {

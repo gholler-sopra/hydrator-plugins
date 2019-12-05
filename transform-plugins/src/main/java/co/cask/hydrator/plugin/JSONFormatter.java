@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * JSON Formatter formats {@link StructuredRecord} into JSON Object.
  */
-@Plugin(type = "transform")
+//@Plugin(type = "transform")
 @Name("JSONFormatter")
 @Description("Writes JSON Object formatted records from the Structured record.")
 public final class JSONFormatter extends Transform<StructuredRecord, StructuredRecord> {

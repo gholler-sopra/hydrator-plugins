@@ -45,7 +45,7 @@ import javax.ws.rs.HttpMethod;
 /**
  * Makes an HTTP call at the end of a pipeline run.
  */
-@Plugin(type = PostAction.PLUGIN_TYPE)
+//@Plugin(type = PostAction.PLUGIN_TYPE)
 @Name("HTTPCallback")
 @Description("Makes an HTTP call at the end of a pipeline run.")
 public class HTTPCallbackAction extends PostAction {

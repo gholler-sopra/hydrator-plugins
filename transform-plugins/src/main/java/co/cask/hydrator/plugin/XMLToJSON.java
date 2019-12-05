@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * A transform that parses an XML String field into a stringified JSON Object.
  */
-@Plugin(type = "transform")
+//@Plugin(type = "transform")
 @Name("XMLToJSON")
 @Description("Converts an XML string to a JSON string")
 public final class XMLToJSON extends Transform<StructuredRecord, StructuredRecord> {
