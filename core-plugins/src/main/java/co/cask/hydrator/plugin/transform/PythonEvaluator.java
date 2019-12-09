@@ -58,7 +58,7 @@ import javax.annotation.Nullable;
 /**
  * Transforms records using custom Python code provided by the config.
  */
-//@Plugin(type = "transform")
+@Plugin(type = "transform")
 @Name("PythonEvaluator")
 @Description("Executes user-provided Python code that transforms one record into another.")
 public class PythonEvaluator extends Transform<StructuredRecord, StructuredRecord> {

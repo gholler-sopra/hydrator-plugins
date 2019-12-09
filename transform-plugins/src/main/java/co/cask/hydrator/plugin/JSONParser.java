@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 /**
  * Transform parses a JSON Object into {@link StructuredRecord}.
  */
-//@Plugin(type = "transform")
+@Plugin(type = "transform")
 @Name("JSONParser")
 @Description("Parses JSON Object into a Structured Record.")
 public final class JSONParser extends Transform<StructuredRecord, StructuredRecord> {

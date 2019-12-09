@@ -60,7 +60,7 @@ import javax.xml.xpath.XPathFactory;
  * Parses XML Event using XPath.
  * This should generally be used in conjunction with the XML Reader Batch Source.
  */
-//@Plugin(type = Transform.PLUGIN_TYPE)
+@Plugin(type = Transform.PLUGIN_TYPE)
 @Name("XMLParser")
 @Description("Parse XML events based on XPath")
 public class XMLParser extends Transform<StructuredRecord, StructuredRecord> {
