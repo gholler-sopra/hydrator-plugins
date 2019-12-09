@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
 /**
  * Action that deletes file(s).
  */
-//@Plugin(type = Action.PLUGIN_TYPE)
+@Plugin(type = Action.PLUGIN_TYPE)
 @Name("FileDelete")
 @Description("Deletes files.")
 public class FileDeleteAction extends Action {

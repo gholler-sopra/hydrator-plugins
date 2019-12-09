@@ -2,7 +2,7 @@
   "metadata": {
     "spec-version": "1.5"
   },
-  "display-name" : "XML to Json String",
+  "display-name" : "XML to JSON",
   "configuration-groups": [
     {
       "label": "Field Mapping",

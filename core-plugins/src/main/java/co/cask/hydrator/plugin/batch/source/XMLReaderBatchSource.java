@@ -72,7 +72,7 @@ import javax.annotation.Nullable;
  * It is used to read XML files from HDFS with specified file properties and filters.
  * This reader emits XML event, specified by the node path property, for each file read.
  */
-//@Plugin(type = BatchSource.PLUGIN_TYPE)
+@Plugin(type = BatchSource.PLUGIN_TYPE)
 @Name("XMLReader")
 @Description("Batch source for XML read from HDFS")
 public class XMLReaderBatchSource extends ReferenceBatchSource<LongWritable, Object, StructuredRecord> {

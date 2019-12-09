@@ -54,7 +54,7 @@ import javax.xml.xpath.XPathFactory;
 /**
  * Parses XML Event using XPath.
  */
-//@Plugin(type = Transform.PLUGIN_TYPE)
+@Plugin(type = Transform.PLUGIN_TYPE)
 @Name("XMLMultiParser")
 @Description("Parse multiple records from an XML documents based on XPath")
 public class XMLMultiParser extends Transform<StructuredRecord, StructuredRecord> {
