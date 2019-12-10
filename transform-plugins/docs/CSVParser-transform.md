@@ -19,3 +19,28 @@ Input records with a null input field propagate all other fields and set fields 
 would otherwise be parsed by the CSVParser to null.
 
 **schema:** Specifies the output schema of the CSV Record.
+
+**errorDataset:**  If error dataset is configured then all the errored rows, if present in the CSV, will be committed
+ to the specified error dataset. If not configured, the errored rows will be committed to default error dataset.
+
+## Sample Input
+
+    {
+        "name": "CSVParser",
+        "plugin": {
+          "name": "CSVParser",
+          "type": "transform",
+          "label": "CSVParser",
+          "artifact": {
+            "name": "transform-plugins",
+            "version": "2.1.1-SNAPSHOT_5.1.216",
+            "scope": "SYSTEM"
+          },
+          "properties": {
+            "format": "DEFAULT",
+            "field": "body",
+            "delimiter": ","
+          }
+        },
+        "errorDatasetName": "error_CSV_Parser"
+      }
