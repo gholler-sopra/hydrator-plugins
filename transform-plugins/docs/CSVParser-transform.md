@@ -61,7 +61,7 @@ The input will be a csv file which will be parsed by the the CSV Parser plugin.
     
     
 ## Sample Output
-After Parsing the Sample input by CSV parser, The output will be saved to a file in the format of json
+After Parsing the Sample input by CSV parser and it will parse csv into a record.
 
     +==========================================================+
     | id | test1 | test2 | servicetac | operstatus | itseverity|
