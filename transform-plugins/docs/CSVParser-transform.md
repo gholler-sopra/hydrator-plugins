@@ -20,9 +20,6 @@ would otherwise be parsed by the CSVParser to null.
 
 **schema:** Specifies the output schema of the CSV Record.
 
-**errorDataset:**  If error dataset is configured then all the errored rows, if present in the CSV, will be committed
- to the specified error dataset. If not configured, the errored rows will be committed to default error dataset.
-
 ## Sample Input
 
     {
@@ -31,16 +28,42 @@ would otherwise be parsed by the CSVParser to null.
           "name": "CSVParser",
           "type": "transform",
           "label": "CSVParser",
-          "artifact": {
-            "name": "transform-plugins",
-            "version": "2.1.1-SNAPSHOT_5.1.216",
-            "scope": "SYSTEM"
-          },
           "properties": {
             "format": "DEFAULT",
-            "field": "body",
-            "delimiter": ","
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"offset\",\"type\":\"long\"},{\"name\":\"body\",\"type\":\"string\"}]}",
+            "field": "body"
           }
-        },
-        "errorDatasetName": "error_CSV_Parser"
-      }
+        }
+        "outputSchema": [
+          {
+            "name": "etlSchemaBody",
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"offset\",\"type\":\"long\"},{\"name\":\"body\",\"type\":\"string\"}]}"
+          }
+        ],
+        "inputSchema": [
+          {
+            "name": "File",
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"offset\",\"type\":\"long\"},{\"name\":\"body\",\"type\":\"string\"}]}"
+          }
+    }
+    
+## Sample Input
+The input will be a csv file which will be parsed by the the CSV Parser plugin.
+
+    id,test1,test2,servicetac,operstatus,manager,itseverity
+    0,testA,testB,0.0,Active,MTTrapdProbeonkstlltcsp01,1
+    1,testA,testB,1.0,Active,MTTrapdProbeonkstlltcsp02,2
+    2,testA,testB,2.0,Active,MTTrapdProbeonkstlltcsp02,3
+    3,testA,testB,3.0,Active,MTTrapdProbeonkstlltcsp03,4
+    4,testA,testB,4.0,Active,MTTrapdProbeonkstlltcsp04,5
+    5,testA,testB,5.0,Active,MTTrapdProbeonkstlltcsp05,6
+    
+After Parsing the Sample input by CSV parser, The output will be saved to a file in the format of json
+
+    {"body":"id,test1,test2,servicetac,operstatus,manager,itseverity"}
+    {"body":"0,testA,testB,0.0,Active,MTTrapdProbeonkstlltcsp01,1"}
+    {"body":"1,testA,testB,1.0,Active,MTTrapdProbeonkstlltcsp02,2"}
+    {"body":"2,testA,testB,2.0,Active,MTTrapdProbeonkstlltcsp02,3"}
+    {"body":"3,testA,testB,3.0,Active,MTTrapdProbeonkstlltcsp03,4"}
+    {"body":"4,testA,testB,4.0,Active,MTTrapdProbeonkstlltcsp04,5"}
+    {"body":"5,testA,testB,5.0,Active,MTTrapdProbeonkstlltcsp05,6"}
