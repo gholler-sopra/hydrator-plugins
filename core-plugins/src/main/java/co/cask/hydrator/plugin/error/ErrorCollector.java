@@ -36,7 +36,7 @@ import javax.ws.rs.Path;
 /**
  * Adds the error code, message, and stage to each record, then emits it.
  */
-//@Plugin(type = ErrorTransform.PLUGIN_TYPE)
+@Plugin(type = ErrorTransform.PLUGIN_TYPE)
 @Name("ErrorCollector")
 public class ErrorCollector extends ErrorTransform<StructuredRecord, StructuredRecord> {
   private final Config config;
