@@ -22,6 +22,17 @@ would otherwise be parsed by the CSVParser to null.
 
 ## Sample Input
 
+The input will be a csv file which will be parsed by the the CSV Parser plugin.
+
+    id,test1,test2,servicetac,operstatus,manager,itseverity
+    0,testA,testB,0.0,Active,MTTrapdProbeonkstlltcsp01,1
+    1,testA,testB,1.0,Active,MTTrapdProbeonkstlltcsp02,2
+    2,testA,testB,2.0,Active,MTTrapdProbeonkstlltcsp02,3
+    3,testA,testB,3.0,Active,MTTrapdProbeonkstlltcsp03,4
+    4,testA,testB,4.0,Active,MTTrapdProbeonkstlltcsp04,5
+    5,testA,testB,5.0,Active,MTTrapdProbeonkstlltcsp05,6
+    
+## PLugin Configuration Details
     {
         "name": "CSVParser",
         "plugin": {
@@ -37,7 +48,7 @@ would otherwise be parsed by the CSVParser to null.
         "outputSchema": [
           {
             "name": "etlSchemaBody",
-            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"offset\",\"type\":\"long\"},{\"name\":\"body\",\"type\":\"string\"}]}"
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"id\",\"type\":\"string\"},{\"name\":\"test1\",\"type\":\"string\"},{\"name\":\"test2\",\"type\":\"string\"},{\"name\":\"servicetac\",\"type\":\"string\"},{\"name\":\"operstatus\",\"type\":\"string\"},{\"name\":\"manager\",\"type\":\"string\"},{\"name\":\"itseverity\",\"type\":\"string\"}]}"
           }
         ],
         "inputSchema": [
@@ -45,25 +56,17 @@ would otherwise be parsed by the CSVParser to null.
             "name": "File",
             "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"offset\",\"type\":\"long\"},{\"name\":\"body\",\"type\":\"string\"}]}"
           }
+        ]
     }
     
-## Sample Input
-The input will be a csv file which will be parsed by the the CSV Parser plugin.
-
-    id,test1,test2,servicetac,operstatus,manager,itseverity
-    0,testA,testB,0.0,Active,MTTrapdProbeonkstlltcsp01,1
-    1,testA,testB,1.0,Active,MTTrapdProbeonkstlltcsp02,2
-    2,testA,testB,2.0,Active,MTTrapdProbeonkstlltcsp02,3
-    3,testA,testB,3.0,Active,MTTrapdProbeonkstlltcsp03,4
-    4,testA,testB,4.0,Active,MTTrapdProbeonkstlltcsp04,5
-    5,testA,testB,5.0,Active,MTTrapdProbeonkstlltcsp05,6
     
+## Sample Output
 After Parsing the Sample input by CSV parser, The output will be saved to a file in the format of json
 
-    {"body":"id,test1,test2,servicetac,operstatus,manager,itseverity"}
-    {"body":"0,testA,testB,0.0,Active,MTTrapdProbeonkstlltcsp01,1"}
-    {"body":"1,testA,testB,1.0,Active,MTTrapdProbeonkstlltcsp02,2"}
-    {"body":"2,testA,testB,2.0,Active,MTTrapdProbeonkstlltcsp02,3"}
-    {"body":"3,testA,testB,3.0,Active,MTTrapdProbeonkstlltcsp03,4"}
-    {"body":"4,testA,testB,4.0,Active,MTTrapdProbeonkstlltcsp04,5"}
-    {"body":"5,testA,testB,5.0,Active,MTTrapdProbeonkstlltcsp05,6"}
+    {"id":"id","test1":"test1","test2":"test2","servicetac":"servicetac","operstatus":"operstatus","manager":"manager","itseverity":"itseverity"}	
+    {"id":"0","test1":"testA","test2":"testB","servicetac":"0.0","operstatus":"Active","manager":"MTTrapdProbeonkstlltcsp01","itseverity":"1"}
+    {"id":"1","test1":"testA","test2":"testB","servicetac":"1.0","operstatus":"Active","manager":"MTTrapdProbeonkstlltcsp02","itseverity":"2"}
+    {"id":"2","test1":"testA","test2":"testB","servicetac":"2.0","operstatus":"Active","manager":"MTTrapdProbeonkstlltcsp02","itseverity":"3"}
+    {"id":"3","test1":"testA","test2":"testB","servicetac":"3.0","operstatus":"Active","manager":"MTTrapdProbeonkstlltcsp03","itseverity":"4"}
+    {"id":"4","test1":"testA","test2":"testB","servicetac":"4.0","operstatus":"Active","manager":"MTTrapdProbeonkstlltcsp04","itseverity":"5"}
+    {"id":"5","test1":"testA","test2":"testB","servicetac":"5.0","operstatus":"Active","manager":"MTTrapdProbeonkstlltcsp05","itseverity":"6"}
