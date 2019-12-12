@@ -22,7 +22,8 @@
             "values": [
               "DEFAULT",
               "Pipe Delimited",
-              "Tab Delimited"
+              "Tab Delimited",
+              "Custom"
             ],
             "default": "DEFAULT"
           }
