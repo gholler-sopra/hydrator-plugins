@@ -11,9 +11,6 @@ Configuration
 -------------
 **format:** Specifies the format of the CSV Record the input should be parsed as.
 
-**delimiter:** Custom delimiter to be used for parsing the fields. The custom delimiter can only be specified by 
-selecting the option 'Custom' from the format drop-down. In case of null, defaults to ",".
-
 **field:** Specifies the input field that should be parsed as a CSV Record. 
 Input records with a null input field propagate all other fields and set fields that
 would otherwise be parsed by the CSVParser to null.
@@ -45,18 +42,6 @@ The input will be a csv file which will be parsed by the the CSV Parser plugin.
             "field": "body"
           }
         }
-        "outputSchema": [
-          {
-            "name": "etlSchemaBody",
-            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"id\",\"type\":\"string\"},{\"name\":\"test1\",\"type\":\"string\"},{\"name\":\"test2\",\"type\":\"string\"},{\"name\":\"servicetac\",\"type\":\"string\"},{\"name\":\"operstatus\",\"type\":\"string\"},{\"name\":\"itseverity\",\"type\":\"string\"}]}"
-          }
-        ],
-        "inputSchema": [
-          {
-            "name": "File",
-            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"offset\",\"type\":\"long\"},{\"name\":\"body\",\"type\":\"string\"}]}"
-          }
-        ]
     }
     
     
