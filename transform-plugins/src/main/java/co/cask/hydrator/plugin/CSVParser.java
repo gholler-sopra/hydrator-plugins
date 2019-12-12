@@ -199,11 +199,11 @@ public final class CSVParser extends Transform<StructuredRecord, StructuredRecor
         csvFormat = PDL;
         break;
 
-//      case "custom":
-//        csvFormat = CSVFormat.DEFAULT.withDelimiter(config.delimiter).withEscape('\\').withIgnoreEmptyLines(false)
-//          .withAllowMissingColumnNames().withQuote(null).withRecordSeparator('\n')
-//          .withIgnoreSurroundingSpaces();
-//        break;
+      case "custom":
+        csvFormat = CSVFormat.DEFAULT.withDelimiter(config.delimiter).withEscape('\\').withIgnoreEmptyLines(false)
+          .withAllowMissingColumnNames().withQuote(null).withRecordSeparator('\n')
+          .withIgnoreSurroundingSpaces();
+        break;
 
       default:
         throw new IllegalArgumentException("Format {} specified is not one of the allowed format. Allowed formats are" +
@@ -285,14 +285,14 @@ public final class CSVParser extends Transform<StructuredRecord, StructuredRecor
 
     @Nullable
     @Name("format")
-    @Description("Specify one of the predefined formats. DEFAULT, Pipe Delimited and  Tab " +
-      "Delimited are supported formats.")
+    @Description("Specify one of the predefined formats. DEFAULT, Pipe Delimited, Tab " +
+      "Delimited and Custom Delimeted are supported formats.")
     private String format;
 
-//    @Nullable
-//    @Description("Custom delimiter to be used for parsing the fields. The custom delimiter can only be specified by " +
-//      "selecting the option 'Custom' from the format drop-down. In case of null, defaults to ','.")
-//    private Character delimiter;
+    @Nullable
+    @Description("Custom delimiter to be used for parsing the fields. The custom delimiter can only be specified by " +
+      "selecting the option 'Custom' from the format drop-down. In case of null, defaults to ','.")
+    private Character delimiter;
 
     @Name("field")
     @Description("Specify the field that should be used for parsing into CSV. Input records with a null input field " +
@@ -305,7 +305,7 @@ public final class CSVParser extends Transform<StructuredRecord, StructuredRecor
 
     public Config(@Nullable String format, @Nullable Character delimiter, String field, String schema) {
       this.format = format == null ? "DEFAULT" : format;
-//      this.delimiter = delimiter;
+      this.delimiter = delimiter;
       this.field = field;
       this.schema = schema;
     }
@@ -327,12 +327,12 @@ public final class CSVParser extends Transform<StructuredRecord, StructuredRecor
                                                            "are %s", format, Joiner.on(", ").join(FORMATS)));
       }
 
-//      if (format.equalsIgnoreCase("Custom") && (delimiter == null || delimiter == 0)) {
-//        throw new IllegalArgumentException("Please specify the delimiter for format option 'Custom'.");
-//      }
-//      if (!format.equalsIgnoreCase("Custom") && delimiter != null && delimiter != 0) {
-//        throw new IllegalArgumentException("Custom delimiter can only be used for format option 'Custom'.");
-//      }
+      if (format.equalsIgnoreCase("Custom") && (delimiter == null || delimiter == 0)) {
+        throw new IllegalArgumentException("Please specify the delimiter for format option 'Custom'.");
+      }
+      if (!format.equalsIgnoreCase("Custom") && delimiter != null && delimiter != 0) {
+        throw new IllegalArgumentException("Custom delimiter can only be used for format option 'Custom'.");
+      }
     }
   }
 }

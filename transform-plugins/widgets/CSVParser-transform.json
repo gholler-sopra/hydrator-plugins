@@ -22,13 +22,14 @@
             "values": [
               "DEFAULT",
               "Pipe Delimited",
-              "Tab Delimited"
+              "Tab Delimited",
+              "Custom"
             ],
             "default": "DEFAULT"
           }
         },
         {
-          "widget-type": "hidden",
+          "widget-type": "textbox",
           "label": "Custom Delimiter",
           "name": "delimiter"
         }
