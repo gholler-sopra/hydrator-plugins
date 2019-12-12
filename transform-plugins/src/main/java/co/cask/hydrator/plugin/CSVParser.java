@@ -207,7 +207,7 @@ public final class CSVParser extends Transform<StructuredRecord, StructuredRecor
 
       default:
         throw new IllegalArgumentException("Format {} specified is not one of the allowed format. Allowed formats are" +
-                                             "DEFAULT, Pipe Delimited and Tab Delimited ");
+                                             "DEFAULT, Pipe Delimited, Tab Delimited and Custom Delimeted ");
     }
 
     try {
