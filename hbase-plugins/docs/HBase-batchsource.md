@@ -2,7 +2,7 @@
 
 ## Definition
 
-HBase Batch Source is a Guavus Enterprise Accelerator that is used when you want to read from a column family in an HBase table
+HBase Batch Source is a Guavus Enterprise Accelerator that is used when you want to read from a column family in an HBase table.
 
 Description
 -----------
