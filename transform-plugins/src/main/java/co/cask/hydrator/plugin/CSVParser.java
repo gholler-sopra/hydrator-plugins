@@ -207,8 +207,7 @@ public final class CSVParser extends Transform<StructuredRecord, StructuredRecor
 
       default:
         throw new IllegalArgumentException("Format {} specified is not one of the allowed format. Allowed formats are" +
-                                             "DEFAULT, EXCEL, MYSQL, RFC4180, Pipe Delimited and Tab Delimited or " +
-                                             "Custom");
+                                            "DEFAULT, Pipe Delimited, Tab Delimited and Custom Delimeted ");
     }
 
     try {
@@ -286,8 +285,8 @@ public final class CSVParser extends Transform<StructuredRecord, StructuredRecor
 
     @Nullable
     @Name("format")
-    @Description("Specify one of the predefined formats. DEFAULT, EXCEL, MYSQL, RFC4180, Pipe Delimited, Tab " +
-      "Delimited and Custom are supported formats.")
+    @Description("Specify one of the predefined formats. DEFAULT, Pipe Delimited, Tab " +
+            "Delimited and Custom Delimeted are supported formats.")
     private String format;
 
     @Nullable
