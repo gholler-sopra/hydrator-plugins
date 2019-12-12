@@ -28,7 +28,7 @@
           }
         },
         {
-          "widget-type": "textbox",
+          "widget-type": "hidden",
           "label": "Custom Delimiter",
           "name": "delimiter"
         }
