@@ -30,3 +30,57 @@ Configuration
 Use any columnar format like ORC, Parquet etc. 
 
 
+Example
+-------
+The input will be a csv file which will be passed to the the Field Encryptor plugin.
+We will specify the input fields which we want to encrypt in the output.
+
+    id,test1,test2,servicetac,operstatus,itseverity
+    0,testA,testB,0.0,Active,1
+    1,testA,testB,1.0,Active,2
+    2,testA,testB,2.0,Active,3
+    3,testA,testB,3.0,Active,4
+    4,testA,testB,4.0,Active,5
+    5,testA,testB,5.0,Active,6
+
+PLugin Configuration Details
+----------------------------
+
+    {
+        "name": "Field Encryptor",
+        "plugin": {
+          "name": "Encryptor",
+          "type": "transform",
+          "label": "Field Encryptor",
+          "properties": {
+            "encryptFields": "id",
+            "transformation": "RSA",
+            "keystorePath": "/tmp/keystore.jks",
+            "keystorePassword": "*******",
+            "keystoreType": "JKS",
+            "keyAlias": "security002-mst-01.cloud.in.guavus.com",
+            "keyPassword": "*******"
+          }
+    }
+    
+Here we have Added ID field to be encrypted
+The Output format will be 
+
+    {
+     "name": "etlSchemaBody",
+     "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"id\",\"type\":[\"bytes\",\"null\"]},{\"name\":\"test1\",\"type\":[\"string\",\"null\"]},{\"name\":\"test2\",\"type\":[\"string\",\"null\"]},{\"name\":\"servicetac\",\"type\":[\"string\",\"null\"]},{\"name\":\"operstatus\",\"type\":[\"string\",\"null\"]},{\"name\":\"manager\",\"type\":[\"string\",\"null\"]},{\"name\":\"itseverity\",\"type\":[\"string\",\"null\"]}]}"
+    }   
+    
+Sample Output
+-------------
+
+    +--------------------+-----+-----+----------+----------+----------+
+    |       id           |test1|test2|servicetac|operstatus|itseverity|
+    +--------------------+-----+-----+----------+----------+----------+
+    |  [B@62da34ab       |testA|testB|       0.0|    Active|         1|
+    |  [B@58d0af5b       |testA|testB|       1.0|    Active|         2|
+    |  [B@5a03b0c6       |testA|testB|       2.0|    Active|         3|
+    |  [B@722cba58       |testA|testB|       3.0|    Active|         4|
+    |  [B@132a626a       |testA|testB|       4.0|    Active|         5|
+    |  [B@4e5dad23       |testA|testB|       5.0|    Active|         6|
+    +--------------------+-----+-----+----------+----------+----------+
