@@ -29,8 +29,8 @@ Configuration
 **Note**: Do not use sink plugins that store data in textual format because Field Encryptor converts the field values to `bytes` and text based sink plugin will convert bytes to string at the time of writing the data.
 Use any columnar format like ORC, Parquet etc. 
 
-Sample Input
--------------
+Example
+-------
 The input will be a csv file which will be passed to the the Field Encryptor plugin.
 We will specify the input fields which we want to encrypt in the output.
 
@@ -74,12 +74,12 @@ Sample Output
 -------------
 
     +--------------------+-----+-----+----------+----------+----------+
-    |                  id|test1|test2|servicetac|operstatus|itseverity|
+    |       id           |test1|test2|servicetac|operstatus|itseverity|
     +--------------------+-----+-----+----------+----------+----------+
-    |java.nio.HeapByte...|testA|testB|       0.0|    Active|         1|
-    |java.nio.HeapByte...|testA|testB|       1.0|    Active|         2|
-    |java.nio.HeapByte...|testA|testB|       2.0|    Active|         3|
-    |java.nio.HeapByte...|testA|testB|       3.0|    Active|         4|
-    |java.nio.HeapByte...|testA|testB|       4.0|    Active|         5|
-    |java.nio.HeapByte...|testA|testB|       5.0|    Active|         6|
+    |  [B@62da34ab       |testA|testB|       0.0|    Active|         1|
+    |  [B@58d0af5b       |testA|testB|       1.0|    Active|         2|
+    |  [B@5a03b0c6       |testA|testB|       2.0|    Active|         3|
+    |  [B@722cba58       |testA|testB|       3.0|    Active|         4|
+    |  [B@132a626a       |testA|testB|       4.0|    Active|         5|
+    |  [B@4e5dad23       |testA|testB|       5.0|    Active|         6|
     +--------------------+-----+-----+----------+----------+----------+
