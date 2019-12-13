@@ -12,8 +12,7 @@ HBase Batch Source differs from the Table source for the fact that it does not u
 Use Case
 --------
 
-Consider a scenario wherein you want to read from an HBase table, filter some records out,
-then write the results to a Database table. 
+Consider a scenario wherein you want to read from an HBase table, filter some records out, and then write the results to a Database table. 
 
 Properties
 ----------
@@ -24,8 +23,7 @@ Properties
 
 **columnFamily:** The name of the column family to read from. (Macro-enabled)
 
-**schema:** Schema of records read from the table. Row columns map to record fields. For example, if the schema contains a field named 'user' of type string, the value
-of that field will be taken from the value stored in the 'user' column. Only simple types
+**schema:** Schema of records read from the table. Row columns map to record fields. For example, if the schema contains a field named 'user' of type string, the value of that field will be taken from the value stored in the 'user' column. Only simple types
 are allowed (boolean, int, long, float, double, bytes, string).
 
 **rowField:** Optional field name indicating that the field value should come from the row key instead of a row column. The field name specified must be present in the schema, and must not be nullable.
