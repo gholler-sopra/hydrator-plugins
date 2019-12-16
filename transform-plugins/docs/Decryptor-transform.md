@@ -46,7 +46,7 @@ else keystore file must be present on every slave node of the cluster.
 
 **Plugin Configuration**
 
-`To dencrypt 'name' and 'protocol' fields from input`
+`To decrypt 'name' and 'protocol' fields from input`
 ```
 {
   "name": "Field Decrypter",
