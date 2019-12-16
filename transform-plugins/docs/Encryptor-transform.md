@@ -1,21 +1,24 @@
 # Encryptor Transform
 
 
-Description
------------
+## Description
 Encrypts one or more fields in input records using a java keystore 
 that must be present on all nodes of the cluster.
 
 
-Configuration
--------------
+## Configuration
 **encyrptFields** Specifies the fields to encrypt, separated by commas.
+
+***Note:*** Only `int`, `long`, `float`, `double`, `string` and `bytes` formats are supported.
 
 **transformation** Transformation algorithm/mode/padding. For example, AES/CBC/PKCS5Padding.
 
 **ivHex** The initialization vector if using CBC mode.
 
-**keystorePath** The path to the keystore on local disk. The keystore must be present on every node of the cluster.
+**keystorePath** Absolute path of the keystore file.
+If keystore path is configured in property `program.container.dist.jars` of `cdap-site.xml`
+then keystore file must be present on both CDAP master nodes,
+else keystore file must be present on every slave node of the cluster.
 
 **keystorePassword** The password for the keystore.
 
@@ -29,57 +32,58 @@ Configuration
 **Note**: Do not use sink plugins that store data in textual format because Field Encryptor converts the field values to `bytes` and text based sink plugin will convert bytes to string at the time of writing the data.
 Use any columnar format like ORC, Parquet etc. 
 
-Example
--------
-The input will be a csv file which will be passed to the the Field Encryptor plugin.
-We will specify the input fields which we want to encrypt in the output.
 
-    id,test1,test2,servicetac,operstatus,itseverity
-    0,testA,testB,0.0,Active,1
-    1,testA,testB,1.0,Active,2
-    2,testA,testB,2.0,Active,3
-    3,testA,testB,3.0,Active,4
-    4,testA,testB,4.0,Active,5
-    5,testA,testB,5.0,Active,6
+## Example
 
-PLugin Configuration Details
-----------------------------
+**Input Data**
 
-    {
-        "name": "Field Encryptor",
-        "plugin": {
-          "name": "Encryptor",
-          "type": "transform",
-          "label": "Field Encryptor",
-          "properties": {
-            "encryptFields": "id",
-            "transformation": "RSA",
-            "keystorePath": "/tmp/keystore.jks",
-            "keystorePassword": "*******",
-            "keystoreType": "JKS",
-            "keyAlias": "security002-mst-01.cloud.in.guavus.com",
-            "keyPassword": "*******"
-          }
+```
++==========================================================================+
+|   name   |   type   | connects | sourceport | destinationport | protocol |
++==========================================================================+
+|  C5089   | computer | C24735   |  N10798    |   N46           |   6      |
+|  C11573  | computer | C5736    |   111      |   N10801        |   17     |
+|  C5736   | computer | C11573   |  N10801    |   111           |   17     |
+|  C2270   | computer | C5721    |  N10490    |   22            |   6      |
++==========================================================================+
+```
+
+**Plugin Configuration**
+
+`To encrypt 'name' and 'protocol' fields from input`
+```
+{
+  "name": "Field Encryptor",
+  "plugin": {
+    "name": "Encryptor",
+    "type": "transform",
+    "label": "Field Encryptor",
+    "artifact": {
+      "name": "transform-plugins",
+      "version": "2.1.1-SNAPSHOT",
+      "scope": "SYSTEM"
+    },
+    "properties": {
+      "encryptFields": "name,protocol",
+      "transformation": "AES",
+      "keystorePath": "/tmp/aes-keystore.jck",
+      "keystorePassword": "mystorepass",
+      "keystoreType": "JCEKS",
+      "keyAlias": "jceksaes",
+      "keyPassword": "mykeypass"
     }
-    
-Here we have Added ID field to be encrypted
-The Output format will be 
+  }
+}
+```
 
-    {
-     "name": "etlSchemaBody",
-     "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"id\",\"type\":[\"bytes\",\"null\"]},{\"name\":\"test1\",\"type\":[\"string\",\"null\"]},{\"name\":\"test2\",\"type\":[\"string\",\"null\"]},{\"name\":\"servicetac\",\"type\":[\"string\",\"null\"]},{\"name\":\"operstatus\",\"type\":[\"string\",\"null\"]},{\"name\":\"manager\",\"type\":[\"string\",\"null\"]},{\"name\":\"itseverity\",\"type\":[\"string\",\"null\"]}]}"
-    }   
-    
-Sample Output
--------------
-
-    +--------------------+-----+-----+----------+----------+----------+
-    |       id           |test1|test2|servicetac|operstatus|itseverity|
-    +--------------------+-----+-----+----------+----------+----------+
-    |  [B@62da34ab       |testA|testB|       0.0|    Active|         1|
-    |  [B@58d0af5b       |testA|testB|       1.0|    Active|         2|
-    |  [B@5a03b0c6       |testA|testB|       2.0|    Active|         3|
-    |  [B@722cba58       |testA|testB|       3.0|    Active|         4|
-    |  [B@132a626a       |testA|testB|       4.0|    Active|         5|
-    |  [B@4e5dad23       |testA|testB|       5.0|    Active|         6|
-    +--------------------+-----+-----+----------+----------+----------+
+**Output Data**
+```
++=======================================================================================================================================================================================+
+|                       name                                        |   type   | connects | sourceport | destinationport |                    protocol                                  |
++=======================================================================================================================================================================================+
+|  [-9,54,93,-123,-112,-61,23,30,-14,14,-39,122,108,-81,-122,-24]   | computer | C24735   |  N10798    |   N46           | [-81,56,-98,120,-26,-51,-75,-120,6,-13,-36,3,-62,62,-42,-24] |
+|  [-3,82,-72,-89,16,35,-84,-86,-94,-94,30,-83,-19,36,54,-23]       | computer | C5736    |   111      |   N10801        | [-122,49,80,99,36,7,104,108,-46,48,-30,50,14,19,122,113]     |
+|  [83,-52,-46,83,-80,-87,-114,19,42,38,61,-120,-122,18,83,-18]     | computer | C11573   |  N10801    |   111           | [-122,49,80,99,36,7,104,108,-46,48,-30,50,14,19,122,113]     |
+|  [58,-121,68,-21,91,52,57,-107,127,30,123,-103,89,-45,69,74]      | computer | C5721    |  N10490    |   22            | [-81,56,-98,120,-26,-51,-75,-120,6,-13,-36,3,-62,62,-42,-24] |
++=======================================================================================================================================================================================+
+```
