@@ -1,14 +1,12 @@
 # Decryptor Transform
 
 
-Description
------------
+## Description
 Decrypts one or more fields in input records using a keystore 
 that must be present on all nodes of the cluster.
 
 
-Configuration
--------------
+## Configuration
 **decryptFields** Specifies the fields to decrypt, separated by commas
 
 **schema** Schema to pull records from
