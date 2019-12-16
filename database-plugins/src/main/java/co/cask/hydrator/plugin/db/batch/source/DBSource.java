@@ -148,7 +148,7 @@ public class DBSource extends ReferenceBatchSource<LongWritable, DBRecord, Struc
 
   private static String removeConditionsClause(String importQuerySring) {
     //Removing toUpperCase RAFD-3397
-    //importQuerySring = importQuerySring.replaceAll("\\s{2,}", " ").toUpperCase();
+    importQuerySring = importQuerySring.replaceAll("\\s{2,}", " "); //.toUpperCase();
     if (importQuerySring.contains("WHERE $CONDITIONS AND")) {
       importQuerySring = importQuerySring.replace("$CONDITIONS AND", "");
     } else if (importQuerySring.contains("WHERE $CONDITIONS")) {
