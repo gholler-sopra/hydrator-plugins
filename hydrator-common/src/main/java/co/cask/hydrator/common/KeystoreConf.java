@@ -36,11 +36,13 @@ public class KeystoreConf extends PluginConfig {
   @Macro
   private String ivHex;
 
-  @Description("Path to the keystore on local disk; the keystore must be present on every node of the cluster")
+  @Description("Absolute path of the keystore file." +
+          " If keystore path is configured in property `program.container.dist.jars` of `cdap-site.xml` " +
+          "then keystore file must be present on both CDAP master nodes, " +
+          "else keystore file must be present on every slave node of the cluster.")
   @Macro
   private String keystorePath;
 
-  @Nullable
   @Description("Password for the keystore")
   @Macro
   private String keystorePassword;
