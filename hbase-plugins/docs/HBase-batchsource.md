@@ -12,16 +12,25 @@ HBase Batch Source differs from the Table source for the fact that it does not u
 Use Case
 --------
 
-Consider a scenario wherein you want to read from an HBase table, filter some records out, and then write the results to a Database table. 
+Consider a scenario wherein you want to read from an HBase table, filter some records out, and then write the results to a Database table.
 
 Properties
 ----------
 
-**referenceName:** This will be used to uniquely identify this source for lineage, annotating metadata, etc.
+| Variable Name  | Required | Default | Description                                                                               |
+| -------------- | -------- | ------- | ----------------------------------------------------------------------------------------- |
+| referenceName  | Yes      | N/A     | This will be used to uniquely identify this source for lineage, annotating metadata, etc. |
+| tableName      | Yes      | null    | The name of the table to read from. (Macro-enabled)                                       |
+| **columnFamily | Yes      | True    | The name of the column family to read from. (Macro-enabled)                               |
+|                |          |         |                                                                                           |
+|                |          |         |                                                                                           |
+|                |          |         |                                                                                           |
 
-**tableName:** The name of the table to read from. (Macro-enabled)
+**:** 
 
-**columnFamily:** The name of the column family to read from. (Macro-enabled)
+**:** 
+
+:** 
 
 **schema:** Schema of records read from the table. Row columns map to record fields. For example, if the schema contains a field named 'user' of type string, the value of that field will be taken from the value stored in the 'user' column. Only simple types
 are allowed (boolean, int, long, float, double, bytes, string).
@@ -35,7 +44,7 @@ are allowed (boolean, int, long, float, double, bytes, string).
 Example
 -------
 
-This example reads from the 'attr' column family of an HBase table named 'users':
+This example reads from the 'attr' column family of an HBase table named 'users'
 
 ```json
 {
@@ -69,4 +78,4 @@ It outputs records with this schema:
 | name       | string |
 | birthyear  | int    |
 
-The 'id' field will be read from the row key of the table. The 'name' field will be read from the 'name' column in the table. The 'birthyear' field will be read from the 'birthyear' column in the table. Any other columns in the Table will be ignored by the source.
+The 'id' field will be read from the row key of the table. The 'name' field will be read from the 'name' column in the table. The 'birthyear' field will be read from the 'birthyear' column in the table. Any other columns in the Table will be ignored by the source. 
