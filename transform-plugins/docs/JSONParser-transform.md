@@ -147,3 +147,83 @@ can be only be applied where the expression results in an array.
     | mapping | Mapping specifying output field name to input JSON path for extracting the field |
     | schema  | Specifies the output schema for the JSON Record                                  |
     +============================================================================================+
+
+
+
+
+
+
+
+
+
+
+
+## Example
+
+
+
+**Input Data**
+
+```
++=====================================================================================+
+| id | team  |                       employee_details                                 |
++=====================================================================================+
+| 1  | HR    | {"employee":{"name":{"first":"Joltie","last":"Neutrino"},              |
+|    |       | "email":"joltie.neutrino@gmail.com",                                   |
+|    |       | "address":{"street1":"666,MarsStreet",                                 |
+|    |       | "street2":"","apt":"","city":"Marshfield","state":"MR","zip":34553423, |
+|    |       | "country":"Marshyland"}}}                                              |
+| 2  | Admin | {"employee":{"name":{"first":"John","last":"Cena"},                    |
+|    |       | "email":"jcena.wwe@gmail.com","address":{"street1":"5F,138","street2": |
+|    |       | "AOC","apt":"apt12","city":"dummy_city 1","state":"NY",                |
+|    |       | "zip":34511423,"country":"Marshyland"}}}                               |
++=====================================================================================+
+```
+
+**Plugin Configurations**
+
+`To extract 'first', 'state' and 'email' fields from employee_details json`
+
+`Json Path Mappings`
+
+```
++=========================================+
+| first       | $.employee.name.first     |
+|-----------------------------------------|
+| state       | $.employee.address.state  |
+|-----------------------------------------|
+| email       | $.employee.email          |
++=========================================+
+```
+
+```
+{
+    "name": "JSONParser",
+    "plugin": {
+        "name": "JSONParser",
+        "type": "transform",
+        "label": "JSONParser",
+        "artifact": {
+            "name": "transform-plugins",
+            "version": "2.1.1-SNAPSHOT",
+            "scope": "SYSTEM"
+        },
+        "properties": {
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"first\",\"type\":[\"string\",\"null\"]},{\"name\":\"state\",\"type\":[\"string\",\"null\"]},{\"name\":\"email\",\"type\":[\"string\",\"null\"]}]}",
+            "mapping": "first:$.employee.name.first,state:$.employee.address.state,email:$.employee.email",
+            "field": "employee_details"
+        }
+    }
+}
+```
+
+**Output Data**
+
+```
++=================================================+
+|  first  |   state   |          email            |                                                      |
++=================================================+
+| Joltie  |    MR     | joltie.neutrino@gmail.com |
+| John    |    NY     | jcena.wwe@gmail.com       |
++=================================================+
+```
