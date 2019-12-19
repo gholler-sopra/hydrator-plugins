@@ -10,6 +10,7 @@ The accelerator supports SNAPPY, ZIP, and GZIP types of compression.
 Configuration
 -------------
 You need to specify the following configuration for the accelerator:
+
 **compressor:** List of key value pairs. Key represents the input field that needs to be compressed and Value represents the compression algorithm to be used.
 
 **Output Schema:** Output schema will be same as the input schema except one difference that the compressed fields in the output schema will have the same field name but type as *Non-nullable* ``BYTES``.
