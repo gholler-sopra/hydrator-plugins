@@ -3,13 +3,15 @@
 
 Description
 -----------
-Writes to a filesystem in various formats.
+File Sink is a Guavus Enterprise Accelerator that writes to a filesystem in various formats. 
+For the `csv`, `delimited`, and `tsv` formats, each record is written out as delimited text. 
+Complex types like arrays, maps, and records will be converted to strings using the ``toString()`` Java method. So for practical use, fields should be limited to the string, long, int, double, float, and boolean types.
 
-For the `csv`, `delimited`, and `tsv` formats: each record is written out as delimited text. Complex types like arrays, maps, and records will be converted to strings using the ``toString()`` Java method. So for practical use, fields should be limited to the string, long, int, double, float, and boolean types.
+For the `avro` or `parquet` formats, all types are supported.
 
-`avro` or `parquet` formats :  all types are supported.
+For the `orc` format, string, long, int, double, float, boolean and array types are supported.
 
-`orc` format : string, long, int, double, float, boolean and array types are supported 
+Configure this accelerator as explained in the following sections.
 
 Properties
 ----------
