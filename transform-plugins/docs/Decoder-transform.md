@@ -3,20 +3,22 @@
 
 Description
 -----------
-Decodes configured fields. Multiple fields can be specified to be decoded using different decoding methods.
-Available decoding methods are ``STRING_BASE64``, ``BASE64``, ``BASE32``, ``STRING_BASE32``, and ``HEX``.
+Decoder transform is used for decoding the fields of a dataset using a decoding method. You can specify multiple fields to be decoded using different decoding methods.
+The available decoding methods are ``STRING_BASE64``, ``BASE64``, ``BASE32``, ``STRING_BASE32``, and ``HEX``.
 
 
 Configuration
 -------------
-**decode:** Specifies the configuration for decode fields; in JSON configuration, 
+You need to specify the following configuration for the accelerator:
+
+**decode:** Specifies the configuration for the fields to be decoded. In JSON configuration, 
 this is specified as ``<field>:<decoder>[,<field>:<decoder>]*``.
 
-**schema:** Specifies the output schema; the fields that are decoded will have the same field
-name but they will be of type ``BYTES`` or ``STRING``.
+**schema:** Specifies the output schema. The fields that are decoded will have the same field
+name, but they will be of type ``BYTES`` or ``STRING``.
 
 #### Note
-- *Input fields that need to decoded must be of type `String` or `Bytes` and non-nullable*
+- *Input fields that need to be decoded must be of type `String` or `Bytes` and non-nullable*
 
 Sample
 ---------
@@ -41,7 +43,7 @@ Sample
 |Adh Dhayd        |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QXNoIFNow4QgcmlxYWg=|323932393533|
 |Abu Dhabi        |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QWJ1IERoYWJp      |323932393638|
 
-Using below decoding schemes:
+Using the below decoding schemes:
 - **Country**    -    `Base32` decoding.
 - **subcountry** -    `Base64` decoding.
 - **geonameid**  -    `Hex` decoding.
