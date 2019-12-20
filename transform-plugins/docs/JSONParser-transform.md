@@ -6,8 +6,21 @@ Parses an input JSON event into a record. The input JSON event could be either a
 string fields to values or it could be a complex nested JSON structure. The plugin allows you
 to express JSON paths for extracting fields from complex nested input JSON.
 
+#### Configuration
+
+    +=================================================================================================================================================+ 
+    | Config  | Description                                                                                                                           |
+    |---------|---------------------------------------------------------------------------------------------------------------------------------------|
+    | field   | Specifies the input field that should be parsed as a JSON record.                                                                     |
+    | mapping | JSON Path Mapping specifying output field name to input JSON path for extracting the field. Needed only when parsing the nested JSON. |
+    | schema  | Specifies the output schema for the JSON Record                                                                                       |
+    +=================================================================================================================================================+
+
+
 ### Use Case
 JSON Parser reads the values of input column record by record, parses it as json and then extracts the values from json as per output schema.
+
+**Note**: Values of input column should be a JSON String.
 
 JSON Parser can be used to handle below two cases 
 
@@ -155,21 +168,9 @@ can be only be applied where the expression results in an array.
     +==================================================================+
 
 #### Samples example for writing the JSONPath expression
-See [here](https://github.com/json-path/JsonPath#path-examples) for sample expression.
+See [https://github.com/json-path/JsonPath#path-examples](https://github.com/json-path/JsonPath#path-examples) for sample expression.
 
-You can also do a hands on [here](http://jsonpath.herokuapp.com/).
- 
-
-#### Configuration
-
-    +=======================================================================================================================================+ 
-    | Config  | Description                                                                                                                 |
-    |---------|-----------------------------------------------------------------------------------------------------------------------------|
-    | field   | Specifies the input field that should be parsed as a JSON record.                                                           |
-    | mapping | JSON Path Mapping specifying output field name to input JSON path for extracting the field. Needed only when parsing the nested JSON. |
-    | schema  | Specifies the output schema for the JSON Record                                                                             |
-    +=======================================================================================================================================+
-
+You can also do a hands on [http://jsonpath.herokuapp.com/](http://jsonpath.herokuapp.com/).
 
 
 ## Example
