@@ -12,6 +12,9 @@ For the `avro` or `parquet` formats, all types are supported.
 
 For the `orc` format, string, long, int, double, float, boolean and array types are supported.
 
+Use Case
+-----------
+Apply any any source accelerator (es, file, kafka, etc.)
 Configure this accelerator as explained in the following sections.
 
 Properties
