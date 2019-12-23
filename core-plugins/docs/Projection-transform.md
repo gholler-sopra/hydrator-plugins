@@ -30,37 +30,31 @@ Similarly, the transform will first check if it should keep a field, and then re
 
 Use Case
 --------
-The transform is used when you need to drop fields, keep specific fields, change field types, or rename fields.
-
-For example, you may want to rename a field from ``'timestamp'`` to ``'ts'`` because you want
-to write to a database where ``'timestamp'`` is a reserved keyword. You might want to
-drop a field named ``'headers'`` because you know it is always empty for your particular
-data source. Or, you might want to only keep fields named ``'ip'`` and ``'timestamp'`` and discard 
-all other fields.
+Consider a scenario wherein you need to rename a field from ``'timestamp'`` to ``'ts'`` because you'll be writing to a database where ``'timestamp'`` is a reserved keyword. You might want to drop a field named ``'headers'`` because you know it is always empty for your particular data source. Or, you might want to only keep fields named ``'ip'`` and ``'timestamp'`` and discard all the other fields. To achieve the desired outcome, the accelerator can be configured as explained in the following section.
 
 
 Properties
 ----------
-**drop:** Comma-separated list of fields to drop. For example: ``'field1,field2,field3'``.
+**drop:** The comma-separated list of fields to drop. For example: ``'field1,field2,field3'``.
 
-**keep:** Comma-separated list of fields to keep. For example: ``'field1,field2,field3'``.
+**keep:** The comma-separated list of fields to keep. For example: ``'field1,field2,field3'``.
 
-Note: Drop and keep fields cannot *both* be specified. At least one must be null or empty.
+Note: The Drop and Keep fields cannot *both* be specified. At least one must be null or empty.
 
-**rename:** List of fields to rename. This is a comma-separated list of key-value pairs,
+**rename:** The list of fields to rename. This is a comma-separated list of key-value pairs
 where each pair is separated by a colon and specifies the input and output names.
 
 For example: ``'datestr:date,timestamp:ts'`` specifies that the ``'datestr'`` field should be
 renamed to ``'date'`` and the ``'timestamp'`` field should be renamed to ``'ts'``.
 
-**convert:** List of fields to convert to a different type. This is a comma-separated list
-of key-value pairs, where each pair is separated by a colon and specifies the field name
+**convert:** The list of fields to convert to a different type. This is a comma-separated list
+of key-value pairs where each pair is separated by a colon and specifies the field name
 and the desired type.
 
 For example: ``'count:long,price:double'`` specifies that the ``'count'`` field should be
 converted to a long and the ``'price'`` field should be converted to a double.
 
-Only simple types are supported (boolean, int, long, float, double, bytes, string). Any
+Only the simple types are supported (boolean, int, long, float, double, bytes, string). Any
 simple type can be converted to bytes or a string. Otherwise, a type can only be converted
 to a larger type. For example, an int can be converted to a long, but a long cannot be
 converted to an int.
@@ -84,7 +78,7 @@ field to a double and renames it ``'price'``.
 }
 ```
  
-For example, if the transform receives this input record:
+For example, if the transform receives the following input record:
 
 | field name | type                | value                |
 | ---------- | ------------------- | -------------------- |
@@ -93,7 +87,7 @@ For example, if the transform receives this input record:
 | headers    | map<string, string> | { "user": "samuel" } |
 | cost       | float               | 8.88                 |
 
-It will transform it to this output record:
+it will transform the input record to this output record:
 
 | field name | type                | value                |
 | ---------- | ------------------- | -------------------- |
