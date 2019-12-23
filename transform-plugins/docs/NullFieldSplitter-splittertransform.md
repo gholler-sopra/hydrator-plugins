@@ -16,9 +16,12 @@ Properties
 ----------
 **field:** This is used to specify which field should be checked for null values (Macro-enabled)
 
+**generateSchema:** This is to genrate output schema on the basis of configuration.
+
 **modifySchema:** This is to specify whether you want to modify the schema for the non-null output.
 If set to true, the schema for non-null output will be modified so that the field is no longer nullable.
 Defaults to true.
+
 
 Example
 -------
