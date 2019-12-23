@@ -5,7 +5,7 @@ Description
 -----------
 Null Field Splitter is a Guavus Enterprise Accelerator that is used when you want to split records based on whether a specific field in a record is null or not.
 
-The records with a null value for the field are sent to the ``null`` port while records with a non-null value are sent to the ``nonnull`` port.
+The records containing fields with a null value are sent to the ``null`` port while records with non-null value fields are sent to the ``nonnull`` port.
 
 Use Case
 -----------
