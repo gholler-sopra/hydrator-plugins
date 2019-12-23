@@ -3,36 +3,30 @@
 
 Description
 -----------
-The Projection transform lets you drop, keep, rename, and cast fields to a different type.
-Fields are first dropped based on the drop or keep field, then cast, then renamed.
+Projection Transform is a Guavus Enterprise Accelerator that lets you drop, keep, rename, and cast fields to a different type.
+Fields are first dropped or kept, then cast, and then renamed.
 
-For example, suppose the transform is configured to drop field 'B' and rename field 'A' to 'B'.
-If the transform receives this input record:
+For example, suppose the transform is configured to drop the field 'B' and rename the field 'A' to 'B'.
+If the transform receives the following input record:
 
-    +============================+
-    | field name | type | value  |
-    +============================+
-    | A          | int  | 10     |
-    | B          | int  | 20     |
-    +============================+
+| field name | type | value  |
+| ---------- | ---- | ------ |
+| A          | int  | 10     |
+| B          | int  | 20     |
 
 field 'B' will first be dropped:
 
-    +============================+
-    | field name | type | value  |
-    +============================+
-    | A          | int  | 10     |
-    +============================+
+| field name | type | value  |
+| ---------- | ---- | ------ |
+| A          | int  | 10     |
 
 and then field 'A' will be renamed to 'B':
 
-    +============================+
-    | field name | type | value  |
-    +============================+
-    | B          | int  | 10     |
-    +============================+
+| field name | type | value  |
+| ---------- | ---- | ------ |
+| B          | int  | 10     |
 
-Similarly, the transfrom will first check if it should keep a field, and then rename it if configured to do so.
+Similarly, the transform will first check if it should keep a field, and then rename it if configured to do so.
 
 Use Case
 --------
@@ -77,33 +71,31 @@ Example
 This example keeps only the ``'id'`` and ``'cost'`` fields. It also changes the type of the ``'cost'``
 field to a double and renames it ``'price'``.
 
-    {
-        "name": "Projection",
-        "type": "transform",
-        "properties": {
-            "drop": "",
-            "convert": "cost:double",
-            "rename": "cost:price",
-	          "keep": "id,cost"
-        }
+```json
+{
+    "name": "Projection",
+    "type": "transform",
+    "properties": {
+        "drop": "",
+        "convert": "cost:double",
+        "rename": "cost:price",
+            "keep": "id,cost"
     }
+}
+```
  
 For example, if the transform receives this input record:
 
-    +=========================================================+
-    | field name | type                | value                |
-    +=========================================================+
-    | id         | string              | "abc123"             |
-    | ts         | long                | 1234567890000        |
-    | headers    | map<string, string> | { "user": "samuel" } |
-    | cost       | float               | 8.88                 |
-    +=========================================================+
+| field name | type                | value                |
+| ---------- | ------------------- | -------------------- |
+| id         | string              | "abc123"             |
+| ts         | long                | 1234567890000        |
+| headers    | map<string, string> | { "user": "samuel" } |
+| cost       | float               | 8.88                 |
 
 It will transform it to this output record:
 
-    +=========================================================+
-    | field name | type                | value                |
-    +=========================================================+
-    | id         | string              | "abc123"             |
-    | price      | double              | 8.88                 |
-    +=========================================================+
+| field name | type                | value                |
+| ---------- | ------------------- | -------------------- |
+| id         | string              | "abc123"             |
+| price      | double              | 8.88                 |
