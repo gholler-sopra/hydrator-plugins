@@ -3,11 +3,11 @@
 
 Description
 -----------
-The Projection transform lets you drop, keep, rename, and cast fields to a different type.
-Fields are first dropped based on the drop or keep field, then cast, then renamed.
+Projection Transform is a Guavus Enterprise Accelerator that lets you drop, keep, rename, and cast fields to a different type.
+Fields are first dropped or kept, then cast, and then renamed.
 
-For example, suppose the transform is configured to drop field 'B' and rename field 'A' to 'B'.
-If the transform receives this input record:
+For example, suppose the transform is configured to drop the field 'B' and rename the field 'A' to 'B'.
+If the transform receives the following input record:
 
 | field name | type | value  |
 | ---------- | ---- | ------ |
@@ -26,7 +26,7 @@ and then field 'A' will be renamed to 'B':
 | ---------- | ---- | ------ |
 | B          | int  | 10     |
 
-Similarly, the transfrom will first check if it should keep a field, and then rename it if configured to do so.
+Similarly, the transform will first check if it should keep a field, and then rename it if configured to do so.
 
 Use Case
 --------
