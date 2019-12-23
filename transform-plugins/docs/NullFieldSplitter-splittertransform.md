@@ -10,7 +10,7 @@ The records containing fields with a null value are sent to the ``null`` port wh
 Use Case
 -----------
 
-Consider a scenario wherein you have a large number of records and you want to separate records with null values from the ones with non-null values. This can be done my making the following configurational changes.
+Consider a scenario wherein you have a large number of records and you want to separate records with null values from the ones with non-null values. This can be done by configuring the accelerator as shown in the following section.
 
 Properties
 ----------
