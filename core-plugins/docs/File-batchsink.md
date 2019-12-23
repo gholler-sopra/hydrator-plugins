@@ -14,8 +14,7 @@ For the `orc` format, string, long, int, double, float, boolean and array types 
 
 Use Case
 -----------
-Consider a scenario wherein you need to write a file to an HDFS in batch. For example, you may want to periodically dump any RDD data to HDFS in the file format like csv,tsv,json etc.
-Configure this accelerator as explained in the following sections.
+Consider a scenario wherein you need to write a file to an HDFS in batch. For example, you may want to periodically dump any RDD data to HDFS in the file format like csv,tsv,json etc. To do the same, configure the File Sink accelerator as explained in the following sections.
 
 Properties
 ----------
