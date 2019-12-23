@@ -1,9 +1,9 @@
-# File Sink
+# File Batch Sink
 
 
 Description
 -----------
-File Sink is a Guavus Enterprise Accelerator that writes to HDFS in various formats. 
+File Batch Sink is a Guavus Enterprise Accelerator that writes to HDFS in various formats. 
 
 For the `csv`, `delimited`, and `tsv` formats, each record is written out as delimited text. 
 Complex types like arrays, maps, and records will be converted to strings using the ``toString()`` Java method. So for practical use, fields should be limited to the string, long, int, double, float, and boolean types.
@@ -14,7 +14,7 @@ For the `orc` format, string, long, int, double, float, boolean and array types 
 
 Use Case
 -----------
-Apply any any source accelerator (es, file, kafka, etc.)
+Consider a scenario wherein you need to write a file to an HDFS in batch. For example, you may want to periodically dump any RDD data to HDFS in the file format like csv,tsv,json etc.
 Configure this accelerator as explained in the following sections.
 
 Properties
