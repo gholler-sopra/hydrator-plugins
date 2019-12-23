@@ -3,15 +3,20 @@
 
 Description
 -----------
-This plugin is used when you want to split records based on whether a specific field is null or not.
-Records with a null value for the field are sent to the ``null`` port while records with a non-null
-value are sent to the ``nonnull`` port.
+Null Field Splitter is a Guavus Enterprise Accelerator that is used when you want to split records based on whether a specific field in a record is null or not.
+
+The records with a null value for the field are sent to the ``null`` port while records with a non-null value are sent to the ``nonnull`` port.
+
+Use Case
+-----------
+
+Consider a scenario wherein you have a large number of records and you want to separate records with null values from the ones with non-null values. This can be done my making the following configurational changes.
 
 Properties
 ----------
-**field:** Specifies which field should be checked for null values. (Macro-enabled)
+**field:** This is used to specify which field should be checked for null values (Macro-enabled)
 
-**modifySchema:** Whether to modify the schema for non-null output.
+**modifySchema:** This is to specify whether you want to modify the schema for the non-null output.
 If set to true, the schema for non-null output will be modified so that the field is no longer nullable.
 Defaults to true.
 
@@ -29,7 +34,7 @@ Example
 }
 ```
 
-This example takes splits input based on whether the ``email`` field is null.
+This example takes the split input based on whether the ``email`` field is null.
 For example, if the input to the plugin is:
 
 | id (long) | name (string) | email (nullable string)  |
