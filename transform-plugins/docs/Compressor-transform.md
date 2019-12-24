@@ -3,26 +3,36 @@
 
 Description
 -----------
-Compresses configured fields. Multiple fields can be specified to be compressed using different compression algorithms.
-Plugin supports SNAPPY, ZIP, and GZIP types of compression of fields.
+Compressor transform is used for compressing the fields of a dataset using the configured compression algorithm. You can specify multiple fields to be compressed using different compression algorithms.
+The accelerator supports SNAPPY, ZIP, and GZIP types of compression.
 
 
 Configuration
 -------------
-**compressor:** List of key value pairs. Key represents the input field that needs to be compressed and Value represents the compression algorithm to use.
+You need to specify the following configuration for the accelerator:
 
-**Output Schema:** Output schema will be same as input schema except fields in output schema that are compressed will have the same field name 
-but they will be of type *Non-nullable* ``BYTES``.
+**compressor:** List of key value pairs. Key represents the input field that needs to be compressed and Value represents the compression algorithm to be used.
+
+**Output Schema:** Output schema will be same as the input schema except one difference that the compressed fields in the output schema will have the same field name but type as *Non-nullable* ``BYTES``.
+
+**Get Schema:**
+
+The Get Schema button is provided in UI (in the accelerator properties dialog box) which can be used to get the output schema on the basis of compressor field. The output schema is displayed in the Output Schema section. You do not need to manually change the compressor fields to bytes in the output schema.
+
 
 **Note**: 
-- Do not use sink plugins that store data in textual format because Compressor converts the field values to `bytes` and text based sink plugin will convert `bytes` to `string` at the time of writing the data.
-Use any columnar format like `ORC`, `Parquet` etc.
+- Do not use sink plugins that store data in textual format because Compressor converts the field values to `bytes` and the text-based sink plugin will convert `bytes` to `string` at the time of writing the data.
+Use any columnar format like `ORC`, `Parquet`, etc.
 - Input fields that need to compressed must be of type `String` or `Bytes` and non-nullable.
+
+Use Case
+--------
+Consider a scenario wherein you want to compress some fields of your dataset for improved performance. For instance, you apply any source accelerator to take the input as rdd and apply the Compressor accelerator to compress the desired fields, then sink the transformed output using any sink accelerator.
 
 Example
 -------
 
-This example compresses the fields fname, lname and cost of a dataset using the compression format provided with the field.
+This example compresses the fields fname, lname, and cost of a dataset using the compression format provided with the field.
 
 ```
 {
