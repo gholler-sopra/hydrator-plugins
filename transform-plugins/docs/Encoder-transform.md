@@ -21,7 +21,7 @@ You need to specify the following configuration for the accelerator:
 
 Use Case
 --------
-Consider a scenario wherein you want to encode some fields of your dataset for efficient storage and data transfer. For instance, you apply any source accelerator to take the input as rdd and apply the Encoder accelerator to encode the desired fields, then sink the transformed output using any sink accelerator.
+Consider a scenario wherein you want to encode some fields of your dataset for securing data fields from external users. For instance, you apply any source accelerator to take the input as rdd and apply the Encoder accelerator to encode the desired fields, then sink the transformed output using any sink accelerator.
 
 
 
