@@ -19,6 +19,12 @@ You need to specify the following configuration for the accelerator:
 - *Input fields that need to be encoded must be of type `String` or `Bytes` and non-nullable*
 
 
+Use Case
+--------
+Consider a scenario wherein you want to encode some fields of your dataset for efficient storage and data transfer. For instance, you apply any source accelerator to take the input as rdd and apply the Encoder accelerator to encode the desired fields, then sink the transformed output using any sink accelerator.
+
+
+
 Sample
 ---------
 ### Input data
