@@ -20,6 +20,12 @@ name, but they will be of type ``BYTES`` or ``STRING``.
 #### Note
 - *Input fields that need to be decoded must be of type `String` or `Bytes` and non-nullable*
 
+
+Use Case
+--------
+Consider a scenario wherein you want to decode some fields of your dataset which were previously encoded using an encoding scheme. For instance, you apply any source accelerator to take the input as rdd and apply the Decoder accelerator to decode the desired fields, then save the transformed output by applying any sink accelerator.
+
+
 Sample
 ---------
 
