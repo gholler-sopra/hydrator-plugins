@@ -3,21 +3,26 @@
 
 Description
 -----------
-Encodes configured fields. Multiple fields can be specified to be encoded using different encoding methods.
-Available encoding methods are ``BASE64``, ``BASE32``, and ``HEX``. `STRING_BASE32` and `STRING_BASE64` are also supported but they work similar to `BASE32` and `BASE64`, only difference
-is that they first encode the values as string and then convert it to bytes instead of directly converting to encoded bytes.
+Encoder transform is used for encoding the fields of a dataset using an encoding method. You can specify multiple fields to be encoded using different encoding methods.
+The available encoding methods are ``BASE64``, ``BASE32``, and ``HEX``. `STRING_BASE32` and `STRING_BASE64` are also supported, which work similar to `BASE32` and `BASE64` with the only difference that they first encode the values as string, and then convert them to bytes instead of directly converting to encoded bytes.
 
 
 Configuration
 -------------
-**encode:** Specifies the configuration for encode fields; in JSON configuration, 
-this is specified as ``<field>:<encoder>[,<field>:<encoder>]*``.
+You need to specify the following configuration for the accelerator:
 
-**schema:** Specifies the output schema; the fields that are encoded will have the same field name 
-but they will be of type ``BYTES`` or ``STRING``.
+**encode:** Specifies the configuration for the fields to be encoded. In JSON configuration, this is specified as ``<field>:<encoder>[,<field>:<encoder>]*``.
+
+**schema:** Specifies the output schema. The fields that are encoded will have the same field name, but they will be of type ``BYTES`` or ``STRING``.
 
 #### Note
-- *Input fields that need to encoded must be of type `String` or `Bytes` and non-nullable*
+- *Input fields that need to be encoded must be of type `String` or `Bytes` and non-nullable*
+
+
+Use Case
+--------
+Consider a scenario wherein you want to encode some fields of your dataset for securing data fields from external users. For instance, you apply any source accelerator to take the input as rdd and apply the Encoder accelerator to encode the desired fields, then sink the transformed output using any sink accelerator.
+
 
 
 Sample
@@ -41,7 +46,7 @@ Sample
 |Adh Dhayd        |United Arab Emirates|Ash ShÄriqah     |292953   |
 |Abu Dhabi        |United Arab Emirates|Abu Dhabi         |292968   |
 
-For above data using below encoding schemes:
+For the above sample data, we will use the following encoding schemes:
 
 - **country**     -   `Base32` encoding.
 - **subcountry**  -   `Base64` encoding.
