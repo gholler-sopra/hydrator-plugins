@@ -7,6 +7,10 @@ Formats a Structured Record as a CSV Record. Supported CSV Record formats are ``
 ``EXCEL``, ``MYSQL``, ``RFC4180``, and ``TDF``. When the format is ``DELIMITED``, one can specify different
 delimiters that a CSV Record should use for separating fields.
 
+Use Case
+--------
+This plugin will convert each row of input data to csv record.
+
 
 Configuration
 -------------
