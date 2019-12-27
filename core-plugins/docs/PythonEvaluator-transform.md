@@ -31,6 +31,16 @@ The transform checks each record's ``'subtotal'`` field: if the ``'subtotal'`` i
 else, it calculates the ``'tax'`` and ``'total'`` fields based on the ``'subtotal'``, and then returns a record
 as a Python dictionary containing those three fields, with the error records written to the configured error collector:
 
+#####Input
+|index|subtotal|
+|-----|--------|
+|1    |2354    |
+|2    |984     |
+|3    |98      |
+|4    |9       |
+|5    |55555   |
+
+
     {
         "name": "PythonEvaluator",
         "type": "transform",
@@ -43,9 +53,9 @@ as a Python dictionary containing those three fields, with the error records wri
                          'invalidRecord': record,
                        })
                      else:
-                       taxrate = float(context.getArguments().get('taxrate'))
+                       taxrate = 2000
                        tax = record['subtotal'] * taxrate
-                       if (tax > 1000.0):
+                       if (tax > 1000):
                          context.getMetrics().count('tax.above.1000', 1)
                        emitter.emit({
                          'subtotal': record['subtotal'],
@@ -64,3 +74,13 @@ as a Python dictionary containing those three fields, with the error records wri
             }"
         }
     }
+
+#####Output
+|index|subtotal|tax      |total    |
+|-----|--------|---------|---------|
+|1    |2354    |4708000  |4710354  |
+|2    |984     |1968000  |1968984  |
+|3    |98      |196000   |196098   |
+|4    |9       |18000    |18009    |
+|5    |55555   |111110000|111165555|
+
