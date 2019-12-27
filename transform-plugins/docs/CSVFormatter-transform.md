@@ -16,3 +16,47 @@ Configuration
 this option is available when the format is specified as ``DELIMITED``.
 
 **schema:** Specifies the output schema. Output schema should only have fields of type String.
+
+## Sample Pipeline
+
+```
+    {
+        "name": "CSVFormatter",
+        "plugin": {
+          "name": "CSVFormatter",
+          "type": "transform",
+          "label": "CSVFormatter",
+          "artifact": {
+            "name": "transform-plugins",
+            "version": "2.1.1-SNAPSHOT_5.1.2047",
+            "scope": "SYSTEM"
+        },
+          "properties": {
+            "format": "DELIMITED",
+            "delimiter": "COMMA",
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"body\",\"type\":\"string\"}]}"
+        }
+    }
+
+```
+
+## Sample Input
+
+|name   |id |age|
+|-------|---|---|
+|john   |1  |10 |
+|daniel |2  |20 |
+|sam    |3  |50 |
+|albert |5  |10 |
+|charles|1  |10 |
+
+
+## Sample Output
+
+|body   |
+|-------|
+|john,1,10|
+|daniel,2,20|
+|sam,3,50|
+|albert,5,10|
+|charles,1,10|
