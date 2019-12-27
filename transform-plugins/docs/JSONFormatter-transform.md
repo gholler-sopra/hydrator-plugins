@@ -8,6 +8,11 @@ JSON object and write to the output record. The output record schema is a single
 either type ``STRING`` or type ``BYTE`` array.
 
 
+Use Case
+--------
+This plugin will convert each row of the input record to json data.
+
+
 Configuration
 -------------
 **schema:** Specifies the output schema, a single field either type ``STRING`` or type ``BYTES``.

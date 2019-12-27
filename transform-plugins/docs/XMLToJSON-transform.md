@@ -4,8 +4,11 @@
 Description
 -----------
 Accepts a field that contains a properly-formatted XML string and 
-outputs a properly-formatted JSON string version of the data. This is 
-meant to be used with the Javascript transform for the parsing of 
+outputs a properly-formatted JSON string version of the data.
+
+Use Case
+--------
+This plugin can be used with the Javascript transform for the parsing of 
 complex XML documents into parts. Once the XML is a JSON string, you 
 can convert it into a Javascript object using:
 
