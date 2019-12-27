@@ -6,12 +6,32 @@ Parses an input JSON event into a record. The input JSON event could be either a
 string fields to values or it could be a complex nested JSON structure. The plugin allows you
 to express JSON paths for extracting fields from complex nested input JSON.
 
-## Parsing Simple JSON
+#### Configuration
+
+    +=================================================================================================================================================+ 
+    | Config  | Description                                                                                                                           |
+    |---------|---------------------------------------------------------------------------------------------------------------------------------------|
+    | field   | Specifies the input field that should be parsed as a JSON record.                                                                     |
+    | mapping | JSON Path Mapping specifying output field name to input JSON path for extracting the field. Needed only when parsing the nested JSON. |
+    | schema  | Specifies the output schema for the JSON Record                                                                                       |
+    +=================================================================================================================================================+
+
+
+### Use Case
+JSON Parser reads the values of input column record by record, parses it as json and then extracts the values from json as per output schema.
+
+**Note**: Values of input column should be a JSON String.
+
+JSON Parser can be used to handle below two cases 
+
+##### 1. Parsing Simple JSON
 
 Simple JSON (which is defined as a mapping from key to value) parsing is achieved
 by specifying just the output schema fields. The field name in the output schema
 should be the same as the key in the input JSON. The type of the output field should also be the
 same type as the input value. No implicit conversions are performed on the JSON values.
+
+When parsing a simple JSON, no need to specify json path mapping.
 
 Here is an example of an event that is to be mapped to the output schema:
 
@@ -48,13 +68,15 @@ The output schema should be specified as:
 **Note:** The field "planet" has not been included in the output schema, meaning that the
 field would be ignored and not processed when the JSON event is mapped. 
 
-## Parsing Nested JSON
+##### 2. Parsing Nested JSON
 
 Parser also allows the extracting of fields from a complex nested JSON. In order to extract
-fields, it uses JSON paths similar to the XPath expressions for XML. To extract fields using an
-expression in JSON, this plugin uses the 'JsonPath' library. The plugin allows you to define a
+fields, it uses JSON path mapping similar to the XPath expressions for XML. To extract fields using an
+expression in JSON, this plugin uses the **JsonPath** library. The plugin allows you to define a
 mapping from the output fieldname to the JSON path expression that is to be applied on input to
-extract the value from the JSON event. For example, if you have this nested JSON:
+extract the value from the JSON event.
+
+For example, if you have this nested JSON:
 
     {
       "employee" : {
@@ -101,12 +123,19 @@ The mappings in the plugin will be:
     | zip               | $.employee.address.zip     |
     | country           | $.employee.address.country |
     +================================================+
+    
+## JSONPath
+As stated earlier JSONPath is query language for JSON. Below section explains how to use it to write the path mapping.
 
 ### Expression
+A JSONPath expression specifies a path to an element(or a set of elements) in a JSON structure.
 
 The "root member object" for parsing any JSON is referred to as ```$```, regardless of
-whether it's an array or an object. It also uses either dot notation or bracket notation for
-defining the levels of parsing. For example: ```$.employee.name``` or ```$['employee']['name']```.
+whether it's an array or an object.
+
+JsonPath expressions can use the dot–notation ```$.employee.name``` or the bracket notation ```$['employee']['name']``` to access the nested JSON values.
+
+JSONPath expressions supports different types of operators and functions that can help in parsing the complex nested JSON.
 
 #### Supported Operators
 
@@ -136,14 +165,78 @@ can be only be applied where the expression results in an array.
     | avg      | double | Average value of array of numbers            |
     | stddev   | double | Standard deviation value of array of numbers |
     | length   | int    | Length of the array                          |
-    +==================================================================+ 
+    +==================================================================+
 
-#### Configuration
+#### Samples example for writing the JSONPath expression
+See [https://github.com/json-path/JsonPath#path-examples](https://github.com/json-path/JsonPath#path-examples) for sample expression.
 
-    +============================================================================================+ 
-    | Config  | Description                                                                      |
-    |---------|----------------------------------------------------------------------------------|
-    | field   | Specifies the input field that should be parsed as a CSV Record                  |
-    | mapping | Mapping specifying output field name to input JSON path for extracting the field |
-    | schema  | Specifies the output schema for the JSON Record                                  |
-    +============================================================================================+
+You can also do a hands on [http://jsonpath.herokuapp.com/](http://jsonpath.herokuapp.com/).
+
+
+## Example
+
+**Input Data**
+
+```
++=====================================================================================+
+| id | team  |                       employee_details                                 |
++=====================================================================================+
+| 1  | HR    | {"employee":{"name":{"first":"Joltie","last":"Neutrino"},              |
+|    |       | "email":"joltie.neutrino@gmail.com",                                   |
+|    |       | "address":{"street1":"666,MarsStreet",                                 |
+|    |       | "street2":"","apt":"","city":"Marshfield","state":"MR","zip":34553423, |
+|    |       | "country":"Marshyland"}}}                                              |
+| 2  | Admin | {"employee":{"name":{"first":"John","last":"Cena"},                    |
+|    |       | "email":"jcena.wwe@gmail.com","address":{"street1":"5F,138","street2": |
+|    |       | "AOC","apt":"apt12","city":"dummy_city 1","state":"NY",                |
+|    |       | "zip":34511423,"country":"Marshyland"}}}                               |
++=====================================================================================+
+```
+
+**Plugin Configurations**
+
+`To extract 'first', 'state' and 'email' fields from employee_details json`
+
+`Json Path Mappings`
+
+```
++=========================================+
+| first       | $.employee.name.first     |
+|-----------------------------------------|
+| state       | $.employee.address.state  |
+|-----------------------------------------|
+| email       | $.employee.email          |
++=========================================+
+```
+
+```
+{
+    "name": "JSONParser",
+    "plugin": {
+        "name": "JSONParser",
+        "type": "transform",
+        "label": "JSONParser",
+        "artifact": {
+            "name": "transform-plugins",
+            "version": "2.1.1-SNAPSHOT",
+            "scope": "SYSTEM"
+        },
+        "properties": {
+            "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"first\",\"type\":[\"string\",\"null\"]},{\"name\":\"state\",\"type\":[\"string\",\"null\"]},{\"name\":\"email\",\"type\":[\"string\",\"null\"]}]}",
+            "mapping": "first:$.employee.name.first,state:$.employee.address.state,email:$.employee.email",
+            "field": "employee_details"
+        }
+    }
+}
+```
+
+**Output Data**
+
+```
++=================================================+
+|  first  |   state   |          email            |                                                      |
++=================================================+
+| Joltie  |    MR     | joltie.neutrino@gmail.com |
+| John    |    NY     | jcena.wwe@gmail.com       |
++=================================================+
+```
