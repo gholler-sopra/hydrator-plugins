@@ -3,13 +3,13 @@
 
 Description
 -----------
-Parses an input field as a CSV Record into a Structured Record. Supports multi-line CSV Record parsing
-into multiple Structured Records. Different formats of CSV Record can be parsed using this plugin.
-Supports these CSV Record types: ``DEFAULT``, ``Tab Delimited``, ``Pipe Delimited`` and ``Custom Delimeted``.
+CSV Parser is a Guavus Enterprise Accelerator that parses an input field as a CSV Record into a Structured Record. 
+
+This accelerator supports parsing of multi-line CSV Record into multiple Structured Records. Different formats of CSV Record can be parsed using this CSV Parser. It supports these CSV Record types: ``DEFAULT``, ``Tab Delimited``, ``Pipe Delimited`` and ``Custom Delimeted``.
 
 Configuration
 -------------
-**format:** Specifies the format of the CSV Record the input should be parsed as.
+**format:** Specifies the format of the CSV Record that the input should be parsed as.
 
 **delimiter:** Custom delimiter to be used for parsing the fields. The custom delimiter can only be specified by 
 selecting the option 'Custom' from the format drop-down.
