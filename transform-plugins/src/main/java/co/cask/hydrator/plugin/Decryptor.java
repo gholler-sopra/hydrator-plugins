@@ -43,7 +43,7 @@ import javax.crypto.Cipher;
 /**
  * Decrypts record fields.
  */
-//@Plugin(type = Transform.PLUGIN_TYPE)
+@Plugin(type = Transform.PLUGIN_TYPE)
 @Name("Decryptor")
 @Description("Decrypts fields of records.")
 public final class Decryptor extends Transform<StructuredRecord, StructuredRecord> {

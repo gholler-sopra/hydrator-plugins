@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 /**
  * Hash field(s) values using one the the digest algorithms.
  */
-//@Plugin(type = "transform")
+@Plugin(type = "transform")
 @Name("Hasher")
 @Description("Encodes field values using one of the digest algorithms. MD2, MD5, SHA1, SHA256, " +
   "SHA384 and SHA512 are the supported message digest algorithms.")

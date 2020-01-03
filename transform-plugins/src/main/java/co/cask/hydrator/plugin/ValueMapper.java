@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  * Transforms records using custom mapping provided by the config.
  */
-//@Plugin(type = Transform.PLUGIN_TYPE)
+@Plugin(type = Transform.PLUGIN_TYPE)
 @Name("ValueMapper")
 @Description("Maps and converts record values using a mapping dataset")
 public class ValueMapper extends Transform<StructuredRecord, StructuredRecord> {
