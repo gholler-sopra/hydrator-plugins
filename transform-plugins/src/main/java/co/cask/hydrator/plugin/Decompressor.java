@@ -46,7 +46,7 @@ import java.util.zip.ZipInputStream;
 /**
  * Decompreses the configured fields using the algorithms specified.
  */
-//@Plugin(type = "transform")
+@Plugin(type = "transform")
 @Name("Decompressor")
 @Description("Decompresses configured fields using the algorithms specified.")
 public final class Decompressor extends Transform<StructuredRecord, StructuredRecord> {
