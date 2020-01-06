@@ -83,10 +83,17 @@ public final class XMLToJSON extends Transform<StructuredRecord, StructuredRecor
 
     Schema inputSchema = pipelineConfigurer.getStageConfigurer().getInputSchema();
     if (inputSchema != null) {
-      if (inputSchema.getField(config.inputField) == null) {
+      Schema.Field inputSchemaField = inputSchema.getField(config.inputField);
+      if (inputSchemaField == null) {
         throw new IllegalArgumentException(String.format("Field %s is not present in input schema", config.inputField));
       }
-      if (inputSchema.getField(config.inputField).getSchema().getType() != Schema.Type.STRING) {
+
+      Schema inputFieldSchema = inputSchemaField.getSchema();
+      if (inputFieldSchema.isNullable()) {
+        inputFieldSchema = inputFieldSchema.getNonNullable();
+      }
+
+      if (inputFieldSchema.getType() != Schema.Type.STRING) {
         throw new IllegalArgumentException(String.format("Field %s must be of type string.", config.inputField));
       }
     }
