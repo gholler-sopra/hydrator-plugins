@@ -31,3 +31,11 @@
 	path = condition-plugins
 	url = https://github.com/Guavus/condition-plugins.git
 	branch = develop_guavus_2.6.5
+[submodule "dynamic-spark"]
+	path = dynamic-spark
+	url = https://github.com/Guavus/dynamic-spark.git
+        branch = develop_guavus_2.6.5
+[submodule "topn"]
+	path = topn
+	url = https://github.com/Guavus/topn.git
+        branch = develop_guavus_2.6.5
