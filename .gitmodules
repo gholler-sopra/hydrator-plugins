@@ -39,3 +39,7 @@
 	path = topn
 	url = https://github.com/Guavus/topn.git
         branch = release/build_guavus_1.0.1_5.1.2047
+[submodule "sftp-actions"]
+	path = sftp-actions
+	url = https://github.com/Guavus/sftp-actions.git
+        branch = release/build_guavus_v1.3.0_5.1.2047
