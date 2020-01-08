@@ -45,6 +45,7 @@
     <module>condition-plugins</module>
     <module>dynamic-spark</module>
     <module>topn</module>
+    <module>sftp-actions</module>
   </modules>
 
   <licenses>
