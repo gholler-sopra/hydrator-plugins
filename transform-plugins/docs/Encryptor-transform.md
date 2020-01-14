@@ -1,36 +1,36 @@
-# Encryptor Transform
+# Field Encryptor
 
 
 ## Description
-Encrypts one or more fields in input records using a java keystore 
-that must be present on all nodes of the cluster.
+Field Encryptor is used to encrypt the fields present in the input records using a java keystore, which must be present on all nodes of the cluster.
 
+## Use case
+Consider a scenario wherein some of the input fields contain sensitive information and you want to encrypt those fields to hide them from other users.
 
 ## Configuration
-**encyrptFields** Specifies the fields to encrypt, separated by commas.
+**Fields to Encrypt:** Specify the fields to be encrypted; different fields should be separated by commas.
 
-***Note:*** Only `int`, `long`, `float`, `double`, `string` and `bytes` formats are supported.
+Note: Only `int`, `long`, `float`, `double`, `string` and `bytes` formats are supported.
 
-**transformation** Transformation algorithm/mode/padding. For example, AES/CBC/PKCS5Padding.
+**transformation:** The transformation algorithm/mode/padding. For example, AES/CBC/PKCS5Padding.
 
-**ivHex** The initialization vector if using CBC mode.
+**ivHex:** The initialization vector if using the CBC mode.
 
-**keystorePath** Absolute path of the keystore file.
-If keystore path is configured in property `program.container.dist.jars` of `cdap-site.xml`
-then keystore file must be present on both CDAP master nodes,
-else keystore file must be present on every slave node of the cluster.
+**keystorePath:** Absolute path of the keystore file.
+If the keystore path is configured in the property `program.container.dist.jars` of `cdap-site.xml`,
+then the keystore file must be present on both the CDAP master nodes.
+Else, the keystore file must be present on every slave node of the cluster.
 
-**keystorePassword** The password for the keystore.
+**keystorePassword:** The password for the keystore.
 
-**keystoreType** The type of keystore. For example, JKS, or JCEKS.
+**keystoreType:** The type of keystore. For example, JKS or JCEKS.
 
-**keyAlias** The alias of the key to use in the keystore.
+**keyAlias:** The alias of the key to be used in the keystore.
 
-**keyPassword** The password for the key to use in the keystore.
+**keyPassword** The password for the key to be used in the keystore.
 
-
-**Note**: Do not use sink plugins that store data in textual format because Field Encryptor converts the field values to `bytes` and text based sink plugin will convert bytes to string at the time of writing the data.
-Use any columnar format like ORC, Parquet etc. 
+Note: Do not use sink accelerators that store data in the textual format because Field Encryptor converts the field values to `bytes`, and the text-based sink accelerators will convert bytes to string at the time of writing the data.
+Use any columnar format like ORC, Parquet etc.
 
 
 ## Example
