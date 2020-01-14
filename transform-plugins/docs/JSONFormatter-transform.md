@@ -3,19 +3,17 @@
 
 Description
 -----------
-Formats a Structured Record as JSON Object. Plugin will convert the Structured Record to a
-JSON object and write to the output record. The output record schema is a single field,
-either type ``STRING`` or type ``BYTE`` array.
+JSON Formatter is used to format a Structured Record as a JSON Object. This accelerator is used to convert the Structured Record to a JSON object and write to the output record. The output record schema is a single field,
+either of the type ``STRING`` or the type ``BYTE``.
 
 
 Use Case
 --------
-This plugin will convert each row of the input record to json data.
-
+Consider a scenario wherein you want to convert each row of the input record to json data. This can be achieved by configuring the accelerator as described in the following sections.
 
 Configuration
 -------------
-**schema:** Specifies the output schema, a single field either type ``STRING`` or type ``BYTES``.
+**schema:** Specifies the output schema, a single field of either the type ``STRING`` or the type ``BYTES``.
 
 
 ## Sample Pipeline
