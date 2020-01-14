@@ -39,9 +39,10 @@ If specified, the field must exist in the output schema as a string.
 
 **Allow Empty Input:** Choose True or False based on whether you want to allow an input path that contains no data. When set to false, the plugin will throw an error if there is no data to read. When set to true, no error will be thrown and zero records will be read.
 
-**File System Properties:** The additional properties in json format to use with the InputFormat when reading the data.
+**File System Properties:** The additional properties in json format to use with the InputFormat when reading the data. See [here](#file-system-properties) for details.
 
-## Sample Input
+
+## Sample Pipeline
 
     {
         "name": "File",
@@ -62,7 +63,8 @@ If specified, the field must exist in the output schema as a string.
             "recursive": "false",
             "ignoreNonExistingFolders": "false",
             "path": "/cdap/file_input",
-            "delimiter": ","
+            "delimiter": ",",
+            "fileSystemProperties": "{\"mapreduce.output.fileoutputformat.compress\":\"true\",\"mapreduce.output.fileoutputformat.compress.codec\":\"org.apache.hadoop.io.compress.GzipCodec\"}"
           }
         }
       }
