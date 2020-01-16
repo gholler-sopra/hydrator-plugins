@@ -40,7 +40,7 @@ import java.util.Map;
  * Convert wide rows and reducing data to it canonicalize form
  */
 @Plugin(type = Transform.PLUGIN_TYPE)
-@Name("Normalize")
+@Name("Transpose")
 @Description("Convert wide rows and reducing data to it canonicalize form")
 public class Normalize extends Transform<StructuredRecord, StructuredRecord> {
   private static final String NAME_KEY_SUFFIX = "_name";

@@ -2,7 +2,7 @@
   "metadata": {
     "spec-version": "1.5"
   },
-  "display-name": "Normalize",
+  "display-name": "Transpose",
   "configuration-groups": [
     {
       "properties": [
