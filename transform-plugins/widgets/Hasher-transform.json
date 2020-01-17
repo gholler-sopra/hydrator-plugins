@@ -30,7 +30,16 @@
           "widget-attributes": {
             "delimiter": ",",
             "value-placeholder": "Field Name"
-          }
+          },
+          "plugin-function": {
+          "method": "POST",
+          "label": "Generate Schema",
+          "widget": "outputSchema",
+          "output-property": "schema",
+          "plugin-method": "outputSchema",
+          "position": "bottom",
+          "button-class": "btn-hydrator"
+        }
         }
       ]
     }
