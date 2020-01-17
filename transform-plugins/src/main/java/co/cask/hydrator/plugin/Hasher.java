@@ -30,8 +30,12 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Nullable;
+import javax.ws.rs.Path;
 
 /**
  * Hash field(s) values using one the the digest algorithms.
@@ -44,6 +48,7 @@ public final class Hasher extends Transform<StructuredRecord, StructuredRecord> 
   private final Config config;
   private Set<String> fieldSet = new HashSet<>();
 
+  private static final Set<String> VALID_HASHERS = Stream.of("MD2", "MD5", "SHA1", "SHA256", "SHA384", "SHA512").collect(Collectors.toCollection(HashSet::new));
 
   // For testing purpose only.
   public Hasher(Config config) {
@@ -53,7 +58,7 @@ public final class Hasher extends Transform<StructuredRecord, StructuredRecord> 
   @Override
   public void initialize(TransformContext context) throws Exception {
     super.initialize(context);
-    config.validate();
+    config.validate(context.getInputSchema());
     // Split the fields to be hashed.
     String[] fields = config.fields.split(",");
     for (String field : fields) {
@@ -64,8 +69,9 @@ public final class Hasher extends Transform<StructuredRecord, StructuredRecord> 
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) throws IllegalArgumentException {
     super.configurePipeline(pipelineConfigurer);
-    config.validate();
-    pipelineConfigurer.getStageConfigurer().setOutputSchema(pipelineConfigurer.getStageConfigurer().getInputSchema());
+    Schema inputSchema = pipelineConfigurer.getStageConfigurer().getInputSchema();
+    config.validate(inputSchema);
+    pipelineConfigurer.getStageConfigurer().setOutputSchema(inputSchema);
   }
 
   @Override
@@ -75,7 +81,7 @@ public final class Hasher extends Transform<StructuredRecord, StructuredRecord> 
     List<Schema.Field> fields = in.getSchema().getFields();
     for (Schema.Field field : fields) {
       String name = field.getName();
-      if (fieldSet.contains(name) && field.getSchema().getType() == Schema.Type.STRING) {
+      if (fieldSet.contains(name)) {
         String value = in.get(name);
         String digest = value;
         switch(config.hash.toLowerCase()) {
@@ -106,31 +112,60 @@ public final class Hasher extends Transform<StructuredRecord, StructuredRecord> 
     emitter.emit(builder.build());
   }
 
+  @Path("outputSchema")
+  public Schema getOutputSchema(GetSchemaRequest request) {
+    return request.inputSchema;
+  }
+
+  /**
+   * Endpoint request for output schema.
+   */
+  public static class GetSchemaRequest extends Config {
+    public Schema inputSchema;
+  }
+
   /**
    * Hasher Plugin Config.
    */
   public static class Config extends PluginConfig {
+
     @Name("hash")
     @Description("Specifies the Hash method for hashing fields.")
-    @Nullable
-    private final String hash;
+    private String hash;
     
     @Name("fields")
     @Description("List of fields to hash. Only string fields are allowed")
-    private final String fields;
-    
+    private String fields;
+
+    public Config() {
+    }
+
     public Config(String hash, String fields) {
       this.hash = hash;
       this.fields = fields;
     }
 
-    private void validate() {
+    private void validate(Schema inputSchema) {
       // Checks if hash specified is one of the supported types.
-      if (!hash.equalsIgnoreCase("md2") && !hash.equalsIgnoreCase("md5") &&
-        !hash.equalsIgnoreCase("sha1") && !hash.equalsIgnoreCase("sha256") &&
-        !hash.equalsIgnoreCase("sha384") && !hash.equalsIgnoreCase("sha512")) {
-        throw new IllegalArgumentException("Invalid hasher '" + hash + "' specified. Allowed hashers are md2, " +
-                                             "md5, sha1, sha256, sha384 and sha512");
+      if (!VALID_HASHERS.contains(hash.toUpperCase())) {
+        throw new IllegalArgumentException("Invalid hasher '" + hash + "' specified. Allowed hashers are " + VALID_HASHERS);
+      }
+      if (fields == null || "".equals(fields.trim())) {
+        throw new IllegalArgumentException("Fields can not be empty");
+      }
+      String[] fieldArr = fields.split(",");
+      for (String field : fieldArr) {
+        if (inputSchema.getField(field) == null) {
+          throw new IllegalArgumentException("Invalid field: '" + field + "', not present in input schema");
+        } else {
+          Schema fieldSchema = inputSchema.getField(field).getSchema();
+          if (fieldSchema.isNullable()) {
+            fieldSchema = fieldSchema.getNonNullable();
+          }
+          if (fieldSchema.getType() != Schema.Type.STRING) {
+            throw new IllegalArgumentException("Invalid field: '" + field + "', only string values are allowed");
+          }
+        }
       }
     }
   }
