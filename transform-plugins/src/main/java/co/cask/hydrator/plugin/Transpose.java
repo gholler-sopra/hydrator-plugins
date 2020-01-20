@@ -42,7 +42,7 @@ import java.util.Map;
 @Plugin(type = Transform.PLUGIN_TYPE)
 @Name("Transpose")
 @Description("Convert wide rows and reducing data to it canonicalize form")
-public class Normalize extends Transform<StructuredRecord, StructuredRecord> {
+public class Transpose extends Transform<StructuredRecord, StructuredRecord> {
   private static final String NAME_KEY_SUFFIX = "_name";
   private static final String VALUE_KEY_SUFFIX = "_value";
 
@@ -53,7 +53,7 @@ public class Normalize extends Transform<StructuredRecord, StructuredRecord> {
   private Map<String, String> normalizeFieldMap;
   private List<String> normalizeFieldList;
 
-  public Normalize(NormalizeConfig config) {
+  public Transpose(NormalizeConfig config) {
     this.config = config;
   }
 
