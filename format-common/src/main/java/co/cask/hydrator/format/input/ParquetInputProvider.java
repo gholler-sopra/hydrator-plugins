@@ -21,6 +21,7 @@ import co.cask.hydrator.format.AvroSchemaConverter;
 import co.cask.hydrator.format.FileFormat;
 import com.google.common.base.Strings;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
 import org.apache.parquet.format.converter.ParquetMetadataConverter;
@@ -45,17 +46,25 @@ public class ParquetInputProvider implements FileInputFormatterProvider {
     @Nullable
     @Override
     public Schema getSchema(@Nullable String pathField, String filePath) {
+        if(Strings.isNullOrEmpty(filePath)) {
+            throw new IllegalArgumentException("File Path is a mandatory field for fetching Schema");
+        }
+        Configuration configuration = new Configuration();
         try {
-            filePath = FileFormat.getFilePath(filePath,".parquet");
-            if(Strings.isNullOrEmpty(filePath)) {
-                throw new IllegalArgumentException("File Path is a mandatory field for fetching Schema");
-            }
             Path path = new Path(filePath);
-            Configuration conf = new Configuration();
-            conf.setBoolean(AvroSchemaConverter.ADD_LIST_ELEMENT_RECORDS, false);
-            ParquetMetadata readFooter = ParquetFileReader.readFooter(conf, path, ParquetMetadataConverter.NO_FILTER);
+            FileSystem fs = FileSystem.get(configuration);
+            if (!fs.isFile(path)) {
+                String parqFilePath = FileFormat.getFilePath(filePath,".parquet");
+                if(Strings.isNullOrEmpty(parqFilePath)) {
+                    throw new IllegalArgumentException("No '.parquet' file found in input directory: " + filePath);
+                }
+                path = new Path(parqFilePath);
+            }
+
+            configuration.setBoolean(AvroSchemaConverter.ADD_LIST_ELEMENT_RECORDS, false);
+            ParquetMetadata readFooter = ParquetFileReader.readFooter(configuration, path, ParquetMetadataConverter.NO_FILTER);
             MessageType mt = readFooter.getFileMetaData().getSchema();
-            org.apache.avro.Schema avroSchema = new AvroSchemaConverter(conf).convert(mt);
+            org.apache.avro.Schema avroSchema = new AvroSchemaConverter(configuration).convert(mt);
             if(Strings.isNullOrEmpty(pathField)) {
                 return Schema.parseJson(avroSchema.toString());
             } else {

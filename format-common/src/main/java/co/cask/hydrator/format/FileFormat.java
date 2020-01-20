@@ -114,15 +114,18 @@ public enum FileFormat {
     }
     return inputProvider.create(properties, schema);
   }
-
     /**
-     * Returns one of the file present in user directory.
+     * If filePath is a valid directory then this method returns
+     * any file ending with {@code endsWith} from the directory.
+     * If filePath is a valid file path ending with {@code endsWith} then same would be returned.
+     * In all other cases Invalid path exception would be thrown.
      *
-     * @param filePath properties
+     * @param filePath input directory
+     * @param endsWith suffix to filter files
      * @return the Actual File Path.
      * @throws IllegalArgumentException if the given filePath can't be opened by FileSystem
      */
-   public static String getFilePath(String filePath, String regex) throws IOException{
+   public static String getFilePath(String filePath, String endsWith) throws IOException{
        if (!Strings.isNullOrEmpty(filePath)) {
            Configuration configuration = new Configuration();
            Path path = new Path(filePath);
@@ -132,12 +135,12 @@ public enum FileFormat {
                    RemoteIterator<LocatedFileStatus> iter = fs.listFiles(path, true);
                    while (iter.hasNext()) {
                        LocatedFileStatus fileStatus = iter.next();
-                       if (fileStatus.getPath().getName().endsWith(regex)) {
+                       if (fileStatus.getPath().getName().endsWith(endsWith)) {
                            return fileStatus.getPath().toString();
                        }
                    }
                } else {
-                   if (filePath.endsWith(regex)) {
+                   if (filePath.endsWith(endsWith)) {
                        return filePath;
                    }
                }
