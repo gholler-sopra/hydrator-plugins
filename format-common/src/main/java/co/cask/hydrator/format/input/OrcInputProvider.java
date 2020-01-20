@@ -21,6 +21,7 @@ import co.cask.hydrator.format.FileFormat;
 import co.cask.hydrator.format.OrcToStructuredTransformer;
 import com.google.common.base.Strings;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.orc.OrcFile;
 import org.apache.orc.Reader;
@@ -43,13 +44,21 @@ public class OrcInputProvider implements FileInputFormatterProvider {
     @Nullable
     @Override
     public Schema getSchema(@Nullable String pathField, String filePath) {
+        if(Strings.isNullOrEmpty(filePath)) {
+            throw new IllegalArgumentException("File Path is a mandatory field for fetching Schema");
+        }
         Configuration configuration = new Configuration();
         try {
-            filePath = FileFormat.getFilePath(filePath,".orc");
-            if(Strings.isNullOrEmpty(filePath)) {
-                throw new IllegalArgumentException("File Path is a mandatory field for fetching Schema");
-            }
             Path path = new Path(filePath);
+            FileSystem fs = FileSystem.get(configuration);
+            if (!fs.isFile(path)) {
+                String orcFilePath = FileFormat.getFilePath(filePath,".orc");
+                if(Strings.isNullOrEmpty(orcFilePath)) {
+                    throw new IllegalArgumentException("No valid '.orc' file found in input directory: " + filePath);
+                }
+                path = new Path(orcFilePath);
+            }
+
             Reader reader = OrcFile.createReader(path, new OrcFile.ReaderOptions(configuration));
             TypeDescription typeDescription = reader.getSchema();
             if(Strings.isNullOrEmpty(pathField)) {
