@@ -54,7 +54,7 @@ public class OrcInputProvider implements FileInputFormatterProvider {
             if (!fs.isFile(path)) {
                 String orcFilePath = FileFormat.getFilePath(filePath,".orc");
                 if(Strings.isNullOrEmpty(orcFilePath)) {
-                    throw new IllegalArgumentException("No valid '.orc' file found in input directory: " + filePath);
+                    throw new IllegalArgumentException("No '.orc' file found in input directory: " + filePath);
                 }
                 path = new Path(orcFilePath);
             }
