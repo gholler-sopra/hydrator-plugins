@@ -5,6 +5,7 @@
   "display-name": "Transpose",
   "configuration-groups": [
     {
+      "label": "Transpose",
       "properties": [
         {
           "widget-type": "keyvalue",
