@@ -56,7 +56,7 @@ public class ParquetInputProvider implements FileInputFormatterProvider {
             if (!fs.isFile(path)) {
                 String parqFilePath = FileFormat.getFilePath(filePath,".parquet");
                 if(Strings.isNullOrEmpty(parqFilePath)) {
-                    throw new IllegalArgumentException("No valid '.parquet' file found in input directory: " + filePath);
+                    throw new IllegalArgumentException("No '.parquet' file found in input directory: " + filePath);
                 }
                 path = new Path(parqFilePath);
             }
