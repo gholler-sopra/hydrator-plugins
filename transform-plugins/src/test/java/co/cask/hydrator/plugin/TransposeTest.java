@@ -109,8 +109,8 @@ public class TransposeTest extends TransformPluginsTestBase {
   private ApplicationManager deployApplication(Map<String, String> sourceProperties, String inputDatasetName,
                                                String outputDatasetName, String applicationName) throws Exception {
     ETLStage source = new ETLStage("source", MockSource.getPlugin(inputDatasetName));
-    ETLStage transform = new ETLStage("normalize",
-                                      new ETLPlugin("Normalize", Transform.PLUGIN_TYPE, sourceProperties, null));
+    ETLStage transform = new ETLStage("transpose",
+                                      new ETLPlugin("Transpose", Transform.PLUGIN_TYPE, sourceProperties, null));
     ETLStage sink = new ETLStage("sink", MockSink.getPlugin(outputDatasetName));
 
     ETLBatchConfig etlConfig = ETLBatchConfig.builder("* * * * *")
@@ -134,7 +134,7 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Test
   public void testOutputSchema() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(validFieldMapping, validFieldNormalizing,
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(validFieldMapping, validFieldNormalizing,
                                                                      OUTPUT_SCHEMA.toString());
     MockPipelineConfigurer configurer = new MockPipelineConfigurer(INPUT_SCHEMA);
     new Transpose(config).configurePipeline(configurer);
@@ -143,7 +143,7 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Test(expected = IllegalArgumentException.class)
   public void testEmptyFieldMapping() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(null, validFieldNormalizing,
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(null, validFieldNormalizing,
                                                                      OUTPUT_SCHEMA.toString());
     MockPipelineConfigurer configurer = new MockPipelineConfigurer(INPUT_SCHEMA);
     new Transpose(config).configurePipeline(configurer);
@@ -151,7 +151,7 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Test(expected = IllegalArgumentException.class)
   public void testEmptyFieldNormalizing() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(validFieldMapping, null,
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(validFieldMapping, null,
                                                                      OUTPUT_SCHEMA.toString());
     MockPipelineConfigurer configurer = new MockPipelineConfigurer(INPUT_SCHEMA);
     new Transpose(config).configurePipeline(configurer);
@@ -159,14 +159,14 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Test(expected = IllegalArgumentException.class)
   public void testEmptyOutputSchema() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(validFieldMapping, validFieldNormalizing, null);
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(validFieldMapping, validFieldNormalizing, null);
     MockPipelineConfigurer configurer = new MockPipelineConfigurer(INPUT_SCHEMA);
     new Transpose(config).configurePipeline(configurer);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidMappingValues() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig("CustomerId,PurchaseDate:Date",
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig("CustomerId,PurchaseDate:Date",
                                                                      validFieldNormalizing, OUTPUT_SCHEMA.toString());
     MockPipelineConfigurer configurer = new MockPipelineConfigurer(INPUT_SCHEMA);
     new Transpose(config).configurePipeline(configurer);
@@ -174,7 +174,7 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidNormalizingValues() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(validFieldMapping,
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(validFieldMapping,
                                                                      "ItemId:AttributeType," +
                                                                        "ItemCost:AttributeType:AttributeValue",
                                                                      OUTPUT_SCHEMA.toString());
@@ -190,7 +190,7 @@ public class TransposeTest extends TransformPluginsTestBase {
                       Schema.Field.of(DATE, Schema.of(Schema.Type.STRING)),
                       Schema.Field.of(ATTRIBUTE_TYPE, Schema.of(Schema.Type.STRING)),
                       Schema.Field.of(ATTRIBUTE_VALUE, Schema.of(Schema.Type.STRING)));
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(validFieldMapping, validFieldNormalizing,
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(validFieldMapping, validFieldNormalizing,
                                                                      outputSchema.toString());
     MockPipelineConfigurer configurer = new MockPipelineConfigurer(INPUT_SCHEMA);
     new Transpose(config).configurePipeline(configurer);
@@ -205,7 +205,7 @@ public class TransposeTest extends TransformPluginsTestBase {
                       Schema.Field.of(DATE, Schema.of(Schema.Type.STRING)),
                       Schema.Field.of(ATTRIBUTE_TYPE, Schema.of(Schema.Type.STRING)),
                       Schema.Field.of(ATTRIBUTE_VALUE, Schema.of(Schema.Type.STRING)));
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(validFieldMapping, validFieldNormalizing,
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(validFieldMapping, validFieldNormalizing,
                                                                      outputSchema.toString());
     MockPipelineConfigurer configurer = new MockPipelineConfigurer(INPUT_SCHEMA);
     new Transpose(config).configurePipeline(configurer);
@@ -213,7 +213,7 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidMappingsFromInputSchema() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig("Purchaser:Id,PurchaseDate:Date",
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig("Purchaser:Id,PurchaseDate:Date",
                                                                      validFieldNormalizing, OUTPUT_SCHEMA.toString());
     MockPipelineConfigurer configurer = new MockPipelineConfigurer(INPUT_SCHEMA);
     new Transpose(config).configurePipeline(configurer);
@@ -221,7 +221,7 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidNormalizingFromInputSchema() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(validFieldMapping,
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(validFieldMapping,
                                                                      "ObjectId:AttributeType:AttributeValue," +
                                                                        "ItemCost:AttributeType:AttributeValue",
                                                                      OUTPUT_SCHEMA.toString());
@@ -230,8 +230,8 @@ public class TransposeTest extends TransformPluginsTestBase {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testInvalidNormalizeTypeAndValue() throws Exception {
-    Transpose.NormalizeConfig config = new Transpose.NormalizeConfig(validFieldMapping,
+  public void testInvalidTransposeTypeAndValue() throws Exception {
+    Transpose.TransposeConfig config = new Transpose.TransposeConfig(validFieldMapping,
                                                                      "ItemId:AttributeType:AttributeValue," +
                                                                        "ItemCost:ExpenseType:ExpenseValue",
                                                                      OUTPUT_SCHEMA.toString());
@@ -241,16 +241,16 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Ignore
   @Test
-  public void testNormalize() throws Exception {
-    String inputTable = "inputNormalizeTable";
+  public void testTranspose() throws Exception {
+    String inputTable = "inputTransposeTable";
     Map<String, String> sourceproperties = new ImmutableMap.Builder<String, String>()
       .put("fieldMapping", validFieldMapping)
       .put("fieldNormalizing", validFieldNormalizing)
       .put("outputSchema", OUTPUT_SCHEMA.toString())
       .build();
-    String outputTable = "outputNormalizeTable";
+    String outputTable = "outputTransposeTable";
     ApplicationManager applicationManager = deployApplication(sourceproperties, inputTable, outputTable,
-                                                              "normalizeTest");
+                                                              "transposeTest");
     
     DataSetManager<Table> inputManager = getDataset(inputTable);
 
@@ -279,16 +279,16 @@ public class TransposeTest extends TransformPluginsTestBase {
 
   @Ignore
   @Test
-  public void testNormalizeWithEmptyAttributeValue() throws Exception {
-    String inputTable = "inputNormalizeWithEmptyValueTable";
+  public void testTransposeWithEmptyAttributeValue() throws Exception {
+    String inputTable = "inputTransposeWithEmptyValueTable";
     Map<String, String> sourceproperties = new ImmutableMap.Builder<String, String>()
       .put("fieldMapping", validFieldMapping)
       .put("fieldNormalizing", validFieldNormalizing)
       .put("outputSchema", OUTPUT_SCHEMA.toString())
       .build();
-    String outputTable = "outputNormalizeWithEmptyValueTable";
+    String outputTable = "outputTransposeWithEmptyValueTable";
     ApplicationManager applicationManager = deployApplication(sourceproperties, inputTable, outputTable,
-                                                              "normalizeWithEmptyValueTest");
+                                                              "transposeWithEmptyValueTest");
 
     DataSetManager<Table> inputManager = getDataset(inputTable);
 
