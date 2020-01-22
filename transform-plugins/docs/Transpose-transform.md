@@ -9,7 +9,7 @@ Attributes stored in the columns of a table or a file may need to be broken into
 Use Case
 --------
 Consider a scenario wherein you want to minimize the restructuring of a dataset whenever a new type of data is introduced into the collection. For example, assume you are building a master customer table that aggregates data for a user from multiple sources,
-and each of the sources has its own type of data to be added to "customer-id". Instead of creating wide columns, normalization allows you to transform data into its canonical form and update the master customer profile simultaneously from multiple sources.
+and each of the sources has its own type of data to be added to "customer-id". Instead of creating wide columns, transposing allows you to transform data into its canonical form and update the master customer profile simultaneously from multiple sources.
 
 Properties
 ----------
@@ -17,7 +17,7 @@ Properties
 to be mapped to the output schema field. Example: "CustomerID:ID" maps the value of the
 CustomerID field to the ID field of the output schema.
 
-**fieldNormalizing:** A string that is a comma-separated list of field names, a common
+**fieldTransposing:** A string that is a comma-separated list of field names, a common
 column for the field types, and a common column for the field values. Specify the name
 of the field to be Transposed; to which output field its name should be mapped as a type,
 and the output field where the value needs to be saved.
@@ -64,7 +64,7 @@ The plugin's JSON Representation will be:
             "label": "Transpose",
             "properties": {
                "fieldMapping": "CustomerId:ID,Last_Update_Date:Date",
-               "fieldNormalizing": "First_Name:Attribute_Type:Attribute_Value,
+               "fieldTransposing": "First_Name:Attribute_Type:Attribute_Value,
                                     Last_Name:Attribute_Type:Attribute_Value,
                                     Credit_Card:Attribute_Type:Attribute_Value,
                                     Billing_Address:Attribute_Type:Attribute_Value",
@@ -125,7 +125,7 @@ The plugin's JSON Representation will be:
             "label": "Transpose",
             "properties": {
                "fieldMapping": "CustomerId:ID,Purchase_Date:Date",
-               "fieldNormalizing": "Item_ID:Attribute_Type:Attribute_Value,Item_Cost:Attribute_Type:Attribute_Value",
+               "fieldTransposing": "Item_ID:Attribute_Type:Attribute_Value,Item_Cost:Attribute_Type:Attribute_Value",
                "outputSchema": "{
                              \"type\":\"schema\",
                              \"name\":\"outputSchema\",
