@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Transforms records by normalizing the data.
+ * Transforms records by transposing the data.
  * Convert wide rows and reducing data to it canonicalize form
  */
 @Plugin(type = Transform.PLUGIN_TYPE)
@@ -94,24 +94,24 @@ public class Transpose extends Transform<StructuredRecord, StructuredRecord> {
       fieldList.add(mappings[0]);
     }
 
-    //Validate normalizing fields
-    String[] fieldNormalizingArray = config.fieldNormalizing.split(",");
+    //Validate transposing fields
+    String[] fieldTransposingArray = config.fieldTransposing.split(",");
 
     //Type and Value mapping for all transpose fields must be same, otherwise it is invalid.
     //Read type and value from first transpose fields which is used for validation.
-    String[] typeValueFields = fieldNormalizingArray[0].split(":");
-    Preconditions.checkArgument(typeValueFields.length == 3, "Normalizing field '" + typeValueFields[0] +
+    String[] typeValueFields = fieldTransposingArray[0].split(":");
+    Preconditions.checkArgument(typeValueFields.length == 3, "Transposing field '" + typeValueFields[0] +
       "' is invalid. Field Type and Field Value columns required.");
     String validTypeField = typeValueFields[1];
     String validValueField = typeValueFields[2];
 
-    for (String fieldNormalizing : fieldNormalizingArray) {
-      String[] fields = fieldNormalizing.split(":");
-      Preconditions.checkArgument(fields.length == 3, "Normalizing field '" + fields[0] + "' is invalid. " +
+    for (String fieldTransposing : fieldTransposingArray) {
+      String[] fields = fieldTransposing.split(":");
+      Preconditions.checkArgument(fields.length == 3, "Transposing field '" + fields[0] + "' is invalid. " +
         " Field Type and Field Value columns required.");
       //Input schema cannot be null, check added for JUnit test case run.
       if (inputSchema != null) {
-        Preconditions.checkArgument(inputSchema.getField(fields[0]) != null, "Normalizing field '" + fields[0]
+        Preconditions.checkArgument(inputSchema.getField(fields[0]) != null, "Transposing field '" + fields[0]
           + "' not present in input schema.");
       }
       Preconditions.checkArgument(!fieldList.contains(fields[0]), "'" + fields[0] + "' cannot be use for " +
@@ -141,10 +141,10 @@ public class Transpose extends Transform<StructuredRecord, StructuredRecord> {
 
     transposeFieldMap = new HashMap<>();
     transposeFieldList = new ArrayList<>();
-    String[] fieldNormalizingArray = config.fieldNormalizing.split(",");
+    String[] fieldTransposingArray = config.fieldTransposing.split(",");
 
-    for (String fieldNormalizing : fieldNormalizingArray) {
-      String[] fields = fieldNormalizing.split(":");
+    for (String fieldTransposing : fieldTransposingArray) {
+      String[] fields = fieldTransposing.split(":");
       transposeFieldList.add(fields[0]);
       transposeFieldMap.put(fields[0] + NAME_KEY_SUFFIX, fields[1]);
       transposeFieldMap.put(fields[0] + VALUE_KEY_SUFFIX, fields[2]);
@@ -194,7 +194,7 @@ public class Transpose extends Transform<StructuredRecord, StructuredRecord> {
     @Description("Specify the transpose field name, to what output field it should be mapped to and where the value " +
       "needs to be added. Example: ItemId:AttributeType:AttributeValue, here ItemId column name will be saved to " +
       "AttributeType field and its value will be saved to AttributeValue field of output schema")
-    private final String fieldNormalizing;
+    private final String fieldTransposing;
 
     @Description("The output schema for the data as it will be formatted in CDAP. Sample schema: {\n" +
       "    \"type\": \"schema\",\n" +
@@ -216,15 +216,15 @@ public class Transpose extends Transform<StructuredRecord, StructuredRecord> {
       "}")
     private final String outputSchema;
 
-    public TransposeConfig(String fieldMapping, String fieldNormalizing, String outputSchema) {
+    public TransposeConfig(String fieldMapping, String fieldTransposing, String outputSchema) {
       this.fieldMapping = fieldMapping;
-      this.fieldNormalizing = fieldNormalizing;
+      this.fieldTransposing = fieldTransposing;
       this.outputSchema = outputSchema;
     }
 
     private void validate() {
       Preconditions.checkArgument(!Strings.isNullOrEmpty(fieldMapping), "Fields to mapped cannot be empty.");
-      Preconditions.checkArgument(!Strings.isNullOrEmpty(fieldNormalizing), "Fields to transposed cannot be empty.");
+      Preconditions.checkArgument(!Strings.isNullOrEmpty(fieldTransposing), "Fields to transposed cannot be empty.");
       Preconditions.checkArgument(!Strings.isNullOrEmpty(outputSchema), "Output schema cannot be empty.");
     }
   }
