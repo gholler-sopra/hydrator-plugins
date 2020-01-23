@@ -20,7 +20,7 @@
   <parent>
     <artifactId>hydrator-plugins</artifactId>
     <groupId>co.cask.hydrator</groupId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>3.0.0</version>
   </parent>
 
   <properties>
@@ -41,7 +41,7 @@
   <dependencies>
     <dependency>
       <groupId>co.cask.cdap</groupId>
-      <artifactId>cdap-api-spark</artifactId>
+      <artifactId>cdap-api-spark2_2.11</artifactId>
     </dependency>
     <dependency>
       <groupId>co.cask.cdap</groupId>
@@ -53,11 +53,11 @@
     </dependency>
     <dependency>
       <groupId>co.cask.cdap</groupId>
-      <artifactId>cdap-data-pipeline</artifactId>
+      <artifactId>cdap-data-pipeline2_2.11</artifactId>
     </dependency>
     <dependency>
       <groupId>co.cask.cdap</groupId>
-      <artifactId>cdap-data-streams</artifactId>
+      <artifactId>cdap-data-streams2_2.11</artifactId>
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>
