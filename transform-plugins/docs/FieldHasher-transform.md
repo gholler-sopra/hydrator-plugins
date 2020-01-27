@@ -1,4 +1,4 @@
-# Hasher Transform
+# Field Hasher Transform
 
 
 ## Description
@@ -31,11 +31,11 @@ Hashes fields using a digest algorithm such as ``MD2``, ``MD5``, ``SHA1``, ``SHA
 `To hash 'name' and 'connects' fields from input using MD5 algorithm`
 ```
 {
-    "name": "MD5/SHA Field Dataset",
+    "name": "Field Hasher",
     "plugin": {
-        "name": "Hasher",
+        "name": "FieldHasher",
         "type": "transform",
-        "label": "MD5/SHA Field Dataset",
+        "label": "Field Hasher",
         "artifact": {
             "name": "transform-plugins",
             "version": "2.1.1-SNAPSHOT_5.1.2047",

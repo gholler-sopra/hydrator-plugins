@@ -26,9 +26,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests {@link Hasher}
+ * Tests {@link FieldHasher}
  */
-public class HasherTest {
+public class FieldHasherTest {
   private static final Schema INPUT = Schema.recordOf("input",
                                                       Schema.Field.of("a", Schema.of(Schema.Type.STRING)),
                                                       Schema.Field.of("b", Schema.of(Schema.Type.STRING)),
@@ -39,7 +39,7 @@ public class HasherTest {
   @Test
   public void testHasherMD2() throws Exception {
     Transform<StructuredRecord, StructuredRecord> transform =
-      new Hasher(new Hasher.Config("MD2", "a,b,e"));
+      new FieldHasher(new FieldHasher.Config("MD2", "a,b,e"));
     transform.initialize(null);
 
     MockEmitter<StructuredRecord> emitter = new MockEmitter<>();
@@ -62,7 +62,7 @@ public class HasherTest {
   @Test
   public void testHasherMD5() throws Exception {
     Transform<StructuredRecord, StructuredRecord> transform =
-      new Hasher(new Hasher.Config("MD5", "a,b,e"));
+      new FieldHasher(new FieldHasher.Config("MD5", "a,b,e"));
     transform.initialize(null);
 
     MockEmitter<StructuredRecord> emitter = new MockEmitter<>();
@@ -85,7 +85,7 @@ public class HasherTest {
   @Test
   public void testHasherSHA1() throws Exception {
     Transform<StructuredRecord, StructuredRecord> transform =
-      new Hasher(new Hasher.Config("SHA1", "a,b,e"));
+      new FieldHasher(new FieldHasher.Config("SHA1", "a,b,e"));
     transform.initialize(null);
 
     MockEmitter<StructuredRecord> emitter = new MockEmitter<>();
@@ -108,7 +108,7 @@ public class HasherTest {
   @Test
   public void testHasherSHA256() throws Exception {
     Transform<StructuredRecord, StructuredRecord> transform =
-      new Hasher(new Hasher.Config("SHA256", "a,b,e"));
+      new FieldHasher(new FieldHasher.Config("SHA256", "a,b,e"));
     transform.initialize(null);
 
     MockEmitter<StructuredRecord> emitter = new MockEmitter<>();
@@ -131,7 +131,7 @@ public class HasherTest {
   @Test
   public void testHasherSHA384() throws Exception {
     Transform<StructuredRecord, StructuredRecord> transform =
-      new Hasher(new Hasher.Config("SHA384", "a,b,e"));
+      new FieldHasher(new FieldHasher.Config("SHA384", "a,b,e"));
     transform.initialize(null);
 
     MockEmitter<StructuredRecord> emitter = new MockEmitter<>();
@@ -154,7 +154,7 @@ public class HasherTest {
   @Test
   public void testHasherSHA512() throws Exception {
     Transform<StructuredRecord, StructuredRecord> transform =
-      new Hasher(new Hasher.Config("SHA512", "a,b,e"));
+      new FieldHasher(new FieldHasher.Config("SHA512", "a,b,e"));
     transform.initialize(null);
 
     MockEmitter<StructuredRecord> emitter = new MockEmitter<>();
@@ -177,7 +177,7 @@ public class HasherTest {
   @Test
   public void testSchemaValidation() throws Exception {
     Transform<StructuredRecord, StructuredRecord> transform =
-      new Hasher(new Hasher.Config("SHA512", "a,b,e"));
+      new FieldHasher(new FieldHasher.Config("SHA512", "a,b,e"));
     MockPipelineConfigurer mockPipelineConfigurer = new MockPipelineConfigurer(INPUT);
     transform.configurePipeline(mockPipelineConfigurer);
     Assert.assertEquals(INPUT, mockPipelineConfigurer.getOutputSchema());
