@@ -22,6 +22,10 @@ Configuration
 
 ## Sample Pipeline
 
+`Below is the Sample Pipeline for converting Structured Record to CSV using format DELIMITED and delimiter COMMA.`
+
+
+
 ```
     {
         "name": "CSVFormatter",
