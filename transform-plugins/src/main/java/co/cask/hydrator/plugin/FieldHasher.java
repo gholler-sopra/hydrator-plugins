@@ -41,17 +41,17 @@ import javax.ws.rs.Path;
  * Hash field(s) values using one the the digest algorithms.
  */
 @Plugin(type = "transform")
-@Name("Hasher")
+@Name("FieldHasher")
 @Description("Encodes field values using one of the digest algorithms. MD2, MD5, SHA1, SHA256, " +
   "SHA384 and SHA512 are the supported message digest algorithms.")
-public final class Hasher extends Transform<StructuredRecord, StructuredRecord> {
+public final class FieldHasher extends Transform<StructuredRecord, StructuredRecord> {
   private final Config config;
   private Set<String> fieldSet = new HashSet<>();
 
   private static final Set<String> VALID_HASHERS = Stream.of("MD2", "MD5", "SHA1", "SHA256", "SHA384", "SHA512").collect(Collectors.toCollection(HashSet::new));
 
   // For testing purpose only.
-  public Hasher(Config config) {
+  public FieldHasher(Config config) {
     this.config = config;
   }
 
