@@ -10,9 +10,9 @@ Consider a scenario wherein you want to read data from a database by using this 
 
 
 ## Properties
-**Reference Name:** The name used to uniquely identify this sink for lineage, annotating metadata, etc.
+**Reference Name:** This field is used to assign a name to this sink to uniquely identify it for lineage, annotating metadata, etc.
 
-**Plugin Name:** The name of the JDBC plugin to use. This is the value of the 'name' key defined in the JSON file for the JDBC plugin.
+**Plugin Name:** This field is used to enter the name of the JDBC plugin to be used. This is the value of the 'name' key defined in the JSON file for the JDBC plugin.
 
 **Plugin Type:** The type of JDBC plugin to use. This is the value of the 'type' key defined in the JSON file for the JDBC plugin. Defaults to 'jdbc'.
 
@@ -24,18 +24,15 @@ contain the '$CONDITIONS' string. For example, 'SELECT * FROM table WHERE $CONDI
 The '$CONDITIONS' string will be replaced by 'splitBy' field limits specified by the bounding query.
 The '$CONDITIONS' string is not required if numSplits is set to one. (Macro-enabled)
 
-**Bounding Query:** Bounding Query should return the min and max of the values of the 'splitBy' field. Both min and max are required in query.
-For example, 'SELECT MIN(id),MAX(id) FROM table'. Not required if numSplits is set to one. (Macro-enabled)
+**Bounding Query:** The Bounding Query should return the min and max of the values of the 'splitBy' field. Both min and max are required in query. For example, 'SELECT MIN(id),MAX(id) FROM table'. Not required if numSplits is set to one. (Macro-enabled)
 
 **Split-By Field Name:** The field name which will be used to generate splits. Not required if numSplits is set to one. (Macro-enabled)
 
-**Number of Splits to Generate:** The number of splits to generate. (Macro-enabled)
+**Number of Splits to Generate:** The number of splits to be generated. (Macro-enabled)
 
-**Username:** The user identity for connecting to the specified database. Required for databases that need
-authentication. Optional for databases that do not require authentication. (Macro-enabled)
+**Username:** The user identity for connecting to the specified database. Required for databases that need authentication. Optional for databases that do not require authentication. (Macro-enabled)
 
-**Password:** The password to use to connect to the specified database. Required for databases
-that need authentication. Optional for databases that do not require authentication. (Macro-enabled)
+**Password:** The password to be used to connect to the specified database. Required for databases that need authentication. Optional for databases that do not require authentication. (Macro-enabled)
 
 **Connection Arguments:** A list of arbitrary string tag/value pairs as connection arguments. These arguments
 will be passed to the JDBC driver, as connection arguments, for JDBC drivers that may need additional configurations.
