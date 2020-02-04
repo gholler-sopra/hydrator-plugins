@@ -3,21 +3,18 @@
 
 Description
 -----------
-The ErrorCollector plugin takes errors emitted from the previous stage and flattens them by adding
-the error message, code, and stage to the record and outputting the result.
+Error Collector is an open source accelerator that takes errors emitted from the previous stage of the pipeline and flattens them by adding an error message, code, and stage to the record and outputting the result.
 
 Use Case
 --------
-The plugin is used when you want to capture errors emitted from another stage and pass them along
-with all the error information flattened into the record. For example, you may want to connect a sink
-to this plugin in order to store and later examine the error records.
+Consider a scenario wherein you want to use this accelerator to capture errors emitted from another stage and pass them along with all the error information flattened into the record. For example, you may want to connect a sink to this accelerator in order to store and later examine the error records. This can be achieved by making configurational changes as explained in the following section.
 
 Properties
 ----------
-**messageField:** The name of the error message field to use in the output schema.
+**messageField:** Specify the name of the error message field to be used in the output schema.
 The UI will default this to 'errMsg'. If no value is specified, the error message will be dropped.
 
-**codeField:** The name of the error code field to use in the output schema.
+**codeField:** Specify the name of the error code field to use in the output schema.
 The UI will default this to 'errCode'. If no value is specified, the error code will be dropped.
 
 **stageField:** The name of the error stage field to use in the output schema.
