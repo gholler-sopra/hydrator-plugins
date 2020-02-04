@@ -10,42 +10,35 @@ Consider a scenario wherein you want to read data from a database by using this 
 
 
 ## Properties
-**Reference Name:** This field is used to assign a name to this sink to uniquely identify it for lineage, annotating metadata, etc.
+**Reference Name:** Assign a name to this sink to uniquely identify it for lineage, annotating metadata, etc.
 
-**Plugin Name:** This field is used to enter the name of the JDBC plugin to be used. This is the value of the 'name' key defined in the JSON file for the JDBC plugin.
+**Plugin Name:** Enter the name of the JDBC plugin to be used. This is the value of the 'name' key defined in the JSON file for the JDBC plugin.
 
-**Plugin Type:** The type of JDBC plugin to use. This is the value of the 'type' key defined in the JSON file for the JDBC plugin. Defaults to 'jdbc'.
+**Plugin Type:** Specify the type of JDBC plugin to be used. This is the value of the 'type' key defined in the JSON file for the JDBC plugin. The default type is 'jdbc'.
 
-**Connection String:** The JDBC connection string including the database name. (Macro-enabled)
+**Connection String:** Specify the JDBC connection string, including the database name. (Macro-enabled)
 
-**Import Query:** The SELECT query to use to import data from the specified table.
-You can specify an arbitrary number of columns to import, or you can import all columns using \*. The Query should
-contain the '$CONDITIONS' string. For example, 'SELECT * FROM table WHERE $CONDITIONS'.
+**Import Query:** Enter the SELECT query to be used to import data from the specified table. You can specify an arbitrary number of columns to import, or you can import all columns using \*. The Query should contain the '$CONDITIONS' string. For example, 'SELECT * FROM table WHERE $CONDITIONS'.
 The '$CONDITIONS' string will be replaced by 'splitBy' field limits specified by the bounding query.
 The '$CONDITIONS' string is not required if numSplits is set to one. (Macro-enabled)
 
-**Bounding Query:** The Bounding Query should return the min and max of the values of the 'splitBy' field. Both min and max are required in query. For example, 'SELECT MIN(id),MAX(id) FROM table'. Not required if numSplits is set to one. (Macro-enabled)
+**Bounding Query:** Enter the Bounding Query that should return the min and max of the values of the 'splitBy' field. Both min and max are required in the query; for example, 'SELECT MIN(id),MAX(id) FROM table'. This is not required if numSplits is set to one. (Macro-enabled)
 
-**Split-By Field Name:** The field name which will be used to generate splits. Not required if numSplits is set to one. (Macro-enabled)
+**Split-By Field Name:** Enter the field name which will be used to generate splits. This is not required if numSplits is set to one. (Macro-enabled)
 
-**Number of Splits to Generate:** The number of splits to be generated. (Macro-enabled)
+**Number of Splits to Generate:** Specify the number of splits to be generated. (Macro-enabled)
 
-**Username:** The user identity for connecting to the specified database. Required for databases that need authentication. Optional for databases that do not require authentication. (Macro-enabled)
+**Username:** Enter the user name for connecting to the specified database. It is mandatory for databases that require authentication and optional for databases that do not require authentication. (Macro-enabled)
 
-**Password:** The password to be used to connect to the specified database. Required for databases that need authentication. Optional for databases that do not require authentication. (Macro-enabled)
+**Password:** Enter the password to be used to connect to the specified database. It is mandatory for databases that require authentication and optional for databases that do not require authentication. (Macro-enabled)
 
-**Connection Arguments:** A list of arbitrary string tag/value pairs as connection arguments. These arguments
-will be passed to the JDBC driver, as connection arguments, for JDBC drivers that may need additional configurations.
-This is a semicolon-separated list of key-value pairs, where each pair is separated by a equals '=' and specifies
-the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be
-given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
+**Connection Arguments:** Enter a list of arbitrary string tag/value pairs as connection arguments. These arguments will be passed to the JDBC driver as connection arguments for JDBC drivers that may need additional configurations.
+This should be a semicolon-separated list of key-value pairs, where each pair is separated by a equals '=' and specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
 
-**Enable Auto-Commit:** Whether to enable auto-commit for queries run by this source. Defaults to 'false'.
-Normally this setting does not matter. It only matters if you are using a jdbc driver 
-that does not support a false value for autocommit, or a driver that throws error when auto-commit is set to false.
-For drivers like those, you will need to set this to 'true'.
+**Enable Auto-Commit:** Choose 'True' or 'False' based on whether you want to enable auto-commit for queries run by this source. By default, 'False' is selected.
+Please note that this option is important only when you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws an error when auto-commit is set to false. For such drivers, you will need to set this to 'true'.
 
-**Column Name Case:** To set the case of the column names returned from the query. The possible options are ``upper`` or ``lower``. The default column names or the column names for any other input are not modified, and the names returned from the database are used as-is. Note that setting this property lends predictability to the column name cases across different databases, but it might result in column name conflicts if multiple columns have the same names when the case is ignored (optional).
+**Column Name Case:** Set the case of the column names returned from the query. The given options are ``upper`` and ``lower``. The default column names or the column names for any other input are not modified, and the names returned from the database are used as-is. Note that setting this property lends a predictability to the column name cases across different databases, but it might result in column name conflicts if multiple columns have the same names when the case is ignored (optional).
 
 **Transaction Isolation Level:** The transaction isolation level for queries run by this sink.
 Defaults to TRANSACTION_SERIALIZABLE. See java.sql.Connection#setTransactionIsolation for more details.
