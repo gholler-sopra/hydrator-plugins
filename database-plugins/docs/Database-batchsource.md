@@ -40,12 +40,10 @@ Please note that this option is important only when you are using a jdbc driver 
 
 **Column Name Case:** Set the case of the column names returned from the query. The given options are ``upper`` and ``lower``. The default column names or the column names for any other input are not modified, and the names returned from the database are used as-is. Note that setting this property lends a predictability to the column name cases across different databases, but it might result in column name conflicts if multiple columns have the same names when the case is ignored (optional).
 
-**Transaction Isolation Level:** The transaction isolation level for queries run by this sink.
-Defaults to TRANSACTION_SERIALIZABLE. See java.sql.Connection#setTransactionIsolation for more details.
-The jdbc driver will throw an exception if the database does not have transactions enabled
-and this setting is set to True. For drivers like that, this should be set to TRANSACTION_NONE.
+**Transaction Isolation Level:** From the drop-down list, select the transaction isolation level for queries run by this sink. By default, TRANSACTION_SERIALIZABLE is selected. See java.sql.Connection#setTransactionIsolation for more details.
+The jdbc driver will throw an exception if the database does not have transactions enabled and this setting is set to True. For such drivers, this should be set to TRANSACTION_NONE.
 
-**Schema:** The schema of records output by the source. This will be used in place of whatever schema is returned from the query. However, it must match the schema that returns from the query, except it can mark fields as nullable and can contain a subset of the fields.
+**Schema:** Specify the schema of records output by the source. This will be used in place of whatever schema is returned from the query. However, it must match the schema that returns from the query, except that it can mark fields as nullable and can contain a subset of the fields.
 
 
 ## Example
@@ -67,7 +65,7 @@ The column types will be used to derive the record field types output by the sou
         }
     }
 
-For example, if the 'id' column is a primary key of the type int, and the other columns are non-nullable varchars, output records will have this schema:
+For example, if the 'id' column is a primary key of the type int, and the other columns are non-nullable varchars, the output records will have this schema:
 
     +======================================+
     | field name     | type                |
@@ -82,7 +80,7 @@ For example, if the 'id' column is a primary key of the type int, and the other 
 
 ## Notes :
 
-`List of supported drivers and connection details`
+`The list of supported drivers and connection details`
 
 ```
 +=====================================================================================================+
@@ -109,9 +107,9 @@ Transaction Isolation Level supports for listed dbs:
 
 ### Steps to upload database driver
 
-In order to use this accelerator to connect supported databases, there is a need to upload corresponding driver in cdap.
+In order to use this accelerator to connect supported databases, you need to upload corresponding driver in cdap.
 
-Driver jar can be downloaded from internet. Please refer below table for tested driver versions
+Driver jar can be downloaded from the internet. Please refer the following table for tested driver versions:
 
 ```
 +===========================+
@@ -124,7 +122,7 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
 +===========================+
 ```
 
-* Copy driver jar at any location on one of the cdap master node. For ex copied `h2-1.4.200.jar` in `/tmp` folder.
+* Copy driver jar at any location on one of the cdap master node. For example, copied `h2-1.4.200.jar` in `/tmp` folder.
 * Create a json file with below content and copy that in same directory used in above step.<br/>Name of the json file should be same as jar file with extension `.json`. For ex `h2-1.4.200.json`
 ```
 {
@@ -139,7 +137,7 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
 }
 ```
 
-**Example:** for h2db content of json file
+**Example:** for the h2db content of json file
 
 ```
 {
