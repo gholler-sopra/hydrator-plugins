@@ -2,7 +2,7 @@
 
 
 ## Description
-The Database accelerator is used to read from a database using a configurable SQL query. It outputs one record for each row returned by the query.
+The Database open source accelerator is used to read from a database using a configurable SQL query. It outputs one record for each row returned by the query.
 
 
 ## Use Case
@@ -13,7 +13,7 @@ Consider a scenario wherein you want to read data from a database by using this 
 
 The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-**Reference Name:** Assign a name to this sink to uniquely identify it for lineage, annotating metadata, etc.
+**Reference Name:** Enter a name for this sink to uniquely identify it for lineage, annotating metadata, etc.
 
 **Plugin Name:** Enter the name of the JDBC plugin to be used. This is the value of the 'name' key defined in the JSON file for the JDBC plugin.
 
@@ -31,12 +31,12 @@ The '$CONDITIONS' string is not required if numSplits is set to one. (Macro-enab
 
 **Number of Splits to Generate:** Specify the number of splits to be generated. (Macro-enabled)
 
-**Username:** Enter the user name for connecting to the specified database. It is mandatory for databases that require authentication and optional for databases that do not require authentication. (Macro-enabled)
+**Username:** Enter the user name for connecting to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. (Macro-enabled)
 
-**Password:** Enter the password to be used to connect to the specified database. It is mandatory for databases that require authentication and optional for databases that do not require authentication. (Macro-enabled)
+**Password:** Enter the password to be used to connect to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. (Macro-enabled)
 
 **Connection Arguments:** Enter a list of arbitrary string tag/value pairs as connection arguments. These arguments will be passed to the JDBC driver as connection arguments for JDBC drivers that may need additional configurations.
-This should be a semicolon-separated list of key-value pairs, where each pair is separated by a equals '=' and specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
+This should be a semicolon-separated list of key-value pairs, where values in each pair are separated by an equals '=' sign and a pair specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
 
 **Enable Auto-Commit:** Choose 'True' or 'False' based on whether you want to enable auto-commit for queries run by this source. By default, 'False' is selected.
 Please note that this option is important only when you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws an error when auto-commit is set to false. For such drivers, you will need to set this to 'true'.
@@ -112,7 +112,7 @@ Transaction Isolation Level supports for listed dbs:
 
 In order to use this accelerator to connect supported databases, you need to upload corresponding driver in cdap.
 
-Driver jar can be downloaded from the internet. Please refer the following table for tested driver versions:
+Driver jar can be downloaded from the internet. Please refer to the following table for tested driver versions:
 
 ```
 +===========================+
@@ -125,8 +125,8 @@ Driver jar can be downloaded from the internet. Please refer the following table
 +===========================+
 ```
 
-* Copy driver jar at any location on one of the cdap master node. For example, copied `h2-1.4.200.jar` in `/tmp` folder.
-* Create a json file with below content and copy that in same directory used in above step.<br/>Name of the json file should be same as jar file with extension `.json`. For ex `h2-1.4.200.json`
+* Copy the driver jar at any location on one of the cdap master nodes. For example, copied `h2-1.4.200.jar` in `/tmp` folder.
+* Create a json file with the following content and copy that in the same directory used in the step above. The name of the json file should be the same as the jar file with extension `.json`. For example, `h2-1.4.200.json`
 ```
 {
  "plugins": [
@@ -140,7 +140,9 @@ Driver jar can be downloaded from the internet. Please refer the following table
 }
 ```
 
-**Example:** for the h2db content of json file
+**Example:** 
+
+For the h2db content of json file
 
 ```
 {
@@ -154,16 +156,16 @@ Driver jar can be downloaded from the internet. Please refer the following table
   ]
 }
 ```
-* Login to one of cdap master node
-* Go to directory `/opt/cdap/master`
-* Run Command `./bin/cdap cli -v false`
-* Enter username and password on prompt
+* Log into one of the cdap master nodes
+* Go to the directory `/opt/cdap/master`
+* Run the command `./bin/cdap cli -v false`
+* Enter the username and password on prompt
 * Run command to load driver
 `load artifact <driver-jar-path> config-file <json-path> name <connector-name> version <driver-version>`
 <br/> **For ex:** 
 `load artifact /tmp/h2-1.4.200.jar config-file /tmp/h2-1.4.200.json name h2db-connector-java version 1.4.200`
 
-* Below rest API can be used to verify success of driver upload<br/>
+* The following Rest API can be used to verify the success of driver upload<br/>
 `namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
 <br/> **Expected output**
 
