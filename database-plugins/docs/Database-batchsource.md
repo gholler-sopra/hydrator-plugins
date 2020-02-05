@@ -10,6 +10,9 @@ Consider a scenario wherein you want to read data from a database by using this 
 
 
 ## Properties
+
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
+
 **Reference Name:** Assign a name to this sink to uniquely identify it for lineage, annotating metadata, etc.
 
 **Plugin Name:** Enter the name of the JDBC plugin to be used. This is the value of the 'name' key defined in the JSON file for the JDBC plugin.
