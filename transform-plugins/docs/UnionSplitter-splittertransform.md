@@ -63,7 +63,7 @@ Along with the schema above, the 'item' field as a union of int, long and a reco
 
 This means the union splitter will have three output ports, one for each schema in the union.
 
-If a record contains an integer for the 'item' field, it will be emitted to the 'int' port with output schema:
+If a record contains an integer for the 'item' field, it will be emitted to the 'int' port with the following output schema:
 
     +===============================+
     | name  | type                  |
@@ -73,7 +73,7 @@ If a record contains an integer for the 'item' field, it will be emitted to the 
     | item  | int                   |
     +===============================+
 
-If a record contains a long for the 'item' field, it will be emitted to the 'long' port with output schema:
+If a record contains a long for the 'item' field, it will be emitted to the 'long' port with the following output schema:
 
     +===============================+
     | name  | type                  |
@@ -84,7 +84,7 @@ If a record contains a long for the 'item' field, it will be emitted to the 'lon
     +===============================+
 
 If a record contains a StructuredRecord with the itemMeta schema for the 'item' field,
-it will be emitted to the 'itemMeta' port with output schema:
+it will be emitted to the 'itemMeta' port with the following output schema:
 
     +===============================+
     | name  | type                  |
