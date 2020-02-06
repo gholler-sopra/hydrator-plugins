@@ -21,9 +21,9 @@ The following pointers describe the fields as displayed in the accelerator prope
 
 **Connection String:** Specify the JDBC connection string, including the database name. (Macro-enabled)
 
-**Import Query:** Enter the SELECT query to be used to import data from the specified table. You can specify an arbitrary number of columns to import, or you can import all columns using \*. The Query should contain the '$CONDITIONS' string. For example, 'SELECT * FROM table WHERE $CONDITIONS'.
-The '$CONDITIONS' string will be replaced by 'splitBy' field limits specified by the bounding query.
-The '$CONDITIONS' string is not required if numSplits is set to one. (Macro-enabled)
+**Import Query:** Enter the SELECT query to be used to import data from the specified table. You can specify an arbitrary number of columns to import, or you can import all columns using \*. The Query should contain the $CONDITIONS string. For example, 'SELECT * FROM table WHERE $CONDITIONS'.
+The $CONDITIONS string will be replaced by 'splitBy' field limits specified by the bounding query.
+The $CONDITIONS string is not required if numSplits is set to one. (Macro-enabled)
 
 **Bounding Query:** Enter the Bounding Query that should return the min and max of the values of the 'splitBy' field. Both min and max are required in the query; for example, 'SELECT MIN(id),MAX(id) FROM table'. This is not required if numSplits is set to one. (Macro-enabled)
 
