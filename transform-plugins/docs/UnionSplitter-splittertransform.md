@@ -3,9 +3,9 @@
 
 Description
 -----------
-The union splitter is used to split data by a union schema, so that type specific logic can be done downstream.
+Union Splitter is an open source accelerator that is used to split data by a union schema, so that type specific logic can be done downstream.
 
-The union splitter will emit records to different ports depending on the schema of a particular field, or of
+The union splitter will emit records to different ports depending on the schema of a particular field or of
 the entire record. If no field is specified, each record will be emitted to a port named after the name of the
 record schema. If a field is specified, the schema for that field must be a union of supported schemas. All schemas
 except maps, arrays, unions, and enums are supported. For each input record, the value of that field will be examined
@@ -17,14 +17,15 @@ be the schema type in lowercase ('null', 'bool', 'bytes', 'int', 'long', 'float'
 
 Properties
 ----------
-**unionField:** The union field to split on. The schema for the field must be a union of supported schemas.
+
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
+
+**unionField:** Select the union field to split on. The schema for the field must be a union of supported schemas.
 All schemas except maps, arrays, unions, and enums are supported. Note that nulls are supported,
 which means all nulls will get sent to the 'null' port.
 
-**modifySchema:** Whether to modify the output schema to remove the union. For example, suppose the field 'x'
-is a union of int and long. If modifySchema is true, the schema for field 'x' will be just an int for
-the 'int' port and just a long for the 'long' port. If modifySchema is false, the output schema for each port
-will be the same as the input schema. Defaults to true.
+**modifySchema:** Select one of the options between 'True' and 'False' depending on whether you want to modify the output schema to remove the union. For example, suppose the field 'x' is a union of int and long. If modifySchema is true, the schema for field 'x' will be just an int for the 'int' port and just a long for the 'long' port. If modifySchema is false, the output schema for each port
+will be the same as the input schema. The default selection is 'true'.
 
 
 Example
@@ -41,7 +42,7 @@ Suppose the union splitter is configured to split on the 'item' field:
     }
 
 
-Suppose the splitter receives records with schema:
+Now, suppose the splitter receives records with the following schema:
 
     +=================================+
     | name  | type                    |
@@ -51,7 +52,7 @@ Suppose the splitter receives records with schema:
     | item  | [ int, long, itemMeta ] |
     +=================================+
 
-with the 'item' field as a union of int, long and a record named 'itemMeta' with schema:
+Along with the schema above, the 'item' field as a union of int, long and a record named 'itemMeta' is also received:
 
     +=================================+
     | name  | type                    |
