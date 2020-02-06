@@ -2,12 +2,19 @@
 
 
 ## Description
-Field Decryptor is an open source accelerator that decrypts one or more fields in input records using a keystore which must be present on all nodes of the cluster.
+Field Decryptor is an open source accelerator that decrypts fields in input records using a keystore which must be present on all nodes of the cluster.
 
 **Note:**
 - Only the fields of type `bytes` are allowed for decryption.
 
+**Use Case**
+
+Suppose you have an input record from which you want to decrypt one or more fields. You can do so using Field Decryptor by making the following configurational changes.
+
 ## Configuration
+
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
+
 **decryptFields** Specify the fields to be decrypted, separated by commas.
 
 **schema** Specify the Schema to pull records from.
@@ -17,9 +24,9 @@ Field Decryptor is an open source accelerator that decrypts one or more fields i
 **ivHex** Specify the Hex value of initialization vector if using the block cipher mode of operation.
 
 **keystorePath** Specify the Absolute path of the keystore file.
-If keystore path is configured in property `program.container.dist.jars` of `cdap-site.xml`
+If keystore path is configured in the property `program.container.dist.jars` of `cdap-site.xml`
 then keystore file must be present on both CDAP master nodes,
-else keystore file must be present on every slave node of the cluster.
+else the keystore file must be present on every slave node of the cluster.
 
 **keystorePassword** Specify the password for the keystore.
 
@@ -29,8 +36,8 @@ else keystore file must be present on every slave node of the cluster.
 
 **keyPassword** Specify the password for the key to be used in the keystore.
 
-**schema** Specify the output schema. Output columns are same as input columns except the types of decrypted fields.
-User needs to manually set the type of decrypted fields.
+**schema** Specify the output schema. The output columns are same as input columns except the types of decrypted fields.
+You need to manually set the type of decrypted fields.
 
 
 ## Example
