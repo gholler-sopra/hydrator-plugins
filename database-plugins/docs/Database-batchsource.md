@@ -35,18 +35,18 @@ The '$CONDITIONS' string is not required if numSplits is set to one. (Macro-enab
 
 **Password:** Enter the password to be used to connect to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. (Macro-enabled)
 
-**Connection Arguments:** Enter a list of arbitrary string tag/value pairs as connection arguments. These arguments will be passed to the JDBC driver as connection arguments for JDBC drivers that may need additional configurations.
+**Connection Arguments:** Enter a list of arbitrary string tag/value pairs as connection arguments. These arguments will be passed to the JDBC driver as connection arguments if they need additional configurations.
 This should be a semicolon-separated list of key-value pairs, where values in each pair are separated by an equals '=' sign and a pair specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
 
 **Enable Auto-Commit:** Choose 'True' or 'False' based on whether you want to enable auto-commit for queries run by this source. By default, 'False' is selected.
 Please note that this option is important only when you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws an error when auto-commit is set to false. For such drivers, you will need to set this to 'true'.
 
-**Column Name Case:** Set the case of the column names returned from the query. The given options are ``upper`` and ``lower``. The default column names or the column names for any other input are not modified, and the names returned from the database are used as-is. Note that setting this property lends a predictability to the column name cases across different databases, but it might result in column name conflicts if multiple columns have the same names when the case is ignored (optional).
+**Column Name Case:** Select a case for the column names returned from the query. The given options are ``upper`` and ``lower``. The default column names or the column names for any other input are not modified, and the names returned from the database are used as-is. Note that setting this property lends a predictability to the column name cases across different databases, but it might result in column name conflicts if multiple columns have the same names when the case is ignored (optional).
 
 **Transaction Isolation Level:** From the drop-down list, select the transaction isolation level for queries run by this sink. By default, TRANSACTION_SERIALIZABLE is selected. See java.sql.Connection#setTransactionIsolation for more details.
-The jdbc driver will throw an exception if the database does not have transactions enabled and this setting is set to True. For such drivers, this should be set to TRANSACTION_NONE.
+The jdbc driver will throw an exception if the database does not have transactions enabled and this setting is set to True. For such drivers, this property should be set to TRANSACTION_NONE.
 
-**Schema:** Specify the schema of records output by the source. This will be used in place of whatever schema is returned from the query. However, it must match the schema that returns from the query, except that it can mark fields as nullable and can contain a subset of the fields.
+**Schema:** Specify the schema of records that the source outputs. This will be used in place of the schema that is returned from the query, though it must match that schema except that it can mark fields as nullable and can contain a subset of the fields.
 
 
 ## Example
@@ -68,7 +68,7 @@ The column types will be used to derive the record field types output by the sou
         }
     }
 
-For example, if the 'id' column is a primary key of the type int, and the other columns are non-nullable varchars, the output records will have this schema:
+For example, if the 'id' column is a primary key of the type int and the other columns are non-nullable varchars, the output records will have this schema:
 
     +======================================+
     | field name     | type                |
@@ -103,14 +103,14 @@ For example, if the 'id' column is a primary key of the type int, and the other 
 +=====================================================================================================+
 ```
 
-Transaction Isolation Level supports for listed dbs:
+Transaction Isolation Level supports the following dbs:
 
 ***MySql/Postgres*** :  "TRANSACTION_READ_UNCOMMITTED", "TRANSACTION_READ_COMMITTED","TRANSACTION_REPEATABLE_READ",
                         "TRANSACTION_SERIALIZABLE (default)" .
 
 ### Steps to upload database driver
 
-In order to use this accelerator to connect supported databases, you need to upload corresponding driver in cdap.
+In order to use this accelerator to connect supported databases, you need to upload the corresponding driver in cdap.
 
 Driver jar can be downloaded from the internet. Please refer to the following table for tested driver versions:
 
