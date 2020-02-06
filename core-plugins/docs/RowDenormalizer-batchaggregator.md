@@ -4,7 +4,7 @@
 Description
 -----------
 Row Denormalizer is an open source accelerator that converts raw data into denormalized data based on a key column. 
-Using this accelerator, the user can specify the list of fields that should be used in the denormalized record, with an option to use an alias for the output field name. For example, 'ADDRESS' in input is mapped to 'addr' in the output schema. 
+Using this accelerator, the user can specify the list of fields that must be used in the denormalized record, with an option to use an alias for the output field name. For example, 'ADDRESS' in input is mapped to 'addr' in the output schema. 
 
 Use Case
 --------
@@ -33,12 +33,11 @@ Conditions
 ----------
 In case a field value is not present, it will be considered as NULL.
 
-For Example,
+Consider the following cases:
 
 If keyfield('id') in the input record is NULL, then that particular record will be filtered out.
 
-If namefield('attribute') or valuefield('value') is not present for a particular keyfield('id') value, then the
-denormalized output value for that namefield will be NULL.
+If namefield('attribute') or valuefield('value') is not present for a particular keyfield('id') value, then the denormalized output value for that namefield will be NULL.
 
 If the user provides output field which is not present in the input record, then it will be considered as NULL.
 
