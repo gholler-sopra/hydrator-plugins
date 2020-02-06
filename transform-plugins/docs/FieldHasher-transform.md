@@ -12,7 +12,7 @@ The following pointers describe the fields as displayed in the accelerator prope
 
 **Hasher:** Select a hashing algorithm.
 
-**Fields:** Specifies the fields to be hashed. Only `String` values are allowed. The hashed output would also be of the type String.
+**Fields:** Specify the fields to be hashed. Only `String` values are allowed. The hashed output would also be of the type String.
 
 ***Note:*** The output schema of this plugin would be the same as the input schema.
 
