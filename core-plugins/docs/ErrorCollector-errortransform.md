@@ -3,7 +3,7 @@
 
 Description
 -----------
-Error Collector is an open source accelerator that takes errors emitted from the previous stage of the pipeline and flattens them by adding to the record a message, code, and stage pertaining to the error and then outputting the result.
+Error Collector is an open source accelerator that takes errors emitted from the previous stage of the pipeline, flattens them by adding a message, code, and stage to the record, and then outputs the result.
 
 Use Case
 --------
