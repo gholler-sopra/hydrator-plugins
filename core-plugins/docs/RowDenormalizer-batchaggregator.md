@@ -14,7 +14,7 @@ Properties
 ----------
 The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-**keyField:** Specify the name of the column in the input record which will be used to group the raw data. For Example, id.
+**keyField:** Specify the name of the column in the input record which is to be used to group the raw data. For Example, id.
 
 **nameField:** Specify the name of the column in the input record which contains the names of output schema columns. For example, if input records have columns 'id', 'attribute', 'value', and the 'attribute' column contains 'FirstName', 'LastName',
  'Address', the output record will have column names as 'FirstName', 'LastName', 'Address'.
@@ -26,7 +26,7 @@ example, if input records have columns 'id', 'attribute', 'value', and the 'valu
 
 **fieldAliases:** Enter the list of the output fields to be renamed. The key specifies the name of the required field, with its corresponding value representing the new name for that field.
 
-**numPartitions:** Specify the number of partitions to use when grouping data. If not specified, the default value as per the execution framework will be used
+**numPartitions:** Specify the number of partitions to use when grouping data. If not specified, the default value as per the execution framework is used
 
 Conditions
 ----------
