@@ -39,7 +39,7 @@ If specified, the field must exist in the output schema as a string.
 
 **Allow Empty Input:** Choose True or False based on whether you want to allow an input path that contains no data. When set to false, the plugin will throw an error if there is no data to read. When set to true, no error will be thrown and zero records will be read.
 
-**File System Properties:** The additional properties in json format to use with the InputFormat when reading the data. See [here](#file-system-properties) for details.
+**File System Properties:** The additional properties in json format to use with the InputFormat when reading the data.
 
 
 ## Sample Pipeline
@@ -89,6 +89,6 @@ The formats supported in the File accelerator can be categorised into: `hadoop` 
 
 ## Note
 
-It is mandatory to provide an output schema when using a format other than text. The default schema used in this plugin is for text format where the body represents line read from the file and offset represents offset of line in the file. 
-
-If the format is orc, then only string, long, int, double, float, boolean and array types are supported in output schema. 
+- It is mandatory to provide an output schema when using a format other than text. The default schema used in this plugin is for text format where the body represents line read from the file and offset represents offset of line in the file. 
+- If the format is orc, then only string, long, int, double, float, boolean and array types are supported in output schema.
+- By default, this plugin support gzip(.gz) and bzip2(.bz2) compression formats. The user does not need to provide any additional configuration for compression, it automatically un-compresses the data based on the file extension. 
