@@ -9,7 +9,7 @@ Union splitter emits records to different ports depending on the schema of a par
 the entire record (ports refer to the different output streams; for example, one can be double, another can 
 be int, and so on). If no field is specified, each record is emitted to a port named after the name of 
 the record schema. If a field is specified, the schema for that field must be a union of supported schemas. 
-All schemas except maps, arrays, and enums are supported. For each input record, the value of that 
+All schemas except maps, arrays, unions and enums are supported. For each input record, the value of that 
 field is examined and emitted to a port corresponding to its schema in the union.
 
 
@@ -19,7 +19,7 @@ For record schemas, the output port is the name of the record schema. For simple
 Properties
 ----------
 **unionField:** The union field to split on. The schema for the field must be a union of supported schemas.
-All schemas except maps, arrays, and enums are supported. Note that nulls are supported,
+All schemas except maps, arrays, unions and enums are supported. Note that nulls are supported,
 which means all nulls will get sent to the 'null' port.
 
 
