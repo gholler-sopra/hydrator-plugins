@@ -5,7 +5,13 @@ Description
 -----------
 Union Splitter is an open source accelerator that is used to split data by a union schema. The logic to be performed downstream will depend on the type of data.
 
-The union splitter will emit records to different ports depending on the schema of a particular field or of the entire record (ports refer to the different output streams; for example, one can be double, another can be int, and so on). If no field is specified, each record will be emitted to a port named after the name of the record schema. If a field is specified, the schema for that field must be a union of supported schemas. All schemas except maps, arrays, unions, and enums are supported. For each input record, the value of that field will be examined and emitted to a port corresponding to its schema in the union.
+The union splitter will emit records to different ports depending on the schema of a particular field or of 
+the entire record (ports refer to the different output streams; for example, one can be double, another can 
+be int, and so on). If no field is specified, each record will be emitted to a port named after the name of 
+the record schema. If a field is specified, the schema for that field must be a union of supported schemas. 
+All schemas except maps, arrays, and enums are supported. For each input record, the value of that 
+field will be examined and emitted to a port corresponding to its schema in the union.
+
 
 For record schemas, the output port will be the name of the record schema. For simple types, the output port will
 be the schema type in lowercase ('null', 'bool', 'bytes', 'int', 'long', 'float', 'double', or 'string').
@@ -13,6 +19,10 @@ be the schema type in lowercase ('null', 'bool', 'bytes', 'int', 'long', 'float'
 
 Properties
 ----------
+**unionField:** The union field to split on. The schema for the field must be a union of supported schemas.
+All schemas except maps, arrays, and enums are supported. Note that nulls are supported,
+which means all nulls will get sent to the 'null' port.
+
 
 The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
