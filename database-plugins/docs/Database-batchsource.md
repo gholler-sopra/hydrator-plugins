@@ -23,20 +23,20 @@ The following pointers describe the fields as displayed in the accelerator prope
 
 **Import Query:** Enter the SELECT query to be used to import data from the specified table. You can specify an arbitrary number of columns to import, or you can import all columns using \*. The Query should contain the $CONDITIONS string. For example, 'SELECT * FROM table WHERE $CONDITIONS'.
 The $CONDITIONS string will be replaced by 'splitBy' field limits specified by the bounding query.
-The $CONDITIONS string is not required if numSplits is set to one. (Macro-enabled)
+The $CONDITIONS string is not required if numSplits is set to one. This field is macro-enabled.
 
-**Bounding Query:** Enter the Bounding Query that should return the min and max of the values of the 'splitBy' field. Both min and max are required in the query; for example, 'SELECT MIN(id),MAX(id) FROM table'. This is not required if numSplits is set to one. (Macro-enabled)
+**Bounding Query:** A bounding query is required when split is set to a value more than one. Enter the Bounding Query that should return the min and max of the values of the 'splitBy' field. Both min and max are required in the query; for example, 'SELECT MIN(id),MAX(id) FROM table'. This is not required if numSplits is set to one. (Macro-enabled)
 
-**Split-By Field Name:** Enter the field name that will be used to generate splits. This is not required if numSplits is set to one. (Macro-enabled)
+**Split-By Field Name:** Enter the field name that will be used to generate splits. This is not required if numSplits is set to one. This field is macro-enabled.
 
-**Number of Splits to Generate:** Specify the number of splits to be generated. (Macro-enabled)
+**Number of Splits to Generate:** Specify the number of splits to be generated. This field is macro-enabled.
 
-**Username:** Enter the user name for connecting to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. (Macro-enabled)
+**Username:** Enter the user name for connecting to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. This field is macro-enabled.
 
-**Password:** Enter the password to be used to connect to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. (Macro-enabled)
+**Password:** Enter the password to be used to connect to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. This field is macro-enabled.
 
 **Connection Arguments:** Enter a list of arbitrary string tag/value pairs as connection arguments. These arguments are passed to the JDBC driver as connection arguments if additional configurations are needed.
-This should be a semicolon-separated list of key-value pairs, where values in each pair are separated by an equals '=' sign and a pair specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
+This should be a semicolon-separated list of key-value pairs, where values in each pair are separated by an equals '=' sign and a pair specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. This field is macro-enabled.
 
 **Enable Auto-Commit:** Choose 'True' or 'False' based on whether you want to enable auto-commit for queries run by this source. By default, 'False' is selected.
 Please note that this option is important only when you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws an error when auto-commit is set to false. For such drivers, you will need to set this to 'true'.
@@ -157,17 +157,18 @@ For the h2db content of json file
 }
 ```
 * Log into one of the cdap master nodes
-* Go to the directory `/opt/cdap/master`
+* Navigate to the directory `/opt/cdap/master`
 * Run the command `./bin/cdap cli -v false`
-* Enter the username and password on prompt
-* Run command to load driver
+* Enter the username and password when prompted
+* Run the following command to load driver
 `load artifact <driver-jar-path> config-file <json-path> name <connector-name> version <driver-version>`
 <br/> **For ex:** 
 `load artifact /tmp/h2-1.4.200.jar config-file /tmp/h2-1.4.200.json name h2db-connector-java version 1.4.200`
 
 * The following Rest API can be used to verify the success of driver upload<br/>
 `namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
-<br/> **Expected output**
+<br/> 
+* The expected output is as follows:
 
 ```
 {
