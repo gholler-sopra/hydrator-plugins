@@ -12,9 +12,9 @@ The following pointers describe the fields as displayed in the accelerator prope
 
 **Hasher:** Select a hashing algorithm.
 
-**Fields:** Specify the fields to be hashed. Only `String` values are allowed. The hashed output would also be of the type String.
+**Fields:** Specify the fields to be hashed. Only `String` values are allowed. The hashed output will also be of the type String.
 
-***Note:*** The output schema of this plugin would be the same as the input schema.
+***Note:*** The output schema of this accelerator must be the same as the input schema.
 
 ## Example
 
@@ -30,9 +30,9 @@ The following pointers describe the fields as displayed in the accelerator prope
 +==========================================+
 ```
 
-**Plugin Configuration**
+**Configuration for Hashing**
 
-To hash the 'name' and 'connects' fields from the input using MD5 algorithm, the configuration would be as follows:
+To hash the 'name' and 'connects' fields from the input using MD5 algorithm, the configuration is as follows:
 ```
 {
     "name": "Field Hasher",
@@ -53,7 +53,7 @@ To hash the 'name' and 'connects' fields from the input using MD5 algorithm, the
 }
 ```
 
-**Output Data**
+**The Output Data is as follows**
 
 ```
 +============================================================================================+
