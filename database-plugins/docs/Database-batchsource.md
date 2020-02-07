@@ -39,7 +39,7 @@ The $CONDITIONS string is not required if numSplits is set to one. This field is
 This should be a semicolon-separated list of key-value pairs, where values in each pair are separated by an equals '=' sign and a pair specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. This field is macro-enabled.
 
 **Enable Auto-Commit:** Choose 'True' or 'False' based on whether you want to enable auto-commit for queries run by this source. By default, 'False' is selected.
-Please note that this option is important only when you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws an error when auto-commit is set to false. For such drivers, you will need to set this to 'true'.
+**Note** This option is important only when you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws an error when auto-commit is set to false. For such drivers, you will need to set this to 'true'.
 
 **Column Name Case:** Select a case for the column names returned from the query. The available options are ``upper`` and ``lower``. The default column names or the column names for any other input are not modified, and the names returned from the database are used as-is. Note that setting this property lends a predictability to the column name cases across different databases, but it might result in column name conflicts if multiple columns have the same names when the case is ignored.
 
@@ -83,7 +83,7 @@ For example, if the 'id' column is a primary key of the type int and the other c
 
 ## Notes :
 
-1. `The list of supported drivers and connection details`
+1. `The following table lists the supported drivers and their connection details.`
 
 ```
 +=====================================================================================================+
@@ -112,7 +112,7 @@ For example, if the 'id' column is a primary key of the type int and the other c
 
 To use this accelerator to connect to supported databases, upload the corresponding driver in CDAP.
 
-The corresponding driver jar can be downloaded from the internet. Please refer to the following table for tested driver versions:
+The corresponding driver jar can be downloaded from the internet. The following table lists the tested driver versions:
 
 ```
 +===========================+
@@ -126,7 +126,7 @@ The corresponding driver jar can be downloaded from the internet. Please refer t
 ```
 
 * Copy the driver jar at any location on one of the cdap master nodes. For example, copy `h2-1.4.200.jar` in `/tmp` folder.
-* Create a json file with the following content and copy that in the same directory used in the step above. The name of the json file should be the same as the jar file with extension `.json`. For example, `h2-1.4.200.json`
+* Create a json file with the following content and copy the file in the same directory used in the step above. The name of the json file should be the same as the jar file with extension `.json`. For example, `h2-1.4.200.json`
 ```
 {
  "plugins": [
@@ -160,12 +160,12 @@ For the h2db content of json file
 * Navigate to the directory `/opt/cdap/master`
 * Run the command `./bin/cdap cli -v false`
 * Enter the username and password when prompted
-* Run the following command to load driver
+* Run the following command to load driver:
 `load artifact <driver-jar-path> config-file <json-path> name <connector-name> version <driver-version>`
-<br/> **For ex:** 
+<br/> **For example:** 
 `load artifact /tmp/h2-1.4.200.jar config-file /tmp/h2-1.4.200.json name h2db-connector-java version 1.4.200`
 
-* The following Rest API can be used to verify the success of driver upload<br/>
+* Use the following Rest API to verify if the driver is uploaded successfully:<br/>
 `namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
 <br/> 
 * The expected output is as follows:
