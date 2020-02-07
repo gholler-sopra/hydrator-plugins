@@ -19,7 +19,7 @@ The following pointers describe the fields as displayed in the accelerator prope
 
 Use the same format to decompress the field which was used for compression. 
 
-**schema:** Specify the output schema; fields that are decompressed will have the same field name but they will be of the type ``BYTES`` or ``STRING``.
+**schema:** Specify the output schema; fields that are decompressed will have the same field name but these fields will be of the type ``BYTES`` or ``STRING``.
 
 **Note**: 
 - For the input, only use columnar datasets like `ORC`, `Parquet`, etc.
@@ -28,7 +28,7 @@ Use the same format to decompress the field which was used for compression.
 Example
 -------
 
-This example decompresses the fields fname, lname and cost of a dataset using the decompression format provided with the field.
+The following example decompresses the fields fname, lname, and cost of a dataset using the decompression format provided with the field.
 ```
 {
     "name": "Field Decompressor",
