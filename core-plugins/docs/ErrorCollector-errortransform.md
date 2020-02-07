@@ -34,7 +34,7 @@ This example adds the error message, error code, and error stage as the 'errMsg'
         }
     }
 
-For example, suppose the plugin receives the following error record with error code 17, error message 'invalid', and error stage 'parser':
+For example, suppose the accelerator receives the following error record with error code 17, error message 'invalid', and error stage 'parser':
 
     +============================+
     | field name | type | value  |
@@ -43,7 +43,7 @@ For example, suppose the plugin receives the following error record with error c
     | B          | int  | 20     |
     +============================+
 
-It will add the error information to the record and output:
+It will add the error information to the record and produce the following output:
 
     +===============================+
     | field name | type   | value   |
