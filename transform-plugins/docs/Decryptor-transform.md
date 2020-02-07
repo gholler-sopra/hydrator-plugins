@@ -15,28 +15,28 @@ Suppose you have an input record from which you want to decrypt one or more fiel
 
 The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-**decryptFields** Specify the fields to be decrypted, separated by commas.
+**decryptFields:** Specify the fields to be decrypted, separated by commas.
 
-**schema** Specify the Schema to pull records from.
+**schema:** Specify the Schema to pull records from.
 
-**transformation** Specify the transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding` `AES/CBC/PKCS5Padding` and so on.
+**transformation:** Specify the transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding` `AES/CBC/PKCS5Padding` and so on.
 
-**ivHex** Specify the Hex value of initialization vector if using the block cipher mode of operation.
+**ivHex:** Specify the Hex value of initialization vector if using the block cipher mode of operation.
 
-**keystorePath** Specify the Absolute path of the keystore file.
+**keystorePath:** Specify the Absolute path of the keystore file.
 If keystore path is configured in the property `program.container.dist.jars` of `cdap-site.xml`
 then keystore file must be present on both the CDAP master nodes,
 else the keystore file must be present on every slave node of the cluster.
 
-**keystorePassword** Specify the password for the keystore.
+**keystorePassword:** Specify the password for the keystore.
 
-**keystoreType** Specify the type of keystore; for example, JKS or JCEKS.
+**keystoreType:** Specify the type of keystore; for example, JKS or JCEKS.
 
-**keyAlias** Specify the alias of the key to be used in the keystore.
+**keyAlias:** Specify the alias of the key to be used in the keystore.
 
-**keyPassword** Specify the password for the key to be used in the keystore.
+**keyPassword:** Specify the password for the key to be used in the keystore.
 
-**schema** Specify the output schema. The output columns are same as input columns except the types of decrypted fields.
+**schema:** Specify the output schema. The output columns are same as input columns except the types of decrypted fields.
 Set the type of decrypted fields manually.
 
 
@@ -55,7 +55,7 @@ Set the type of decrypted fields manually.
 +=============================================================================================================================================================+
 ```
 
-**Plugin Configuration**
+**Configuration for decryption**
 
 `The configuration to decrypt 'name' and 'protocol' fields from the input is as follows:`
 ```
