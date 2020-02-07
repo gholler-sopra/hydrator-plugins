@@ -30,15 +30,15 @@ example, if input records have columns 'id', 'attribute', 'value', and the 'valu
 
 Conditions
 ----------
-In case a field value is not present, it will be considered as NULL.
+In case a field value is not present, it is considered as NULL.
 
 Consider the following cases:
 
-If keyfield('id') in the input record is NULL, then that particular record will be filtered out.
+If keyfield('id') in the input record is NULL, then that particular record is filtered out.
 
-If namefield('attribute') or valuefield('value') is not present for a particular keyfield('id') value, then the denormalized output value for that namefield will be NULL.
+If namefield('attribute') or valuefield('value') is not present for a particular keyfield('id') value, then the denormalized output value for that namefield is NULL.
 
-If the user provides an output field which is not present in the input record, it will be considered as NULL.
+If the user provides an output field which is not present in the input record, it is considered as NULL.
 
 Example
 -------
