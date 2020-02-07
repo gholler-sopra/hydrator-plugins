@@ -22,7 +22,7 @@ Use the same format to decompress the field which was used for compression.
 **schema:** Specify the output schema; fields that are decompressed will have the same field name but these fields will be of the type ``BYTES`` or ``STRING``.
 
 **Note**: 
-- For the input, only use columnar datasets like `ORC`, `Parquet`, etc.
+- For the input, only use columnar datasets like `ORC`, `Parquet`, and so on.
 - Input fields that need to be decompressed must be of the type `Bytes` and should be non-nullable.
 
 Example
