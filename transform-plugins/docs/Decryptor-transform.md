@@ -55,7 +55,7 @@ Set the type of decrypted fields manually.
 +=============================================================================================================================================================+
 ```
 
-**Configuration for decryption**
+**Configuration for Decryption**
 
 `The configuration to decrypt 'name' and 'protocol' fields from the input is as follows:`
 ```
