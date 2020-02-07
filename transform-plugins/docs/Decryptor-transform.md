@@ -25,7 +25,7 @@ The following pointers describe the fields as displayed in the accelerator prope
 
 **keystorePath** Specify the Absolute path of the keystore file.
 If keystore path is configured in the property `program.container.dist.jars` of `cdap-site.xml`
-then keystore file must be present on both CDAP master nodes,
+then keystore file must be present on both the CDAP master nodes,
 else the keystore file must be present on every slave node of the cluster.
 
 **keystorePassword** Specify the password for the keystore.
@@ -37,7 +37,7 @@ else the keystore file must be present on every slave node of the cluster.
 **keyPassword** Specify the password for the key to be used in the keystore.
 
 **schema** Specify the output schema. The output columns are same as input columns except the types of decrypted fields.
-You need to manually set the type of decrypted fields.
+Set the type of decrypted fields manually.
 
 
 ## Example
@@ -57,7 +57,7 @@ You need to manually set the type of decrypted fields.
 
 **Plugin Configuration**
 
-`To decrypt 'name' and 'protocol' fields from the input`
+`The configuration to decrypt 'name' and 'protocol' fields from the input is as follows:`
 ```
 {
   "name": "Field Decrypter",
@@ -85,7 +85,7 @@ You need to manually set the type of decrypted fields.
 }
 ```
 
-**Output Data**
+**The Output Data is as follows**
 ```
 +==================================================+
 |   name   |   type   | destinationport | protocol |
