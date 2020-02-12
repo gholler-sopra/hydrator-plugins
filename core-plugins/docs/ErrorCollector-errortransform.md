@@ -19,6 +19,9 @@ By default, this value is 'errCode'. If no value is specified, the error code wi
 **stageField:** The name of the error stage field to use in the output schema.
 By default, this value is 'errStage'. If no value is specified, the error stage will be dropped.
 
+#Note : 
+ 
+Column Names must match the regular expression [A-Za-z_][A-Za-z0-9_]* . Else `Get schema` will throw error as `invalid field name` .
 
 Example
 -------
