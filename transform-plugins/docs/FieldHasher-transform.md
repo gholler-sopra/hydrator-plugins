@@ -4,6 +4,11 @@
 ## Description
 Field Hasher is an open source accelerator that hashes fields using a digest algorithm such as ``MD2``, ``MD5``, ``SHA1``, ``SHA256``, ``SHA384``, or ``SHA512``.
 
+## Use case
+Consider a scenario wherein some of the fields in your input record contain sensitive information, and
+you want to create a hash signature of those fields via the hashing algorithms as mentioned above. Field Hasher can be used in such a scenario.
+
+
 
 ## Configuration
 
