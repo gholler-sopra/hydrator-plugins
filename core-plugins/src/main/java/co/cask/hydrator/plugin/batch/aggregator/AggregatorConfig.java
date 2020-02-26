@@ -30,7 +30,4 @@ public class AggregatorConfig extends PluginConfig {
     "will decide how many to use.")
   public Integer numPartitions;
   
-  @Nullable
-  @Description("Flag to set if schema is static or dynamic.")
-  public Boolean isDynamicSchema = false;
 }
