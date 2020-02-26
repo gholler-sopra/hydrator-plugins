@@ -64,7 +64,12 @@ public final class XMLToJSON extends Transform<StructuredRecord, StructuredRecor
         if (outputSchema.getField(config.outputField) == null) {
           // Add the output field
           outputSchema = Schema.unionOf(outputSchema, DEFAULT_SCHEMA);
-        } else if (outputSchema.getField(config.outputField).getSchema().getType() != Schema.Type.STRING) {
+        }
+        Schema fieldSchema = outputSchema.getField(config.outputField).getSchema();
+        if (fieldSchema.isNullable()) {
+          fieldSchema = fieldSchema.getNonNullable();
+        }
+        if (fieldSchema.getType() != Schema.Type.STRING) {
           throw new IllegalArgumentException(String.format("Output Schema field: %s type must be a String.",
                                                            config.outputField));
         }
