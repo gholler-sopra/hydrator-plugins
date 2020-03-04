@@ -2,7 +2,7 @@
 
 
 ## Description
-File can be used when you want to read from a distributed file system.
+File is a Guavus Enterprise Accelerator that is used when you want to read from a distributed file system.
 
 ## Use Case
 Consider a scenario wherein you want to fetch log files from HDFS every hour and then store the logs in a TimePartitionedFileSet. It can be achieved my making configurational changes as described in the sections below.
