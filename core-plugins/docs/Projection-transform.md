@@ -71,6 +71,8 @@ simple type can be converted to bytes or a string. Otherwise, a type can only be
 to a larger type. For example, an int can be converted to a long, but a long cannot be
 converted to an int.
 
+**getschema:** Generates the new output schema after dropping,renaming and casting the columns as specified by user
+
 
 Example
 -------
